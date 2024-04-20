@@ -5,7 +5,7 @@ Configuration for system setup, using Nix
 ## Initial setup
 After a fresh install of NixOS
 
-- `ssh-keygen -t ed25519 -C "johnnyfleet@gmai.com"`
+- `ssh-keygen -t ed25519 -C "<user@email>"`
 - `eval "$(ssh-agent -s)"`
 - `ssh-add ~/.ssh/id_ed25519`
 - Add public keys to GitHub account
