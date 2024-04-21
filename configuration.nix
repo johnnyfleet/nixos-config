@@ -50,7 +50,9 @@
   # Enable the KDE Plasma Desktop Environment.
   #services.xserver.displayManager.sddm.enable = true;
   services.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  #services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -170,6 +172,7 @@
 
 	eza
 	nixos-generators
+	spice-vdagent
   ];
 
   # Install 1password
@@ -189,6 +192,7 @@
   # VM guest additions to improve host-guest interaction
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
+  services.spice-autorandr.enable = true;
 
   # Enable plymouth
   boot.plymouth.enable = true;
