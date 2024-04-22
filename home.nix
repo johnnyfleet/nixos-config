@@ -40,6 +40,10 @@
     unzip
     p7zip
 
+    #ZSH custom outline
+    zsh-powerlevel10k 
+    meslo-lgs-nf
+
     # utils
     ripgrep # recursively searches directories for a regex pattern
     jq # A lightweight and flexible command-line JSON processor
@@ -125,9 +129,22 @@
       suu = "sudo nixos-rebuild switch";
     };
 
+    plugins = [
+        {
+          name = "powerlevel10k";
+          src = pkgs.zsh-powerlevel10k;
+          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+        }
+	{
+          name = "powerlevel10k-config";
+          src = ./p10k-config;
+          file = "p10k.zsh";
+        }
+      ];
+
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "thefuck" ];
+      plugins = [ "git" "thefuck" ]; 
       theme = "robbyrussell";
     };
     
