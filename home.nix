@@ -32,7 +32,7 @@
     # feel free to add your own or remove some of them
 
     neofetch
-    nnn # terminal file manager
+    #nnn # terminal file manager
 
     # archives
     zip
@@ -48,17 +48,17 @@
     fzf # A command-line fuzzy finder
 
     # networking tools
-    mtr # A network diagnostic tool
-    iperf3
-    dnsutils  # `dig` + `nslookup`
-    ldns # replacement of `dig`, it provide the command `drill`
-    aria2 # A lightweight multi-protocol & multi-source command-line download utility
-    socat # replacement of openbsd-netcat
-    nmap # A utility for network discovery and security auditing
-    ipcalc  # it is a calculator for the IPv4/v6 addresses
+    #mtr # A network diagnostic tool
+    #iperf3
+    #dnsutils  # `dig` + `nslookup`
+    #ldns # replacement of `dig`, it provide the command `drill`
+    #aria2 # A lightweight multi-protocol & multi-source command-line download utility
+    #socat # replacement of openbsd-netcat
+    #nmap # A utility for network discovery and security auditing
+    #ipcalc  # it is a calculator for the IPv4/v6 addresses
 
     # misc
-    cowsay
+    #cowsay
     file
     which
     tree
@@ -75,17 +75,17 @@
     nix-output-monitor
 
     # productivity
-    hugo # static site generator
-    glow # markdown previewer in terminal
+    #hugo # static site generator
+    #glow # markdown previewer in terminal
 
     btop  # replacement of htop/nmon
     iotop # io monitoring
     iftop # network monitoring
 
     # system call monitoring
-    strace # system call monitoring
-    ltrace # library call monitoring
-    lsof # list open files
+    #strace # system call monitoring
+    #ltrace # library call monitoring
+    #lsof # list open files
 
     # system tools
     sysstat
@@ -114,36 +114,26 @@
     };
   };
 
-  # alacritty - a cross-platform, GPU-accelerated terminal emulator
-  programs.alacritty = {
-    enable = true;
-    # custom settings
-    settings = {
-      env.TERM = "xterm-256color";
-      font = {
-        size = 12;
-        draw_bold_text_with_bright_colors = true;
-      };
-      scrolling.multiplier = 5;
-      selection.save_to_clipboard = true;
-    };
-  };
-
-  programs.bash = {
+  programs.zsh = {
     enable = true;
     enableCompletion = true;
-    # TODO add your custom bashrc here
-    bashrcExtra = ''
-      export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
-    '';
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
 
-    # set some aliases, feel free to add more or remove some
     shellAliases = {
-      k = "kubectl";
-      urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
-      urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
+      ll = "ls -l";
+      suu = "sudo nixos-rebuild switch";
     };
-  };
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "thefuck" ];
+      theme = "robbyrussell";
+    };
+    
+    history.size = 10000;
+    history.path = "${config.xdg.dataHome}/zsh/history";
+  }; 
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
