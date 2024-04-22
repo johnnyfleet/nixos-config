@@ -1,6 +1,7 @@
 # nixos-config
 Configuration for system setup, using Nix
 
+Test update
 
 ## Initial setup
 After a fresh install of NixOS
