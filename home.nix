@@ -21,10 +21,10 @@
   # '';
 
   # set cursor size and dpi for 4k monitor
-  xresources.properties = {
-    "Xcursor.size" = 16;
-    "Xft.dpi" = 172;
-  };
+  #xresources.properties = {
+  #  "Xcursor.size" = 16;
+  #  "Xft.dpi" = 172;
+  #};
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
@@ -117,11 +117,11 @@
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    autosuggestion.enable = true;
+    #autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
     shellAliases = {
-      ll = "ls -l";
+      ll = "eza -al --icons --color";
       suu = "sudo nixos-rebuild switch";
     };
 
