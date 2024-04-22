@@ -45,6 +45,10 @@
     LC_TIME = "en_NZ.UTF-8";
   };
 
+  # Set the default shell as zsh
+  programs.zsh.enable = true;
+  users.users.john.shell = pkgs.zsh;
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
