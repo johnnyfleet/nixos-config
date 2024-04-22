@@ -43,6 +43,7 @@
     #ZSH custom outline
     zsh-powerlevel10k 
     meslo-lgs-nf
+    thefuck
 
     # utils
     ripgrep # recursively searches directories for a regex pattern
