@@ -12,5 +12,6 @@
     ./zsh/default.nix
   ];
 
-
+  home.username = "john";
+  home.homeDirectory = "/home/john";
 }
