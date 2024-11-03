@@ -1,6 +1,8 @@
 { pkgs, config, configVars, ... }:
 {
 
+  home.packages = with pkgs; [ zsh-powerlevel10k meslo-lgs-nf ];
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
