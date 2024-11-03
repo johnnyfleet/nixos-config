@@ -1,4 +1,2 @@
 #hardware-configuration.*
 #./hardware-configuration.nix
-secret-key
-secret-key-base64
