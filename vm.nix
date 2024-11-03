@@ -7,6 +7,9 @@
 {
   imports = [ inputs.sops-nix.nixosModules.sops ];
 
+
+  ######################### NIX-SOPS ############################
+
   sops.defaultSopsFile = ./secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
 
@@ -17,9 +20,16 @@
     neededForUsers = true;
   };
 
+
+  # This will automatically import SSH keys as age keys
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  # This will generate a new key if the key specified above does not exist
+  sops.age.generateKey = true;
+
+
   users.mutableUsers = false;
 
-
+########################## OTHER CONFIG ############################
 
   console.keyMap = "us";
 
