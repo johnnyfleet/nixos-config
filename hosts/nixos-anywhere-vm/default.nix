@@ -127,7 +127,9 @@
 
 
   security.sudo.wheelNeedsPassword = false;
-
+  # Set the default shell as zsh
+  programs.zsh.enable = true;
+  users.users.john.shell = pkgs.zsh;
 
   ############################# DISPLAY #########################
 
