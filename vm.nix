@@ -107,8 +107,16 @@
     home = "/home/guest";
     extraGroups = [ "wheel" ];
     initialPassword = "guest";
-    openssh.authorizedKeys.keyFiles = [ builtins.readFile (builtins.fetchurl https://github.com/johnnyfleet.keys ) ];
+    openssh.authorizedKeys,keys = let
+      authorizedKeys = pkgs.fetchurl {
+        url = "https://github.com/johnnyfleet.keys";
+        sha256 = "1kril7clfay225xdfhpp770gk60g5rp66nr6hzd5gpxvkynyxlrf";
+      };
+    in pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
+    #openssh.authorizedKeys.keyFiles = [ builtins.readFile (builtins.fetchurl https://github.com/johnnyfleet.keys ) ];
   };
+
+
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.john = {
