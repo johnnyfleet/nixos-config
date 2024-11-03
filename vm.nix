@@ -107,13 +107,6 @@
     home = "/home/guest";
     extraGroups = [ "wheel" ];
     initialPassword = "guest";
-    openssh.authorizedKeys.keys = let
-      authorizedKeys = pkgs.fetchurl {
-        url = "https://github.com/johnnyfleet.keys";
-        sha256 = "766a3078616f0c600d487b1909adb28f70d49ce4ace3966aaaa5052924850720";
-      };
-    in pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
-    #openssh.authorizedKeys.keyFiles = [ builtins.readFile (builtins.fetchurl https://github.com/johnnyfleet.keys ) ];
   };
 
 
@@ -124,14 +117,12 @@
     description = "John Stephenson";
     extraGroups = [ "wheel" ];
     hashedPasswordFile = config.sops.secrets.john-password.path;
-    #hashedPassword = lib.mkIf (builtins.pathExists config.sops.secrets.john-password.path) (builtins.readFile config.sops.secrets.john-password.path);
-    #hashedPassword = "$y$j9T$cpXPtJL4zO0GkCbJEPkYI0$jvqOMxV9xOuSFRve2U02/HWTLY2DJ8zV2eFGfafHxG4";
-    openssh.authorizedKeys.keys = [
-      # change this to your ssh key
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGsZulli5DsPnutXKm4OBOXcbHkPsZubDj4Q1FjEjyQD johnnyfleet@gmail.com"
-      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMTDc8z82RScvsTWcx5opqWIbkaEs51K2oWc94K3uginFKe7qLEjEcoEGlP+9L5IyFQmRv/fiFzE5ZGEho1bUxZu8/kHmK8oC+gdNx2vJlf/plVh6qnO8lQ9KOd2nPj8hUTTPl/ZbMl8FpOnT/9giySTJS+NvHL9ApU8tGLW2QH832WY3wzgnFlhDm4acm9Xir3p3f3ucbLf22z5Gu66NAhy9/M2B+Sx8ZYkHCFzf7PWRgiBHJgD3krfAhPEU2/LRq5Kw8ea60Ch2nUFzij+Dnqg1Z5/ikM3hrmYolKmLLCpZBqU9X82oSUTmuJS4hioMQ4kfu3KbabdjIpjhn8yePJ2Re26po6kEE9LsChpmtXQRSRAWbgAp6OxccdCaCkG8yUKZKgxiS5RbBqj6HEtBpBcFx7DGLE/nyKvzD4VRGSZnIYI+s1kcLX90pdLVrjfGAboQ0kwpxt3LvSMwbU52LxPw9UgYgLiyxg09JeNVYZziPikBs/X4XqbCG9D0M9yc="
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMki6rYwKM+wdjHwqwwobPdt9fknEcMZ5uCNcv79UCiX"
-    ];
+    openssh.authorizedKeys.keys = let
+      authorizedKeys = pkgs.fetchurl {
+        url = "https://github.com/johnnyfleet.keys";
+        sha256 = "766a3078616f0c600d487b1909adb28f70d49ce4ace3966aaaa5052924850720";
+      };
+    in pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };
 
 
