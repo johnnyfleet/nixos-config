@@ -1,0 +1,13 @@
+keys:
+  - &users
+    - &john age1xa3e76y4g3526ge8gxhsf4g2ge7g4kn6ct3yp0nwmassnu4h65tsfc9c99
+  - &hosts
+    - &john-laptop age1nvrqgn5xcnw6vq2y9y4gsh0cmdq38ug2ukdlje6mcdlkg9s9e3ks5csz8k
+    - &nixos-vm age1nag66y4azqxv6wty3hlxqs4cdd0txv5hltqyuymjls5mlfnsd40q35fnar
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *john
+        - *john-laptop
+        - *nixos-vm
