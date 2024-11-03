@@ -153,6 +153,7 @@
     neovim
     wget
     wrk
+    git
   ];
 
   system.stateVersion = "22.11";
