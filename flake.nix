@@ -45,7 +45,7 @@
             home-manager.useUserPackages = true;
 
             # TODO replace ryan with your own username
-            home-manager.users.john = import ./home/nixos-anywhere-vm.nix;
+            home-manager.users.john = import ./home/john/nixos-anywhere-vm.nix;
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
