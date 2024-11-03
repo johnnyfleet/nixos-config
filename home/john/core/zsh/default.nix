@@ -1,4 +1,4 @@
-{ pkgs, configVars, ... }:
+{ pkgs, config, configVars, ... }:
 {
 
   programs.zsh = {
