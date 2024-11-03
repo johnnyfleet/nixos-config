@@ -107,7 +107,7 @@
     home = "/home/guest";
     extraGroups = [ "wheel" ];
     initialPassword = "guest";
-    openssh.authorizedKeys,keys = let
+    openssh.authorizedKeys.keys = let
       authorizedKeys = pkgs.fetchurl {
         url = "https://github.com/johnnyfleet.keys";
         sha256 = "1kril7clfay225xdfhpp770gk60g5rp66nr6hzd5gpxvkynyxlrf";
