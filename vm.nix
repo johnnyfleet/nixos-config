@@ -109,7 +109,7 @@
   services.xserver.xkb.layout = "us";
   services.xserver.xkb.variant = "";
 
-  services.displayManager.autoLogin.user = "guest";
+  #services.displayManager.autoLogin.user = "guest";
   services.xserver.desktopManager.xfce.enable = true;
   services.xserver.desktopManager.xfce.enableScreensaver = false;
 
