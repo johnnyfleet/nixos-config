@@ -2,6 +2,6 @@
 {
   imports = [
     #################### Required Configs ####################
-    common/core # required
+    ./core/default.nix # required
   ];
 }

@@ -7,7 +7,10 @@
   ...
 }:
 {
-  imports = (configLib.scanPaths ./.) ++ (builtins.attrValues outputs.homeManagerModules);
+  #imports = (configLib.scanPaths ./.) ++ (builtins.attrValues outputs.homeManagerModules);
+  imports = [
+    ./zsh/default.nix
+  ];
 
 
 }
