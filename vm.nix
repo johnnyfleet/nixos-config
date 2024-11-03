@@ -43,6 +43,14 @@
   boot.loader.grub.device = "/dev/vda";
   boot.loader.grub.useOSProber = true;
 
+  ############################ NETWORKING ########################
+
+  # Enable networking
+  networking.networkmanager.enable = true;
+  services.tailscale.enable = true;
+
+
+############################## LOCALE ##############################
   console.keyMap = "us";
 
    # Set your time zone.
@@ -63,6 +71,8 @@
     LC_TIME = "en_NZ.UTF-8";
   };
 
+  ########################## VIRTUALISATION ########################
+
   # Options for the screen
   virtualisation.vmVariant = {
     virtualisation.resolution = {
@@ -82,6 +92,14 @@
       "-device virtserialport,chardev=ch1,id=ch1,name=com.redhat.spice.0"
     ];
   };
+
+  # VM guest additions to improve host-guest interaction
+  services.spice-vdagentd.enable = true;
+  services.qemuGuest.enable = true;
+  services.spice-autorandr.enable = true;
+
+
+  ############################# USERS #############################
 
   # A default user able to use sudo
   users.users.guest = {
@@ -104,6 +122,9 @@
 
   security.sudo.wheelNeedsPassword = false;
 
+
+  ############################# DISPLAY #########################
+
   # X configuration
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
@@ -113,10 +134,9 @@
   services.xserver.desktopManager.xfce.enable = true;
   services.xserver.desktopManager.xfce.enableScreensaver = false;
 
-  services.xserver.videoDrivers = [ "qxl" ];
+  #services.xserver.videoDrivers = [ "qxl" ];
 
-  # For copy/paste to work
-  services.spice-vdagentd.enable = true;
+########################## PACKAGES ##############################
 
   # Enable ssh
   services.sshd.enable = true;
