@@ -107,7 +107,7 @@
     home = "/home/guest";
     extraGroups = [ "wheel" ];
     initialPassword = "guest";
-    openssh.authorizedKeys.keys = [ builtins.readFile (builtins.fetchurl https://github.com/johnnyfleet.keys ) ];
+    openssh.authorizedKeys.keyFiles = [ builtins.readFile (builtins.fetchurl https://github.com/johnnyfleet.keys ) ];
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
