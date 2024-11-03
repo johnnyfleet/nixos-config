@@ -5,7 +5,10 @@
 # Then connect with ssh -p 2222 guest@localhost
 { lib, config, inputs, pkgs, ... }:
 {
-  imports = [ inputs.sops-nix.nixosModules.sops ];
+  imports = [
+      ./hardware-configuration.nix
+      inputs.sops-nix.nixosModules.sops
+    ];
 
 
   ######################### NIX-SOPS ############################
@@ -20,7 +23,6 @@
     neededForUsers = true;
   };
 
-
   # This will automatically import SSH keys as age keys
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   # This will generate a new key if the key specified above does not exist
@@ -30,6 +32,15 @@
   users.mutableUsers = false;
 
 ########################## OTHER CONFIG ############################
+
+
+ # Enable the Flakes feature and the accompanying new nix command-line tool
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Bootloader.
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/vda";
+  boot.loader.grub.useOSProber = true;
 
   console.keyMap = "us";
 
