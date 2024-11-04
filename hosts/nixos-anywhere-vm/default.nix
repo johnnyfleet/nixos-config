@@ -8,6 +8,8 @@
   imports = [
       ./hardware-configuration.nix
       ../common/users/john.nix
+      ../common/users/guest.nix
+      ../common/optional/xfce.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
@@ -102,15 +104,13 @@
 
   ############################# USERS #############################
 
-  # A default user able to use sudo
+/*   # A default user able to use sudo
   users.users.guest = {
     isNormalUser = true;
     home = "/home/guest";
     extraGroups = [ "wheel" ];
     initialPassword = "guest";
-  };
-
-
+  }; */
 
 /*   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.john = {
@@ -133,8 +133,8 @@
   programs.zsh.enable = true;
   users.users.john.shell = pkgs.zsh; */
 
-  ############################# DISPLAY #########################
-
+ ############################# DISPLAY #########################
+/*
   # X configuration
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
@@ -144,7 +144,7 @@
   services.xserver.desktopManager.xfce.enable = true;
   services.xserver.desktopManager.xfce.enableScreensaver = false;
 
-  #services.xserver.videoDrivers = [ "qxl" ];
+  #services.xserver.videoDrivers = [ "qxl" ]; */
 
 ########################## PACKAGES ##############################
 

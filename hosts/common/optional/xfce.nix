@@ -75,6 +75,7 @@
   };
 
   security.pam.services.gdm.enableGnomeKeyring = true;
+  services.displayManager.autoLogin.user = "john";
 
   services = {
     blueman.enable = true;
@@ -89,6 +90,8 @@
     };
     xserver = {
       enable = true;
+      xkb.layout = "us";
+      xserver.xkb.variant = "";
       excludePackages = with pkgs; [
         xterm
       ];
@@ -106,4 +109,10 @@
   };
 
   #sound.enable = true;
+
+    ############################# DISPLAY #########################
+
+
+
+  #services.xserver.videoDrivers = [ "qxl" ];
 }
