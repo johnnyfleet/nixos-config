@@ -4,6 +4,7 @@ keys:
   - &hosts
     - &john-laptop age1nvrqgn5xcnw6vq2y9y4gsh0cmdq38ug2ukdlje6mcdlkg9s9e3ks5csz8k
     - &nixos-vm age1nag66y4azqxv6wty3hlxqs4cdd0txv5hltqyuymjls5mlfnsd40q35fnar
+    - &nixos-vm2 age1rvag5j94qz3uwmv5gty2xh0tzx7planpe2e4rhnvky3azmg23cwq4qg6us
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
@@ -11,3 +12,4 @@ creation_rules:
         - *john
         - *john-laptop
         - *nixos-vm
+        - *nixos-vm2
