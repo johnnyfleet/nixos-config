@@ -5,18 +5,20 @@
 { config, pkgs, secrets, ... }:
 
 {
-   # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.john = {
     isNormalUser = true;
     description = "John Stephenson";
-    hashedPassword = "${secrets.user.hashedPassword}";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-      firefox
-      kate
-    #  thunderbird
-    ];
+    extraGroups = [ "wheel" ];
+    hashedPasswordFile = config.sops.secrets.john-password.path;
+    openssh.authorizedKeys.keys = let
+      authorizedKeys = pkgs.fetchurl {
+        url = "https://github.com/johnnyfleet.keys";
+        sha256 = "766a3078616f0c600d487b1909adb28f70d49ce4ace3966aaaa5052924850720";
+      };
+    in pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };
+
 
   # Set the default shell as zsh
   programs.zsh.enable = true;
