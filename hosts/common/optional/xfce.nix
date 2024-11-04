@@ -91,7 +91,7 @@
     xserver = {
       enable = true;
       xkb.layout = "us";
-      xserver.xkb.variant = "";
+      xkb.variant = "";
       excludePackages = with pkgs; [
         xterm
       ];
