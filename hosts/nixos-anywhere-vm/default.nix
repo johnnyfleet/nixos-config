@@ -155,6 +155,8 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     dig
+    duf
+    eza
     firefox
     hey
     httpie
