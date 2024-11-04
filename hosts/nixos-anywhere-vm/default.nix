@@ -7,6 +7,7 @@
 {
   imports = [
       ./hardware-configuration.nix
+      ../common/users/john.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
@@ -111,7 +112,7 @@
 
 
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+/*   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.john = {
     isNormalUser = true;
     description = "John Stephenson";
@@ -124,12 +125,13 @@
       };
     in pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };
-
+ */
 
   security.sudo.wheelNeedsPassword = false;
-  # Set the default shell as zsh
+
+/*   # Set the default shell as zsh
   programs.zsh.enable = true;
-  users.users.john.shell = pkgs.zsh;
+  users.users.john.shell = pkgs.zsh; */
 
   ############################# DISPLAY #########################
 
