@@ -12,6 +12,7 @@
     shellAliases = {
       ll = "eza -al --icons --color";
       suu = "sudo nixos-rebuild switch --flake ~/.config/nixos-config#vm";
+      gp = "cd ~/.config/nixos-config && git pull";
     };
 
     plugins = [
