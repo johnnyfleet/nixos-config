@@ -41,10 +41,15 @@
  # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
+  # # Bootloader.
+  # boot.loader.grub.enable = true;
+  # boot.loader.grub.device = "/dev/vda";
+  # boot.loader.grub.useOSProber = true;
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+
 
   ############################ NETWORKING ########################
 
