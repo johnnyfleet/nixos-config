@@ -13,8 +13,8 @@
       foliate
       font-manager
       gimp-with-plugins
-      gnome.file-roller
-      gnome.gnome-disk-utility
+      file-roller
+      gnome-disk-utility
       inkscape-with-extensions
       libqalculate
       libreoffice
