@@ -159,6 +159,7 @@
   # Included packages here
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    btop
     dig
     duf
     eza
