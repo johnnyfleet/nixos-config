@@ -41,15 +41,13 @@
  # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # # Bootloader.
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.device = "/dev/vda";
-  # boot.loader.grub.useOSProber = true;
+  # Bootloader.
+  #boot.loader.grub.enable = true;
+  #boot.loader.grub.device = "/dev/vda";
+  #boot.loader.grub.useOSProber = true;
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-
 
   ############################ NETWORKING ########################
 
@@ -126,7 +124,7 @@
     openssh.authorizedKeys.keys = let
       authorizedKeys = pkgs.fetchurl {
         url = "https://github.com/johnnyfleet.keys";
-        sha256 = "766a3078616f0c600d487b1909adb28f70d49ce4ace3966aaaa5052924850720";
+        sha256 = "bfeb247accafffbc6350ee0732c7e77e14b7ea853111282baa4989664f0cff58";
       };
     in pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };
