@@ -7,13 +7,16 @@
 {
   imports = [
       ./hardware-configuration.nix
+      ../common/users/john.nix
+      ../common/users/guest.nix
+      ../common/optional/xfce.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
 
   ######################### NIX-SOPS ############################
 
-  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
 
   #sops.age.keyFile = "/home/john/.config/sops/age/keys.txt";
@@ -104,17 +107,15 @@
 
   ############################# USERS #############################
 
-  # A default user able to use sudo
+/*   # A default user able to use sudo
   users.users.guest = {
     isNormalUser = true;
     home = "/home/guest";
     extraGroups = [ "wheel" ];
     initialPassword = "guest";
-  };
+  }; */
 
-
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+/*   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.john = {
     isNormalUser = true;
     description = "John Stephenson";
@@ -127,13 +128,16 @@
       };
     in pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };
-
+ */
 
   security.sudo.wheelNeedsPassword = false;
 
+/*   # Set the default shell as zsh
+  programs.zsh.enable = true;
+  users.users.john.shell = pkgs.zsh; */
 
-  ############################# DISPLAY #########################
-
+ ############################# DISPLAY #########################
+/*
   # X configuration
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
@@ -143,7 +147,7 @@
   services.xserver.desktopManager.xfce.enable = true;
   services.xserver.desktopManager.xfce.enableScreensaver = false;
 
-  #services.xserver.videoDrivers = [ "qxl" ];
+  #services.xserver.videoDrivers = [ "qxl" ]; */
 
 ########################## PACKAGES ##############################
 
@@ -153,7 +157,10 @@
   # Included packages here
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    btop
     dig
+    duf
+    eza
     firefox
     hey
     httpie
