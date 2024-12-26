@@ -40,7 +40,7 @@
                 location = "top";
                 alignment = "center";
                 floating = true;
-                hiding = "dodgewindows";
+                #hiding = "dodgewindows";
                 height = 26;
                 widgets = [ "org.kde.plasma.appmenu" ];
             }
