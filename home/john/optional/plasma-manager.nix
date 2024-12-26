@@ -21,5 +21,25 @@
         key = "Meta+Alt+K";
         command = "konsole";
         };
+
+        panels = [
+            # Windows-like panel at the bottom
+            {
+                location = "bottom";
+                widgets = [
+                "org.kde.plasma.kickoff"
+                "org.kde.plasma.icontasks"
+                "org.kde.plasma.marginsseparator"
+                "org.kde.plasma.systemtray"
+                "org.kde.plasma.digitalclock"
+                ];
+            }
+            # Global menu at the top
+            {
+                location = "top";
+                height = 26;
+                widgets = [ "org.kde.plasma.appmenu" ];
+            }
+        ];
     };
 }
