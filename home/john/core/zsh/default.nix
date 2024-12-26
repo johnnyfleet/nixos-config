@@ -21,10 +21,19 @@
           src = pkgs.zsh-powerlevel10k;
           file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
         }
-	{
+	      {
           name = "powerlevel10k-config";
           src = ./p10k;
           file = "p10k.zsh";
+        }
+        {
+          name = "zsh-autosuggestions";
+          file = "zsh-autosuggestions.plugin.zsh";
+          src = builtins.fetchGit {
+            url = "https://github.com/zsh-users/zsh-autosuggestions";
+            #rev = "a411ef3e0992d4839f0732ebeb9823024afaaaa8";
+            rev = "0e810e5afa27acbd074398eefbe28d13005dbc15";
+          };
         }
       ];
 
