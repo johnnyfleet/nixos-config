@@ -42,4 +42,10 @@
             }
         ];
     };
+
+    home.packages = with pkgs; [
+        papirus-icon-theme  # Example icon theme
+        bibata-cursors # Bibata cursors.
+    # Add other icon themes here
+    ];
 }
