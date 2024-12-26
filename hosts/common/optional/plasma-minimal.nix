@@ -18,6 +18,8 @@
 
   services.desktopManager.plasma6.enable = true;
 
+  services.displayManager.autoLogin.user = "john";
+
   # Enable polkit which should allow kate to run.
   security.polkit.enable = true;
 
