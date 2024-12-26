@@ -114,5 +114,5 @@
 
 
 
-  services.xserver.videoDrivers = [ "qxl" ];
+  # services.xserver.videoDrivers = [ "qxl" ];
 }
