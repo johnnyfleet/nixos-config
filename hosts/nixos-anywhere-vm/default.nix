@@ -9,7 +9,7 @@
       ./hardware-configuration.nix
       ../common/users/john.nix
       ../common/users/guest.nix
-      ../common/optional/xfce.nix
+      ../common/optional/xfce-minimal.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
