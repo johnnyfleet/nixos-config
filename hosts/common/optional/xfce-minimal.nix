@@ -10,12 +10,12 @@
       elementary-xfce-icon-theme
       evince
       firefox
-      foliate
+      #foliate
       font-manager
       #gimp-with-plugins
       file-roller
       gnome-disk-utility
-      inkscape-with-extensions
+      #inkscape-with-extensions
       libqalculate
       #libreoffice
       orca
