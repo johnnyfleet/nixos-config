@@ -39,7 +39,7 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "thefuck" "zsh-autosuggestions" ];
+      plugins = [ "git" "thefuck" ];
       theme = "robbyrussell";
     };
 
