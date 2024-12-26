@@ -3,7 +3,7 @@
   imports = [
     #################### Required Configs ####################
     ./core/default.nix # required
-    ./optional/plasma-manager.nix # set up of plasma manager on plasma. 
+    #./optional/plasma-manager.nix # set up of plasma manager on plasma. 
   ];
 
   # This value determines the home Manager release that your
