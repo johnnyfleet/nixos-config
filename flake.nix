@@ -31,7 +31,7 @@
   };
 
   outputs =
-    { nixpkgs, self,  home-manager, plasma-manager ... }@inputs:
+    { nixpkgs, self,  home-manager, plasma-manager, ... }@inputs:
     {
       apps."x86_64-linux" = {
         default = {
