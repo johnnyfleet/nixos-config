@@ -12,7 +12,7 @@
         clickItemTo = "select";
         lookAndFeel = "org.kde.breezedark.desktop";
         cursor.theme = "Bibata-Modern-Ice";
-        iconTheme = "Papirus-Dark";
+        iconTheme = "Breeze-Dark";
         wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
         };
 
