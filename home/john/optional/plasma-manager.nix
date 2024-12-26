@@ -26,6 +26,7 @@
             # Windows-like panel at the bottom
             {
                 location = "bottom";
+                floating = true;
                 widgets = [
                 "org.kde.plasma.kickoff"
                 "org.kde.plasma.icontasks"
@@ -37,6 +38,9 @@
             # Global menu at the top
             {
                 location = "top";
+                alignment = "center";
+                floating = true;
+                hiding = "dodgewindows";
                 height = 26;
                 widgets = [ "org.kde.plasma.appmenu" ];
             }
