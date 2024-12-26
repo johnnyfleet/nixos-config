@@ -14,4 +14,9 @@
 
   home.username = "john";
   home.homeDirectory = "/home/john";
+
+  # Enable VSCode
+  programs.vscode = {
+    enable = true;
+  }
 }
