@@ -21,5 +21,5 @@
         key = "Meta+Alt+K";
         command = "konsole";
         };
-    }
+    };
 }
