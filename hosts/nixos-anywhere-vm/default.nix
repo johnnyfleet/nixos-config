@@ -32,7 +32,7 @@
   # This will generate a new key if the key specified above does not exist
   sops.age.generateKey = true;
 
-
+  # Force update passwords for users on each run. 
   users.mutableUsers = false;
 
 ########################## OTHER CONFIG ############################
