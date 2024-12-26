@@ -70,7 +70,7 @@ sudo nix-collect-garbage  --delete-old
 
 sudo nix-collect-garbage  --delete-generations 1 2 3
 
-# recommeneded to sometimes run as sudo to collect additional garbage
+# recommeneded to sometimes run as sudo to collect additional garbage. This removes all older generations. then run nixos-rebuild to clear up boot menu. 
 sudo nix-collect-garbage -d
 
 # As a separation of concerns - you will need to run this command to clean out boot
