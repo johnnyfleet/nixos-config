@@ -10,6 +10,7 @@
       ../common/users/john.nix
       ../common/users/guest.nix
       ../common/optional/plasma-minimal.nix
+      ../common/optional/1password.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
