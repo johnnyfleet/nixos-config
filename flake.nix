@@ -22,10 +22,16 @@
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
-    { nixpkgs, self,  home-manager, ... }@inputs:
+    { nixpkgs, self,  home-manager, plasma-manager ... }@inputs:
     {
       apps."x86_64-linux" = {
         default = {
@@ -51,7 +57,9 @@
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
-          ];
+
+          inputs.plasma-manager.homeManagerModules.plasma-manager
+        ];
       };
     };
 }
