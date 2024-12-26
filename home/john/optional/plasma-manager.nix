@@ -28,7 +28,15 @@
                 location = "bottom";
                 floating = true;
                 widgets = [
-                "org.kde.plasma.kickoff"
+                {
+                    name = "org.kde.plasma.kickoff";
+                    config = {
+                        General = {
+                            icon = "nix-snowflake-white";
+                            alphaSort = true;
+                        };
+                    };
+                }
                 "org.kde.plasma.icontasks"
                 "org.kde.plasma.marginsseparator"
                 "org.kde.plasma.systemtray"
