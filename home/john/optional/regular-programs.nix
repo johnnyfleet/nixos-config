@@ -6,6 +6,7 @@
     pkgs.filezilla
     pkgs.easytag
     pkgs.kdePackages.partitionmanager
+    pkgs.kdePackages.discover
     pkgs.picard
     pkgs.vlc
     pkgs.kdePackages.ghostwriter
