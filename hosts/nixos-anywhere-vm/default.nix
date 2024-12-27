@@ -57,6 +57,8 @@
   networking.networkmanager.enable = true;
   services.tailscale.enable = true;
 
+  services.avahi.enable = true;
+
 
 ############################## LOCALE ##############################
   console.keyMap = "us";
