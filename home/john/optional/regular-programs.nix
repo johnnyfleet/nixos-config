@@ -10,6 +10,7 @@
     pkgs.picard
     pkgs.vlc
     pkgs.kdePackages.ghostwriter
+    pkgs.spotify
 
   ];
 
