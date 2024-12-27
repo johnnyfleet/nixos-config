@@ -11,6 +11,9 @@
     pkgs.vlc
     pkgs.kdePackages.ghostwriter
     pkgs.spotify
+    pkgs.remmina
+    pkgs.discord
+    pkgs.flameshot
 
   ];
 
