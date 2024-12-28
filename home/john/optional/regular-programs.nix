@@ -98,6 +98,34 @@
     pkgs.protonup-qt                       # Helper GUI to install ProtonGE
     pkgs.plexamp                         # Plexamp player
     pkgs.moonlight-qt              # Moonlight came streaming client
+
+
+  #AUR_PACKAGES:
+    - 1password
+    - 1password-cli
+    #- autofs                          # for auto mounting NFS shared better on Manjaro.
+    #- cloudflared                    # Daemon to manage cloudflare tunnels. Don't use anymore - switched to docker version (plus this seemed to no longer be maintained)
+    - expressvpn                     # VPN client
+    - google-chrome
+    #- google-drive-ocamlfuse          # FUSE mount to google drive
+    - heroic-games-launcher-electron # Open source installer for GoG and Epic games.
+    - insync                         # Cloud drive sync gui tool.
+    - insync-dolphin                 # Integration to file manager
+    #- latte-dock-git                  # Latest version of Latte which fixes full screen window issue on Wayland
+    #- nohang-git                     # out of memory management.
+    - microsoft-edge-stable-bin
+    - neovim-symlinks                # Replaces vi & vim with neovim everywhere
+    #- noson-app                      # Sonos client program.
+    #- pomello                        # Pomodoro Trello Tracking app
+    - rclone                         # Sync to multiple cloud locations.
+    #- xorgxrdp                       # Allow RDP (via xorg) from windows to device
+    #- xrdp                           # Allow RDP (via xvnc) fN client
+    - zoom                           # Video conferencing. AUR seems to work better than Flatpak.
+    #- gamehub                       # Updated UI to manage games.
+    #- makemkv                       # MakeMKV - DVD/Blue-Ray to MKV formatter.
+    #- mqtt-explorer                 # Allows you to view MQTT messages
+    # Slack
+    
   ];
 
   #programs.steam.enable = true;
