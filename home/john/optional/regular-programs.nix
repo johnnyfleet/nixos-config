@@ -126,7 +126,7 @@
     pkgs.makemkv                       # MakeMKV - DVD/Blue-Ray to MKV formatter.
     pkgs.mqtt-explorer                 # Allows you to view MQTT messages
     pkgs.slack
-     
+    pkgs.quickemu                   # Quickly create and run vms. 
     
   ];
 
