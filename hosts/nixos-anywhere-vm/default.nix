@@ -174,6 +174,14 @@
     wget
     wrk
     git
+    jq
+    ncdu
+    neofetch
+    fastfetch
+    glances
+    du-dust
+    gh
+    mosh
   ];
 
   system.stateVersion = "22.11";
