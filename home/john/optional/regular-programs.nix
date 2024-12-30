@@ -96,9 +96,8 @@
     #- com.plexamp.Plexamp                         # Plexamp player
     #- com.moonlight_stream.Moonlight              # Moonlight came streaming client
     apostrophe           # Markdown editor - nice and clean.
-    protonup-qt                       # Helper GUI to install ProtonGE
     plexamp                         # Plexamp player
-    moonlight-qt              # Moonlight came streaming client
+    
 
 
   # AUR_PACKAGES:
@@ -109,7 +108,6 @@
     expressvpn                     # VPN client
     google-chrome
     #- google-drive-ocamlfuse          # FUSE mount to google drive
-    heroic # Open source installer for GoG and Epic games.
     insync                         # Cloud drive sync gui tool.
     #- insync-dolphin                 # Integration to file manager
     #- latte-dock-git                  # Latest version of Latte which fixes full screen window issue on Wayland
