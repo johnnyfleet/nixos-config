@@ -5,6 +5,7 @@
     ./core/default.nix # required
     ./optional/plasma-manager.nix # set up of plasma manager on plasma. 
     ./optional/regular-programs.nix # Additional programs I usually have installed
+    ./optional/gaming.nix # Additional programs I usually have installed
   ];
 
   # This value determines the home Manager release that your
