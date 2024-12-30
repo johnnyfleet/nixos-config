@@ -12,7 +12,7 @@
       ../common/optional/plasma-minimal.nix
       ../common/optional/1password.nix
       ../common/optional/flatpak.nix
-      ../common/optional/steam.nix
+      #../common/optional/steam.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
