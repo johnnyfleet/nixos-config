@@ -2,92 +2,92 @@
 {
 
   # Packages that should be installed to the user profile.
-  home.packages = [
+  home.packages = with pkgs; [
 
     # This aims to replicate what I had on john-laptop originally.
 
     # BASE_PACKAGES: 
     
     
-    pkgs.kdePackages.discover           # KDE store to install flatpak packages
-    pkgs.kdePackages.ghostwriter        # Really good markdown editor, similar to Apostrophe
-    pkgs.spotify                        # Music baby. 
+    kdePackages.discover           # KDE store to install flatpak packages
+    kdePackages.ghostwriter        # Really good markdown editor, similar to Apostrophe
+    spotify                        # Music baby. 
 
-    pkgs.ansible # Ansible, duh
-    pkgs.ansible-lint # Linting to check playbooks
-    pkgs.baobab #Disk Usage Analyser
-    pkgs.easytag # Edit MP3 ID3 files
-    pkgs.filezilla # FTP client
-    pkgs.gnome-keyring # Keyring to access secrets wallet - used for VS code
-    #pkgs.gparted # Disk Partition Manager
-    pkgs.kdePackages.partitionmanager # Disk Partition Manager
-    pkgs.guake # drop-down style terminal
-    pkgs.jq                    # JSON parser
-    pkgs.ncdu                  # Disk usage CLI
-    pkgs.neofetch              # Nice system info CLI command
-    pkgs.fastfetch          # Neofetch replacement
-    pkgs.nettools             # ipconfig etc.
-    pkgs.packer                # create VM images
-    pkgs.picard                # MusicBrainz - music info lookup
-    pkgs.remmina               # Remote Desktop viewer
-    pkgs.retext                # Simple markdown editor
-    pkgs.rpcbind               # Network and RPC program
-    pkgs.screen                # detached terminal session
-    pkgs.scribus               # PDF editor (for cd covers)
-    pkgs.terminator            # Improved shell
-    pkgs.vlc                   # VLC media player
+    ansible # Ansible, duh
+    ansible-lint # Linting to check playbooks
+    baobab #Disk Usage Analyser
+    easytag # Edit MP3 ID3 files
+    filezilla # FTP client
+    gnome-keyring # Keyring to access secrets wallet - used for VS code
+    #gparted # Disk Partition Manager
+    kdePackages.partitionmanager # Disk Partition Manager
+    guake # drop-down style terminal
+    jq                    # JSON parser
+    ncdu                  # Disk usage CLI
+    neofetch              # Nice system info CLI command
+    fastfetch          # Neofetch replacement
+    nettools             # ipconfig etc.
+    packer                # create VM images
+    picard                # MusicBrainz - music info lookup
+    remmina               # Remote Desktop viewer
+    retext                # Simple markdown editor
+    rpcbind               # Network and RPC program
+    screen                # detached terminal session
+    scribus               # PDF editor (for cd covers)
+    terminator            # Improved shell
+    vlc                   # VLC media player
 
   # ARCH_PACKAGES:
     #appimagelauncher      # Makes it easy to install appimage files.
-    pkgs.arduino               # Arduino IDE
-    pkgs.aribb24               # Allows VLC to play recordings done via HDHomeRun
-    pkgs.asciidoctor           # Convert asciidocs to different formats
-    pkgs.audacious             # Music player
+    arduino               # Arduino IDE
+    aribb24               # Allows VLC to play recordings done via HDHomeRun
+    asciidoctor           # Convert asciidocs to different formats
+    audacious             # Music player
     #base-devel            # Fakeroot and other utils needed for AUr installation via Yay
-    pkgs.btop               # Advanced system utilisation monitor (think top, htop)
+    btop               # Advanced system utilisation monitor (think top, htop)
     #bootsplash-systemd        # Startup splash screen
     #bootsplash-theme-manjaro  # Startup splash screen - Manjaro
-    pkgs.chezmoi
-    pkgs.chromium
+    chezmoi
+    chromium
     #crossover-extras      # Install crossover and dependencies that are required to install windows apps.
-    pkgs.discord
-    pkgs.duf                   # Fancier version of df
-    pkgs.eza                   # alternative to ls which is more colourful and includes icons.
-    pkgs.du-dust                  # Filesystem cli tool
-    pkgs.firefox
-    pkgs.flameshot             # Screen Snipping tool
-    pkgs.freerdp
+    discord
+    duf                   # Fancier version of df
+    eza                   # alternative to ls which is more colourful and includes icons.
+    du-dust                  # Filesystem cli tool
+    firefox
+    flameshot             # Screen Snipping tool
+    freerdp
     #gestures              # To get multi finger gestures on touchpad working
-    pkgs.gimp                  # Image editor.
-    pkgs.gh                # GitHub CLI tool
-    pkgs.glances          # Another monitoring tool
-    pkgs.guestfs-tools         # `virt-sparsify and other libvirt tools
-    pkgs.hplipWithPlugin                 # HP Printer utility
-    pkgs.htop
-    pkgs.iucode-tool           # Check intel microcode for updates (dependency on needrestart)
-    pkgs.libinput-gestures      # To get multi finger gestures on touchpad working
+    gimp                  # Image editor.
+    gh                # GitHub CLI tool
+    glances          # Another monitoring tool
+    guestfs-tools         # `virt-sparsify and other libvirt tools
+    hplipWithPlugin                 # HP Printer utility
+    htop
+    iucode-tool           # Check intel microcode for updates (dependency on needrestart)
+    libinput-gestures      # To get multi finger gestures on touchpad working
     #matray                # Manjaro Update tray notifier
-    pkgs.mosh                  # For connecting over SSH and maintaining session.
-    pkgs.mutt                  # Email CLI client for reading root mail.
+    mosh                  # For connecting over SSH and maintaining session.
+    mutt                  # Email CLI client for reading root mail.
     #needrestart           # Utility to check if a restart is needed post update.
-    pkgs.neovim                # Vim
-    pkgs.obsidian              # Note taking app
-    pkgs.ipafont           # extra fonts for unicode support. Used for Japanese characters.
-    pkgs.pandoc                # Convert markdown and asciidoc
-    pkgs.qmmp                  # winamp like music player
-    pkgs.sof-firmware          # Fixes sound on Lenovo x1 Carbon Gen 9.
-    pkgs.speedtest-cli         # Check internet speed from CLI1
+    neovim                # Vim
+    obsidian              # Note taking app
+    ipafont           # extra fonts for unicode support. Used for Japanese characters.
+    pandoc                # Convert markdown and asciidoc
+    qmmp                  # winamp like music player
+    sof-firmware          # Fixes sound on Lenovo x1 Carbon Gen 9.
+    speedtest-cli         # Check internet speed from CLI1
     #tlpui                 # UI for power management
-    pkgs.trash-cli             # Simple utility to clean trash but running trash-empty either as user or sudo for root.
+    trash-cli             # Simple utility to clean trash but running trash-empty either as user or sudo for root.
     #ttf-font-awesome      # extra fonts for unicode support. Used for icons.
-    pkgs.unzip
-    pkgs.yubikey-manager       # To manage YubiKey on device.
-    pkgs.yubikey-manager-qt    # GUI to managhe Yubikey
-    pkgs.yubioath-flutter      # Desktop tool to manage OATH requests via Yubikey. This one doesn't work - replace with flatpak version.
+    unzip
+    yubikey-manager       # To manage YubiKey on device.
+    yubikey-manager-qt    # GUI to managhe Yubikey
+    yubioath-flutter      # Desktop tool to manage OATH requests via Yubikey. This one doesn't work - replace with flatpak version.
 
   # DOCKER_PACKAGES:
-    pkgs.docker-compose        # Compose
-    pkgs.ctop                 # Top-like interface for containers.
+    docker-compose        # Compose
+    ctop                 # Top-like interface for containers.
 
   # FLATPACK_PACKAGES:
     #- org.gnome.gitlab.somas.Apostrophe           # Markdown editor - nice and clean.
@@ -95,10 +95,10 @@
     #- com.yubico.yubioath                         # Yubikey OATH tool
     #- com.plexamp.Plexamp                         # Plexamp player
     #- com.moonlight_stream.Moonlight              # Moonlight came streaming client
-    pkgs.apostrophe           # Markdown editor - nice and clean.
-    pkgs.protonup-qt                       # Helper GUI to install ProtonGE
-    pkgs.plexamp                         # Plexamp player
-    pkgs.moonlight-qt              # Moonlight came streaming client
+    apostrophe           # Markdown editor - nice and clean.
+    protonup-qt                       # Helper GUI to install ProtonGE
+    plexamp                         # Plexamp player
+    moonlight-qt              # Moonlight came streaming client
 
 
   # AUR_PACKAGES:
@@ -106,27 +106,27 @@
     #- 1password-cli
     #- autofs                          # for auto mounting NFS shared better on Manjaro.
     #- cloudflared                    # Daemon to manage cloudflare tunnels. Don't use anymore - switched to docker version (plus this seemed to no longer be maintained)
-    pkgs.expressvpn                     # VPN client
-    pkgs.google-chrome
+    expressvpn                     # VPN client
+    google-chrome
     #- google-drive-ocamlfuse          # FUSE mount to google drive
-    pkgs.heroic # Open source installer for GoG and Epic games.
-    pkgs.insync                         # Cloud drive sync gui tool.
+    heroic # Open source installer for GoG and Epic games.
+    insync                         # Cloud drive sync gui tool.
     #- insync-dolphin                 # Integration to file manager
     #- latte-dock-git                  # Latest version of Latte which fixes full screen window issue on Wayland
     #- nohang-git                     # out of memory management.
-    pkgs.microsoft-edge
+    microsoft-edge
     #- neovim-symlinks                # Replaces vi & vim with neovim everywhere
     #- noson-app                      # Sonos client program.
     #- pomello                        # Pomodoro Trello Tracking app
-    pkgs.rclone                         # Sync to multiple cloud locations.
+    rclone                         # Sync to multiple cloud locations.
     #- xorgxrdp                       # Allow RDP (via xorg) from windows to device
     #- xrdp                           # Allow RDP (via xvnc) fN client
-    pkgs.zoom-us                           # Video conferencing. AUR seems to work better than Flatpak.
+    zoom-us                           # Video conferencing. AUR seems to work better than Flatpak.
     #- gamehub                       # Updated UI to manage games.
-    pkgs.makemkv                       # MakeMKV - DVD/Blue-Ray to MKV formatter.
-    pkgs.mqtt-explorer                 # Allows you to view MQTT messages
-    pkgs.slack
-    pkgs.quickemu                   # Quickly create and run vms. 
+    makemkv                       # MakeMKV - DVD/Blue-Ray to MKV formatter.
+    mqtt-explorer                 # Allows you to view MQTT messages
+    slack
+    quickemu                   # Quickly create and run vms. 
     
   ];
 
