@@ -13,6 +13,7 @@
       ../common/optional/1password.nix
       ../common/optional/flatpak.nix
       #../common/optional/steam.nix
+      ../common/core/gc-optimise.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
