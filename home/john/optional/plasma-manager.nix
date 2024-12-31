@@ -74,10 +74,12 @@
                     "org.kde.plasma.panelspacer"
                     
                     # Right-aligned widgets
+                    "org.kde.plasma.systemmonitor"
                     {
                     name = "org.kde.plasma.systemtray"; # System tray
                     config = {};
                     }
+                    "org.kde.plasma.logout"
                 ];
             }
 
