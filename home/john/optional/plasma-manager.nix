@@ -70,8 +70,8 @@
                     config = {
                         showDate = true; # Example setting (optional)
                         };
-                    "org.kde.plasma.marginsseparator"
                     }
+                    "org.kde.plasma.marginsseparator"
                     
                     # Right-aligned widgets
                     {
