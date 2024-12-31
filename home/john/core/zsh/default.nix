@@ -13,6 +13,7 @@
       ll = "eza -al --icons --color";
       suu = "sudo nixos-rebuild switch --flake ~/.config/nixos-config#vm";
       gp = "cd ~/.config/nixos-config && git pull";
+      sgc = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
     };
 
     plugins = [
