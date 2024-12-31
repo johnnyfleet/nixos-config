@@ -50,9 +50,44 @@
                 alignment = "center";
                 height = 26;
                 widgets = [
-                "org.kde.plasma.taskmanager"
-                "org.kde.plasma.systemtray"
-                "org.kde.plasma.digitalclock"
+                    # Left-aligned widgets
+                    {
+                    alignment = "left";
+                    widgets = [
+                        {
+                        name = "org.kde.plasma.virtualdesktops"; # Virtual desktop switcher
+                        config = {};
+                        }
+                        {
+                        name = "org.kde.plasma.kickoff"; # Application menu
+                        config = {};
+                        }
+                    ];
+                    }
+                    
+                    # Center-aligned widgets
+                    {
+                    alignment = "center";
+                    widgets = [
+                        {
+                        name = "org.kde.plasma.digitalclock"; # Digital clock
+                        config = {
+                            showDate = true; # Example setting (optional)
+                        };
+                        }
+                    ];
+                    }
+                    
+                    # Right-aligned widgets
+                    {
+                    alignment = "right";
+                    widgets = [
+                        {
+                        name = "org.kde.plasma.systemtray"; # System tray
+                        config = {};
+                        }
+                    ];
+                    }
                 ];
             }
 
