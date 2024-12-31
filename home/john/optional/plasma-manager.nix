@@ -53,14 +53,14 @@
                     # Left-aligned widgets
 
                     {
-                    name = "org.kde.plasma.virtualdesktops"; # Virtual desktop switcher
+                    name = "org.kde.plasma.pager"; # Virtual desktop switcher
                     config = {};
                     }
                     {
                     name = "org.kde.plasma.kickoff"; # Application menu
                     config = {};
                     }
-                    "org.kde.plasma.marginsseparator"
+                    "org.kde.plasma.panelspacer"
     
             
                     
@@ -71,7 +71,7 @@
                         showDate = true; # Example setting (optional)
                         };
                     }
-                    "org.kde.plasma.marginsseparator"
+                    "org.kde.plasma.panelspacer"
                     
                     # Right-aligned widgets
                     {
