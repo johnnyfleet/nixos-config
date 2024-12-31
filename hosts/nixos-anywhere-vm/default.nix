@@ -10,6 +10,10 @@
       ../common/users/john.nix
       ../common/users/guest.nix
       ../common/optional/plasma-minimal.nix
+      ../common/optional/1password.nix
+      ../common/optional/flatpak.nix
+      #../common/optional/steam.nix
+      ../common/core/gc-optimise.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
@@ -54,6 +58,8 @@
   # Enable networking
   networking.networkmanager.enable = true;
   services.tailscale.enable = true;
+
+  services.avahi.enable = true;
 
 
 ############################## LOCALE ##############################
@@ -170,6 +176,14 @@
     wget
     wrk
     git
+    jq
+    ncdu
+    neofetch
+    fastfetch
+    glances
+    du-dust
+    gh
+    mosh
   ];
 
   system.stateVersion = "22.11";

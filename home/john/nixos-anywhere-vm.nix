@@ -3,6 +3,10 @@
   imports = [
     #################### Required Configs ####################
     ./core/default.nix # required
+    ./optional/plasma-manager.nix # set up of plasma manager on plasma. 
+    ./optional/regular-programs.nix # Additional programs I usually have installed
+    #./optional/additional-programs.nix # Additional programs I used to have but don't think I need right now. 
+    #./optional/gaming.nix # Heroic & Lutris
   ];
 
   # This value determines the home Manager release that your
@@ -17,4 +21,12 @@
 
   # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+
+  # basic configuration of git, please change to your own
+  programs.git = {
+    enable = true;
+    userName = "John Stephenson";
+    userEmail = "johnnyfleet@gmail.com";
+  };
 }
