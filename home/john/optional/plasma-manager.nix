@@ -43,7 +43,21 @@
                 "org.kde.plasma.digitalclock"
                 ];
             }
-            # Global menu at the top
+
+            # Taskbar at the top
+            {
+                location = "top";
+                alignment = "center";
+                height = 26;
+                widgets = [
+                "org.kde.plasma.taskmanager"
+                "org.kde.plasma.systemtray"
+                "org.kde.plasma.digitalclock"
+                ];
+            }
+
+
+           /*  # Global menu at the top
             {
                 location = "top";
                 alignment = "center";
@@ -51,7 +65,7 @@
                 #hiding = "dodgewindows";
                 height = 26;
                 widgets = [ "org.kde.plasma.appmenu" ];
-            }
+            } */
         ];
     };
 
