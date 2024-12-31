@@ -48,7 +48,8 @@
             {
                 location = "top";
                 alignment = "center";
-                height = 26;
+                floating = true;
+                height = 40 ;
                 widgets = [
                     # Left-aligned widgets
 
@@ -58,8 +59,14 @@
                     }
                     {
                     name = "org.kde.plasma.kickoff"; # Application menu
-                    config = {};
+                    config = {
+                        General = {
+                            icon = "nix-snowflake-white";
+                            alphaSort = true;
+                        };
+                    };
                     }
+                    "org.kde.plasma.appmenu"
                     "org.kde.plasma.panelspacer"
     
             
@@ -74,12 +81,13 @@
                     "org.kde.plasma.panelspacer"
                     
                     # Right-aligned widgets
-                    "org.kde.plasma.systemmonitor"
+                    "org.kde.plasma.systemmonitor.cpu"
+                    "org.kde.plasma.systemmonitor.memory"
                     {
                     name = "org.kde.plasma.systemtray"; # System tray
                     config = {};
                     }
-                    "org.kde.plasma.logout"
+                    "org.kde.plasma.lock_logout"
                 ];
             }
 
