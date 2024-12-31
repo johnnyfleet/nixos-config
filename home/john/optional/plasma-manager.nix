@@ -60,6 +60,7 @@
                     name = "org.kde.plasma.kickoff"; # Application menu
                     config = {};
                     }
+                    "org.kde.plasma.marginsseparator"
     
             
                     
@@ -69,6 +70,7 @@
                     config = {
                         showDate = true; # Example setting (optional)
                         };
+                    "org.kde.plasma.marginsseparator"
                     }
                     
                     # Right-aligned widgets
