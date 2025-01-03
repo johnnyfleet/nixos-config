@@ -39,7 +39,6 @@
                             "applications:code.desktop"
                             "applications:org.kde.dolphin.desktop"
                             "applications:org.kde.konsole.desktop"
-                            "applications:org.kde.webbrowser.desktop"
                             "applications:obsidian.desktop"
                             ];
                        /*  };
