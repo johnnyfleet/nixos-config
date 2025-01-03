@@ -26,21 +26,14 @@
             # Windows-like panel at the bottom
             {
                 location = "bottom";
+                alignment = "center";
+                hiding = "dodgewindows";
+                maxLength = 1600;
+                minLength = 500;
                 floating = true;
                 widgets = [
-                {
-                    name = "org.kde.plasma.kickoff";
-                    config = {
-                        General = {
-                            icon = "nix-snowflake-white";
-                            alphaSort = true;
-                        };
-                    };
-                }
-                "org.kde.plasma.icontasks"
-                "org.kde.plasma.marginsseparator"
-                "org.kde.plasma.systemtray"
-                "org.kde.plasma.digitalclock"
+                    "org.kde.plasma.icontasks"
+                    "org.kde.plasma.marginsseparator"
                 ];
             }
 
@@ -53,10 +46,7 @@
                 widgets = [
                     # Left-aligned widgets
 
-                    {
-                    name = "org.kde.plasma.pager"; # Virtual desktop switcher
-                    config = {};
-                    }
+                    "org.kde.plasma.pager" # Virtual desktop switcher
                     {
                     name = "org.kde.plasma.kickoff"; # Application menu
                     config = {
@@ -91,16 +81,6 @@
                 ];
             }
 
-
-           /*  # Global menu at the top
-            {
-                location = "top";
-                alignment = "center";
-                floating = true;
-                #hiding = "dodgewindows";
-                height = 26;
-                widgets = [ "org.kde.plasma.appmenu" ];
-            } */
         ];
     };
 
