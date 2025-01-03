@@ -32,7 +32,26 @@
                 minLength = 500;
                 floating = true;
                 widgets = [
-                    "org.kde.plasma.icontasks"
+                    {
+                        name = "org.kde.plasma.icontasks";
+                        config = {
+                            General.launchers = [
+                            "applications:librewolf.desktop"
+                            "applications:kitty.desktop"
+                            "applications:org.kde.dolphin.desktop"
+                            "applications:pycharm-community.desktop"
+                            "applications:webstorm.desktop"
+                            "applications:obsidian.desktop"
+                            "applications:sublime_merge.desktop"
+                            ];
+                        };
+                        appearance = {
+                            showTooltips = true;
+                            highlightWindows = true;
+                            indicateAudioStreams = true;
+                            fill = true;
+                        };
+                    }
                     "org.kde.plasma.marginsseparator"
                 ];
             }
