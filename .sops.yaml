@@ -3,7 +3,7 @@ keys:
     - &john age1xa3e76y4g3526ge8gxhsf4g2ge7g4kn6ct3yp0nwmassnu4h65tsfc9c99
   - &hosts
     - &john-laptop age1nvrqgn5xcnw6vq2y9y4gsh0cmdq38ug2ukdlje6mcdlkg9s9e3ks5csz8k
-    - &nixos-plasma age13c9r6qs5vdxhtkm0wy449w3deqp2pyqx6u9h60xf0azphvy0t4vqjvn6gs
+    - &nixos-plasma age1k3rncp9rxx9mutd5565w6z9havgtq75hgjncl0e9ycasf5rfdsfsefm02t
     - &nixos-gnome age1x5gzqv5djx236ntqc6mvvcds04vx60svqu6ux3kflhwfm09fme5s9uldk9
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
