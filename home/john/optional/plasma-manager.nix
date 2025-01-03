@@ -41,13 +41,13 @@
                             "applications:org.kde.konsole.desktop"
                             "applications:obsidian.desktop"
                             ];
-                       /*  };
-                        appearance = {
+                        };
+                       /*  appearance = {
                             showTooltips = true;
                             highlightWindows = true;
                             indicateAudioStreams = true;
-                            fill = true; */
-                        };
+                            fill = true;
+                        }; */
                     }
                     "org.kde.plasma.marginsseparator"
                 ];
