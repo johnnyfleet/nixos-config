@@ -36,20 +36,18 @@
                         name = "org.kde.plasma.icontasks";
                         config = {
                             General.launchers = [
-                            "applications:librewolf.desktop"
-                            "applications:kitty.desktop"
+                            "applications:code.desktop"
                             "applications:org.kde.dolphin.desktop"
-                            "applications:pycharm-community.desktop"
-                            "applications:webstorm.desktop"
+                            "applications:org.kde.konsole.desktop"
+                            "applications:org.kde.webbrowser.desktop"
                             "applications:obsidian.desktop"
-                            "applications:sublime_merge.desktop"
                             ];
-                        };
+                       /*  };
                         appearance = {
                             showTooltips = true;
                             highlightWindows = true;
                             indicateAudioStreams = true;
-                            fill = true;
+                            fill = true; */
                         };
                     }
                     "org.kde.plasma.marginsseparator"
@@ -96,7 +94,17 @@
                     name = "org.kde.plasma.systemtray"; # System tray
                     config = {};
                     }
-                    "org.kde.plasma.lock_logout"
+                    {
+                        name = "org.kde.plasma.lock_logout";
+                        config = {
+                            General = {
+                                show_lockScreen = "false";
+                                show_requestLogoutScreen = "true";
+                                show_requestReboot = "true";
+                                show_requestShutDown = "true";
+                            };
+                        };
+                    }
                 ];
             }
 
