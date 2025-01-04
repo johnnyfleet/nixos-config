@@ -77,7 +77,7 @@
     expressvpn                     # VPN client
     google-chrome
     #- google-drive-ocamlfuse          # FUSE mount to google drive
-    insync                         # Cloud drive sync gui tool.
+    ##insync                         # Cloud drive sync gui tool.
     #- insync-dolphin                 # Integration to file manager
     #- latte-dock-git                  # Latest version of Latte which fixes full screen window issue on Wayland
     #- nohang-git                     # out of memory management.
