@@ -9,7 +9,8 @@
       ./hardware-configuration.nix
       ../common/users/john.nix
       #../common/users/guest.nix
-      ../common/optional/plasma-minimal.nix
+      #../common/optional/plasma-minimal.nix
+      ../common/optional/xfce-full.nix
       ../common/optional/1password.nix
       ../common/optional/flatpak.nix
       ../common/optional/steam.nix

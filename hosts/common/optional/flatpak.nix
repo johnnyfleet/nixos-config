@@ -4,6 +4,7 @@
 
     # Enable flakpak backend. 
     services.flatpak.enable = true;
+    xdg.portal.enable = true;
 
     # Enable flathub repo
     environment.etc = {
