@@ -29,4 +29,6 @@
     userName = "John Stephenson";
     userEmail = "johnnyfleet@gmail.com";
   };
+
+  xsession.numlock.enable = "true";
 }
