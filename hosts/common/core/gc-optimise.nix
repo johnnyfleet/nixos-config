@@ -1,5 +1,6 @@
 # This file sets some of the useful auto optimise functions to periodically
 # clean up the nixs-store to free up space. 
+# See: https://www.reddit.com/r/NixOS/comments/1cunvdw/friendly_reminder_optimizestore_is_not_on_by/
 
 { config, pkgs, ... }:
 {

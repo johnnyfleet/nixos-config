@@ -26,32 +26,87 @@
             # Windows-like panel at the bottom
             {
                 location = "bottom";
+                alignment = "center";
+                hiding = "dodgewindows";
+                maxLength = 1600;
+                minLength = 500;
                 floating = true;
                 widgets = [
-                {
-                    name = "org.kde.plasma.kickoff";
+                    {
+                        name = "org.kde.plasma.icontasks";
+                        config = {
+                            General.launchers = [
+                            "applications:code.desktop"
+                            "applications:org.kde.dolphin.desktop"
+                            "applications:org.kde.konsole.desktop"
+                            "applications:obsidian.desktop"
+                            ];
+                        };
+                       /*  appearance = {
+                            showTooltips = true;
+                            highlightWindows = true;
+                            indicateAudioStreams = true;
+                            fill = true;
+                        }; */
+                    }
+                    "org.kde.plasma.marginsseparator"
+                ];
+            }
+
+            # Taskbar at the top
+            {
+                location = "top";
+                alignment = "center";
+                floating = true;
+                height = 40 ;
+                widgets = [
+                    # Left-aligned widgets
+
+                    "org.kde.plasma.pager" # Virtual desktop switcher
+                    {
+                    name = "org.kde.plasma.kickoff"; # Application menu
                     config = {
                         General = {
                             icon = "nix-snowflake-white";
                             alphaSort = true;
                         };
                     };
-                }
-                "org.kde.plasma.icontasks"
-                "org.kde.plasma.marginsseparator"
-                "org.kde.plasma.systemtray"
-                "org.kde.plasma.digitalclock"
+                    }
+                    "org.kde.plasma.appmenu"
+                    "org.kde.plasma.panelspacer"
+    
+            
+                    
+                    # Center-aligned widgets
+                    {
+                    name = "org.kde.plasma.digitalclock"; # Digital clock
+                    config = {
+                        showDate = true; # Example setting (optional)
+                        };
+                    }
+                    "org.kde.plasma.panelspacer"
+                    
+                    # Right-aligned widgets
+                    "org.kde.plasma.systemmonitor.cpu"
+                    "org.kde.plasma.systemmonitor.memory"
+                    {
+                    name = "org.kde.plasma.systemtray"; # System tray
+                    config = {};
+                    }
+                    {
+                        name = "org.kde.plasma.lock_logout";
+                        config = {
+                            General = {
+                                show_lockScreen = "false";
+                                show_requestLogoutScreen = "true";
+                                show_requestReboot = "true";
+                                show_requestShutDown = "true";
+                            };
+                        };
+                    }
                 ];
             }
-            # Global menu at the top
-            {
-                location = "top";
-                alignment = "center";
-                floating = true;
-                #hiding = "dodgewindows";
-                height = 26;
-                widgets = [ "org.kde.plasma.appmenu" ];
-            }
+
         ];
     };
 
