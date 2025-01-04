@@ -83,5 +83,27 @@
         ];
       };
 
+      nixosConfigurations.john-sony-laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/john-sony-laptop/default.nix
+
+          # make home-manager as a module of nixos
+          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+
+            # TODO replace ryan with your own username
+            home-manager.users.john = import ./home/john/john-sony-laptop.nix;
+
+            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+          }
+        ];
+      };
+
     };
 }
