@@ -11,7 +11,7 @@
 
     shellAliases = {
       ll = "eza -al --icons --color";
-      suu = "sudo nixos-rebuild switch --flake ~/.config/nixos-config#vm";
+      suu = "sudo nixos-rebuild switch --flake ~/.config/nixos-config";
       gp = "cd ~/.config/nixos-config && git pull";
       sgc = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
     };
