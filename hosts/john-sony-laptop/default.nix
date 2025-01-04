@@ -57,7 +57,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.hostName = "john-sony-laptop"
+  networking.hostName = "john-sony-laptop";
   services.tailscale.enable = true;
 
   services.avahi.enable = true;
