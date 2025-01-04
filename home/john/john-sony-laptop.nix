@@ -30,5 +30,5 @@
     userEmail = "johnnyfleet@gmail.com";
   };
 
-  xsession.numlock.enable = "true";
+  xsession.numlock.enable = true;
 }
