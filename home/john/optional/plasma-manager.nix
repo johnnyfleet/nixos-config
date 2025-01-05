@@ -14,7 +14,7 @@
       cursor.theme = "Bibata-Modern-Ice";
       iconTheme = "breeze-dark";
       #wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Patak/contents/images/1080x1920.png";
-      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/1920x1080.png";
+      wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/1920x1080.jpg";
     };
 
     hotkeys.commands."launch-konsole" = {
