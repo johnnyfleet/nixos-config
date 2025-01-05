@@ -37,7 +37,7 @@
     nettools # ipconfig etc.
     obsidian # Note taking app
     packer # create VM images
-    plex # Plex Desktop
+    plex-desktop # Plex Desktop
     plexamp # Plexamp player
     quickemu # Quickly create and run vms.
     rclone # Sync to multiple cloud locations.
