@@ -31,12 +31,10 @@
     ];
   };
 
-    # basic configuration of git, please change to your own
+  # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
     userName = "John Stephenson";
-    userEmail = "johnnyfleet@gmail.com";
-    #userName = config.sops.secrets.git-user-name;
-    #userEmail = config.sops.secrets.git-user-email;
+    userEmail = "14134347+johnnyfleet@users.noreply.github.com";
   };
-} 
+}

@@ -1,4 +1,4 @@
-{ configVars, ... }:
+{ configVars, config, ... }:
 {
   imports = [
     #################### Required Configs ####################
@@ -31,8 +31,10 @@
     defaultSopsFile = ../../secrets/secrets.yaml;
 
     secrets.git-user-name = {
-      #key = "git-user-name";
+      key = "git-user-name";
     };
-    secrets.git-user-email = {};
+    secrets.git-user-email = {
+      key = "git-user-email";
+    };
   };
 }
