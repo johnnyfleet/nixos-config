@@ -150,6 +150,7 @@
   # Included packages here
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    age
     btop
     dig
     du-dust
@@ -171,6 +172,8 @@
     nh
     nil # nix language server - for vscode autocomplete
     nixfmt-rfc-style
+    sops
+    ssh-to-age
     wget
     wrk
   ];
