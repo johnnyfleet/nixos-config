@@ -3,13 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-     # The next two are for pinning to stable vs unstable regardless of what the above is set to
+    # The next two are for pinning to stable vs unstable regardless of what the above is set to
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.11";
-
 
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with
@@ -31,7 +30,13 @@
   };
 
   outputs =
-    { nixpkgs, self,  home-manager, plasma-manager, ... }@inputs:
+    {
+      nixpkgs,
+      self,
+      home-manager,
+      plasma-manager,
+      ...
+    }@inputs:
     {
       apps."x86_64-linux" = {
         default = {
@@ -41,7 +46,7 @@
       };
       nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/nixos-anywhere-vm/default.nix
 
@@ -63,7 +68,7 @@
 
       nixosConfigurations.vm-plasma = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/nixos-plasma-vm/default.nix
 
@@ -85,7 +90,7 @@
 
       nixosConfigurations.john-sony-laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/john-sony-laptop/default.nix
 
