@@ -15,6 +15,7 @@
       # the `inputs.nixpkgs` of the current flake,
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
+
     };
     # Secrets management. See ./docs/secretsmgmt.md
     sops-nix = {
@@ -35,6 +36,7 @@
       self,
       home-manager,
       plasma-manager,
+      sops-nix,
       ...
     }@inputs:
     {
@@ -56,7 +58,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+            home-manager.sharedModules = [
+              plasma-manager.homeManagerModules.plasma-manager
+              inputs.sops-nix.homeManagerModules.sops
+            ];
 
             # TODO replace ryan with your own username
             home-manager.users.john = import ./home/john/nixos-anywhere-vm.nix;
@@ -78,7 +83,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+            home-manager.sharedModules = [
+              plasma-manager.homeManagerModules.plasma-manager
+              inputs.sops-nix.homeManagerModules.sops
+            ];
 
             # TODO replace ryan with your own username
             home-manager.users.john = import ./home/john/nixos-plasma-vm.nix;
@@ -100,7 +108,10 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+            home-manager.sharedModules = [
+              plasma-manager.homeManagerModules.plasma-manager
+              inputs.sops-nix.homeManagerModules.sops
+            ];
 
             # TODO replace ryan with your own username
             home-manager.users.john = import ./home/john/john-sony-laptop.nix;
