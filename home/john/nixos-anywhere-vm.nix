@@ -21,12 +21,4 @@
 
   # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-
-  # basic configuration of git, please change to your own
-  programs.git = {
-    enable = true;
-    userName = "John Stephenson";
-    userEmail = "johnnyfleet@gmail.com";
-  };
 }
