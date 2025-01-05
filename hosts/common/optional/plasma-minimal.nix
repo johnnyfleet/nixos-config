@@ -23,6 +23,12 @@
   # Enable polkit which should allow kate to run.
   security.polkit.enable = true;
 
+  # Enable kwallet so that it auto unlocks on login. 
+  security.pam.services.kwallet = {
+    name = "kwallet";
+    enableKwallet = true;
+  };
+
   hardware = {
     bluetooth.enable = true;
   };
