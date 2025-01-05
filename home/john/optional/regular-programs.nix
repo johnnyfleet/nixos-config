@@ -22,7 +22,7 @@
     guestfs-tools # `virt-sparsify and other libvirt tools
     hplipWithPlugin # HP Printer utility
     htop
-    #insync                         # Cloud drive sync gui tool.
+    insync                         # Cloud drive sync gui tool.
     ipafont # extra fonts for unicode support. Used for Japanese characters.
     iucode-tool # Check intel microcode for updates (dependency on needrestart)
     jq # JSON parser
@@ -38,6 +38,7 @@
     nettools # ipconfig etc.
     obsidian # Note taking app
     packer # create VM images
+    plexamp # Plexamp player
     quickemu # Quickly create and run vms.
     rclone # Sync to multiple cloud locations.
     remmina # Remote Desktop viewer
@@ -63,7 +64,7 @@
     #- com.yubico.yubioath                         # Yubikey OATH tool
     #- com.plexamp.Plexamp                         # Plexamp player
     #- com.moonlight_stream.Moonlight              # Moonlight came streaming client
-    plexamp # Plexamp player
+    
 
   ];
 }
