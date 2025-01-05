@@ -160,6 +160,7 @@
     du-dust
     gh
     mosh
+    nixfmt-rfc-style
   ];
 
   system.stateVersion = "22.11";
