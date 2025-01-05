@@ -150,27 +150,26 @@
   environment.systemPackages = with pkgs; [
     btop
     dig
+    du-dust
     duf
     eza
+    fastfetch
     firefox
-    hey
-    httpie
-    htop
-    #google-chrome
-    neovim
-    wget
-    wrk
+    gh
     git
+    glances
+    hey
+    htop
+    httpie
     jq
+    mosh
     ncdu
     neofetch
-    fastfetch
-    glances
-    du-dust
+    neovim
     nil # nix language server - for vscode autocomplete
-    gh
-    mosh
     nixfmt-rfc-style
+    wget
+    wrk
   ];
 
   system.stateVersion = "22.11";
