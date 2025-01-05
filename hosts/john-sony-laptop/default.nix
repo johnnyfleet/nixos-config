@@ -168,6 +168,7 @@
     ncdu
     neofetch
     neovim
+    nh
     nil # nix language server - for vscode autocomplete
     nixfmt-rfc-style
     wget
