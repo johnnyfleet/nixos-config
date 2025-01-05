@@ -18,16 +18,17 @@
 
   services.desktopManager.plasma6.enable = true;
 
-  services.displayManager.autoLogin.user = "john";
+  #services.displayManager.autoLogin.user = "john";
 
   # Enable polkit which should allow kate to run.
   security.polkit.enable = true;
 
   # Enable kwallet so that it auto unlocks on login. 
-  security.pam.services.kwallet = {
+  /* security.pam.services.kwallet = {
     name = "kwallet";
     enableKwallet = true;
-  };
+  }; */
+  security.pam.services.sddm.enableKwallet = true;
 
   hardware = {
     bluetooth.enable = true;
