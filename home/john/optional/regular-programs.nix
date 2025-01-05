@@ -13,7 +13,6 @@
     expressvpn # VPN client
     eza # alternative to ls which is more colourful and includes icons.
     fastfetch # Neofetch replacement
-    firefox
     flameshot # Screen Snipping tool
     gh # GitHub CLI tool
     glances # Another monitoring tool
@@ -66,4 +65,8 @@
     #- com.moonlight_stream.Moonlight              # Moonlight came streaming client
 
   ];
+
+  # See https://github.com/Misterio77/nix-config/blob/main/home/gabriel/features/desktop/common/firefox.nix for tips
+  programs.firefox.enable = true;
+  
 }
