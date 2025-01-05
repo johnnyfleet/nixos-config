@@ -43,6 +43,7 @@
                 "applications:obsidian.desktop"
                 "applications:1password.desktop"
                 "applications:steam.desktop"
+                "applications:firefox.desktop"
               ];
             };
             /*
