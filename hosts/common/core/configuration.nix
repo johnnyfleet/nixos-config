@@ -2,11 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, secrets, ... }:
+{
+  config,
+  pkgs,
+  secrets,
+  ...
+}:
 
 {
   # Enable the Flakes feature and the accompanying new nix command-line tool
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -60,19 +68,21 @@
     #media-session.enable = true;
   };
 
-   # Configure system wide fonts.
-   fonts = {
-        enableDefaultPackages = true;
-        fontDir.enable = true;
+  # Configure system wide fonts.
+  fonts = {
+    enableDefaultPackages = true;
+    fontDir.enable = true;
 
-        packages = with pkgs; [
-            (nerdfonts.override { fonts = [
-                "SpaceMono"
-                "JetBrainsMono"
-                "DejaVuSansMono"
-             ]; })
+    packages = with pkgs; [
+      (nerdfonts.override {
+        fonts = [
+          "SpaceMono"
+          "JetBrainsMono"
+          "DejaVuSansMono"
         ];
-    };
+      })
+    ];
+  };
 
   # Enable firewall.
   networking.firewall.enable = true;
@@ -90,52 +100,52 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-	htop
-	neovim
-	neofetch
-	utterly-nord-plasma
-	libsForQt5.ktexteditor
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    htop
+    neovim
+    neofetch
+    utterly-nord-plasma
+    libsForQt5.ktexteditor
 
-	# Enable flatpak support in discover.
-	libsForQt5.discover
-	libsForQt5.packagekit-qt
-	libportal-qt5
+    # Enable flatpak support in discover.
+    libsForQt5.discover
+    libsForQt5.packagekit-qt
+    libportal-qt5
 
-        avahi
-        ctop
-	screen
-	jq
-	insync
-	ncdu
-#	tailscale
-	expressvpn
-	google-chrome
-	speedtest-cli
-	glances
-	duf
-	obsidian
-	mutt
-	mosh
-	pandoc
-	steam
-	qmmp
-	tlp
-	docker-compose
-	du-dust
-	flameshot
-	trash-cli
-	ghostwriter
-	protonup-qt
-	heroic
-	rclone
-	git
-	gh
+    avahi
+    ctop
+    screen
+    jq
+    insync
+    ncdu
+    #	tailscale
+    expressvpn
+    google-chrome
+    speedtest-cli
+    glances
+    duf
+    obsidian
+    mutt
+    mosh
+    pandoc
+    steam
+    qmmp
+    tlp
+    docker-compose
+    du-dust
+    flameshot
+    trash-cli
+    ghostwriter
+    protonup-qt
+    heroic
+    rclone
+    git
+    gh
 
-	eza
-	nixos-generators
-	spice-vdagent
+    eza
+    nixos-generators
+    spice-vdagent
   ];
 
   # Install 1password
@@ -156,8 +166,6 @@
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
   services.spice-autorandr.enable = true;
-
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

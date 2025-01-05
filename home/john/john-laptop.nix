@@ -41,7 +41,7 @@
     p7zip
 
     #ZSH custom outline
-    zsh-powerlevel10k 
+    zsh-powerlevel10k
     meslo-lgs-nf
     thefuck
 
@@ -83,7 +83,7 @@
     #hugo # static site generator
     #glow # markdown previewer in terminal
 
-    btop  # replacement of htop/nmon
+    btop # replacement of htop/nmon
     iotop # io monitoring
     iftop # network monitoring
 
@@ -131,27 +131,30 @@
     };
 
     plugins = [
-        {
-          name = "powerlevel10k";
-          src = pkgs.zsh-powerlevel10k;
-          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-        }
-	{
-          name = "powerlevel10k-config";
-          src = ./p10k-config;
-          file = "p10k.zsh";
-        }
-      ];
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = ./p10k-config;
+        file = "p10k.zsh";
+      }
+    ];
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "thefuck" ]; 
+      plugins = [
+        "git"
+        "thefuck"
+      ];
       theme = "robbyrussell";
     };
-    
+
     history.size = 10000;
     history.path = "${config.xdg.dataHome}/zsh/history";
-  }; 
+  };
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage

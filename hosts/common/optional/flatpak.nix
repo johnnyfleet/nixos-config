@@ -2,12 +2,12 @@
 
 {
 
-    # Enable flakpak backend. 
-    services.flatpak.enable = true;
-    xdg.portal.enable = true;
+  # Enable flakpak backend.
+  services.flatpak.enable = true;
+  xdg.portal.enable = true;
 
-    # Enable flathub repo
-    environment.etc = {
+  # Enable flathub repo
+  environment.etc = {
     "flatpak/remotes.d/flathub.flatpakrepo".source = pkgs.fetchurl {
       url = "https://dl.flathub.org/repo/flathub.flatpakrepo";
       # Let this run once and you will get the hash as an error.
