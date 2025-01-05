@@ -4,6 +4,8 @@
   pkgs,
   outputs,
   configLib,
+  sops-nix,
+  secrets,
   ...
 }:
 {
@@ -34,5 +36,7 @@
     enable = true;
     userName = "John Stephenson";
     userEmail = "johnnyfleet@gmail.com";
+    #userName = config.sops.secrets.git-user-name;
+    #userEmail = config.sops.secrets.git-user-email;
   };
-}
+} 
