@@ -20,7 +20,7 @@
     enable = true;
     extensions = with pkgs.vscode-extensions; [
       jnoortheen.nix-ide
-      henriiik.vscode-sort
+      #henriiik.vscode-sort
       yzhang.markdown-all-in-one
       github.copilot
       github.copilot-chat
