@@ -30,7 +30,7 @@
         alignment = "center";
         hiding = "dodgewindows";
         maxLength = 1600;
-        minLength = 500;
+        minLength = 200;
         floating = true;
         widgets = [
           {
