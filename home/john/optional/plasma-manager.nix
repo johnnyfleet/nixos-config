@@ -63,8 +63,6 @@
         height = 40;
         widgets = [
           # Left-aligned widgets
-
-          "org.kde.plasma.pager" # Virtual desktop switcher
           {
             name = "org.kde.plasma.kickoff"; # Application menu
             config = {
@@ -74,6 +72,7 @@
               };
             };
           }
+          "org.kde.plasma.pager" # Virtual desktop switcher
           "org.kde.plasma.appmenu"
           "org.kde.plasma.panelspacer"
 
