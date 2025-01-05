@@ -158,6 +158,7 @@
     fastfetch
     glances
     du-dust
+    nil #nix language server - for vscode autocomplete
     gh
     mosh
     nixfmt-rfc-style
