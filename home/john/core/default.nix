@@ -28,4 +28,11 @@
       eamodio.gitlens
     ];
   };
+
+    # basic configuration of git, please change to your own
+  programs.git = {
+    enable = true;
+    userName = "John Stephenson";
+    userEmail = "johnnyfleet@gmail.com";
+  };
 }
