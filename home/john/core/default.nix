@@ -37,4 +37,19 @@
     userName = "John Stephenson";
     userEmail = "14134347+johnnyfleet@users.noreply.github.com";
   };
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+  };
+
+  programs.neovim = {
+    enable = true;
+    package = pkgs.neovim;
+    vimAlias = true; # Alias vim to nvim
+    viAlias = true; # Alias vi to nvim
+    vimdiffAlias = true;
+    withNodeJs = true;
+    withPython3 = true;
+  };
 }
