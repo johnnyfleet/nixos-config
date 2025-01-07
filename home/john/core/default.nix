@@ -45,11 +45,21 @@
 
   programs.neovim = {
     enable = true;
+    defaultEditor = true;
     #package = pkgs.neovim;
     vimAlias = true; # Alias vim to nvim
     viAlias = true; # Alias vi to nvim
     vimdiffAlias = true;
     withNodeJs = true;
     withPython3 = true;
+    plugins = with pkgs.vimPlugins; [
+      nvim-lspconfig
+      nvim-treesitter.withAllGrammars
+      plenary-nvim
+      gruvbox-material
+      mini-nvim
+      nordic-nvim
+      render-markdown-nvim
+    ];
   };
 }
