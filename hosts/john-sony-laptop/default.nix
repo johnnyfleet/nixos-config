@@ -153,6 +153,7 @@
   environment.systemPackages = with pkgs; [
     age
     btop
+    cifs-utils 
     dig
     du-dust
     duf
