@@ -8,7 +8,10 @@
     enableCompletion = true;
     #autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-    initExtra = "export MANPAGER='nvim +Man!'";
+    initExtra = "
+      export MANPAGER='nvim +Man!'
+      export GROFF_NO_SGR=1
+    ";
 
     shellAliases = {
       ll = "eza -al --icons --color";
