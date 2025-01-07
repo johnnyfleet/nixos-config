@@ -69,7 +69,9 @@
   services.tailscale.enable = true;
 
   services.avahi.enable = true;
-
+  
+  #Switch to more modern nftables implementation
+  networking.nftables.enable = true;
   networking.firewall = {
     # enable the firewall
     enable = true;
