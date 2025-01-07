@@ -70,6 +70,20 @@
 
   services.avahi.enable = true;
 
+  networking.firewall = {
+    # enable the firewall
+    enable = true;
+
+    # always allow traffic from your Tailscale network
+    trustedInterfaces = [ "tailscale0" ];
+
+    # allow the Tailscale UDP port through the firewall
+    allowedUDPPorts = [ config.services.tailscale.port ];
+
+    # let you SSH in over the public internet
+    networking.firewall.allowedTCPPorts = [ 22 ];
+  };
+
   ############################## LOCALE ##############################
   console.keyMap = "us";
 
@@ -153,7 +167,7 @@
   environment.systemPackages = with pkgs; [
     age
     btop
-    cifs-utils 
+    cifs-utils
     dig
     du-dust
     duf
