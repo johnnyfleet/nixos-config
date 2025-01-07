@@ -45,7 +45,7 @@
 
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim;
+    #package = pkgs.neovim;
     vimAlias = true; # Alias vim to nvim
     viAlias = true; # Alias vi to nvim
     vimdiffAlias = true;
