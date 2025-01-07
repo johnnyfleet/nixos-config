@@ -144,8 +144,9 @@
 
   ########################## PACKAGES ##############################
 
-  # Enable ssh
+  # Enable ssh & fail2ban
   services.sshd.enable = true;
+  services.fail2ban.enable = true;
 
   # Included packages here
   nixpkgs.config.allowUnfree = true;
