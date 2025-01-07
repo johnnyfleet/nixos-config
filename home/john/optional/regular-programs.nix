@@ -33,7 +33,7 @@
     mosh # For connecting over SSH and maintaining session.
     ncdu # Disk usage CLI
     neofetch # Nice system info CLI command
-    neovim # Vim
+    #neovim # Vim
     nettools # ipconfig etc.
     obsidian # Note taking app
     packer # create VM images
