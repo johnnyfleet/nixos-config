@@ -3,8 +3,7 @@ keys:
     - &john age1xa3e76y4g3526ge8gxhsf4g2ge7g4kn6ct3yp0nwmassnu4h65tsfc9c99
   - &hosts
     - &john-laptop age1nvrqgn5xcnw6vq2y9y4gsh0cmdq38ug2ukdlje6mcdlkg9s9e3ks5csz8k
-    - &nixos-plasma age1k3rncp9rxx9mutd5565w6z9havgtq75hgjncl0e9ycasf5rfdsfsefm02t
-    - &nixos-gnome age1x5gzqv5djx236ntqc6mvvcds04vx60svqu6ux3kflhwfm09fme5s9uldk9
+    - &nixos-gnome age13sy7jh7eug67h9d72djarjeyr63xxfdye3uuplkwcxkzryfadgjqtpazjy
     - &john-sony-laptop age1rvdsvvrud5nw94d5fu78yy8zhtr6x5qg0gsukfj36a2cglywfusslw647p
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
@@ -12,6 +11,5 @@ creation_rules:
       - age:
         - *john
         - *john-laptop
-        - *nixos-plasma
         - *nixos-gnome
         - *john-sony-laptop
