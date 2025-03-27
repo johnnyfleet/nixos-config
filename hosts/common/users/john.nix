@@ -20,7 +20,7 @@
       let
         authorizedKeys = pkgs.fetchurl {
           url = "https://github.com/johnnyfleet.keys";
-          sha256 = "c21a78bd93b68c81ee1c41579474e88f6d65cd4fb03cb5c7b5745df591bf90fa";
+          sha256 = "5ed2eb4be4f1faec7e860715ea1a6ec03f60c26ffb173b062b034230f94d4785";
         };
       in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
