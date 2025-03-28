@@ -167,6 +167,10 @@
   services.sshd.enable = true;
   services.fail2ban.enable = true;
 
+
+  # Enable smartcard reader - for Yubikey reading.
+  services.pcscd.enable = true;
+
   # Included packages here
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
