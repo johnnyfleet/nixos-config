@@ -28,7 +28,7 @@
   outputs =
     { nixpkgs, self, home-manager, plasma-manager, sops-nix, ... }@inputs:
     let
-      # Optional: a system-wide overlay. This will override hplip for packages built via the system.
+      # Define an overlay for the hplip package fix.
       hplipOverlay = (final: prev: {
         hplip = prev.hplip.overrideAttrs (old: rec {
           plugin = prev.fetchurl {
@@ -41,6 +41,11 @@
           };
         });
       });
+      # Create a home-manager package set that includes the overlay.
+      hmPkgs = import nixpkgs {
+        system = "x86_64-linux";
+        overlays = [ hplipOverlay ];
+      };
     in {
       apps."x86_64-linux" = {
         default = {
@@ -55,30 +60,18 @@
         modules = [
           ./hosts/nixos-anywhere-vm/default.nix
           {
-            # Apply the overlay for system packages (if needed).
+            # (Optional) apply the overlay to system packages if needed.
             nixpkgs.overlays = [ hplipOverlay ];
           }
-          # Home-manager as a NixOS module with packageOverrides added.
           home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
+            # Disable use of global pkgs and provide our custom package set.
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
+            home-manager.pkgs = hmPkgs;
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
             ];
-            # Override hplip in the home-manager package set.
-            home-manager.packageOverrides = pkgs: {
-              hplip = pkgs.hplip.overrideAttrs (old: rec {
-                plugin = pkgs.fetchurl {
-                  url = "https://developers.hp.com/sites/default/files/hplip-3.24.4-plugin.run";
-                  hash = "sha256-Hzxr3SVmGoouGBU2VdbwbwKMHZwwjWnI7P13Z6LQxao=";
-                  curlOptsList = [
-                    "-A"
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
-                  ];
-                };
-              });
-            };
             home-manager.users.john = import ./home/john/nixos-anywhere-vm.nix;
           }
         ];
@@ -93,24 +86,13 @@
             nixpkgs.overlays = [ hplipOverlay ];
           }
           home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
+            home-manager.pkgs = hmPkgs;
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
             ];
-            home-manager.packageOverrides = pkgs: {
-              hplip = pkgs.hplip.overrideAttrs (old: rec {
-                plugin = pkgs.fetchurl {
-                  url = "https://developers.hp.com/sites/default/files/hplip-3.24.4-plugin.run";
-                  hash = "sha256-Hzxr3SVmGoouGBU2VdbwbwKMHZwwjWnI7P13Z6LQxao=";
-                  curlOptsList = [
-                    "-A"
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
-                  ];
-                };
-              });
-            };
             home-manager.users.john = import ./home/john/nixos-plasma-vm.nix;
           }
         ];
@@ -125,24 +107,13 @@
             nixpkgs.overlays = [ hplipOverlay ];
           }
           home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
+            home-manager.pkgs = hmPkgs;
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
             ];
-            home-manager.packageOverrides = pkgs: {
-              hplip = pkgs.hplip.overrideAttrs (old: rec {
-                plugin = pkgs.fetchurl {
-                  url = "https://developers.hp.com/sites/default/files/hplip-3.24.4-plugin.run";
-                  hash = "sha256-Hzxr3SVmGoouGBU2VdbwbwKMHZwwjWnI7P13Z6LQxao=";
-                  curlOptsList = [
-                    "-A"
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"
-                  ];
-                };
-              });
-            };
             home-manager.users.john = import ./home/john/john-sony-laptop.nix;
           }
         ];
