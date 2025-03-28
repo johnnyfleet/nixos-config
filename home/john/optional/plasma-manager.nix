@@ -17,6 +17,12 @@
       wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/1920x1080.jpg";
     };
 
+    # Set screen timeout to 10 minutes. 
+    kscreenlocker = {
+      lockOnResume = true;
+      timeout = 10;
+    };
+
     hotkeys.commands."launch-konsole" = {
       name = "Launch Konsole";
       key = "Meta+Alt+K";
