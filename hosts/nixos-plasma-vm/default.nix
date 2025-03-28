@@ -57,6 +57,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.hostName = "vm-plasma";
   services.tailscale.enable = true;
 
   services.avahi.enable = true;
