@@ -59,7 +59,7 @@
   boot.loader.grub.useOSProber = true;
 
   # Downgrade kernal version to see if fixes tearing from suspend. This seems to work.
-  boot.kernelPackages = pkgs.linuxPackages_5_10;
+  #boot.kernelPackages = pkgs.linuxPackages_5_10;
 
   #boot.loader.systemd-boot.enable = true;linuxPackages_latest
   #boot.loader.efi.canTouchEfiVariables = true;
