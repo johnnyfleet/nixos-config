@@ -58,7 +58,10 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-  #boot.loader.systemd-boot.enable = true;
+  # Downgrade kernal version to see if fixes tearing from suspend
+  boot.kernelPackages = pkgs.linuxPackages_5_10;
+
+  #boot.loader.systemd-boot.enable = true;linuxPackages_latest
   #boot.loader.efi.canTouchEfiVariables = true;
 
   ############################ NETWORKING ########################
@@ -194,6 +197,7 @@
     ssh-to-age
     wget
     wrk
+    hplipWithPlugin # HP Printer utility
   ];
 
   system.stateVersion = "22.11";
