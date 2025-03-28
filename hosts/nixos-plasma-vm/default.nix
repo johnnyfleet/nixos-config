@@ -184,6 +184,7 @@
     du-dust
     gh
     mosh
+    nh
   ];
 
   system.stateVersion = "22.11";
