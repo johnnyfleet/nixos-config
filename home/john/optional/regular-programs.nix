@@ -69,5 +69,5 @@
 
   # See https://github.com/Misterio77/nix-config/blob/main/home/gabriel/features/desktop/common/firefox.nix for tips
   programs.firefox.enable = true;
-
+  
 }
