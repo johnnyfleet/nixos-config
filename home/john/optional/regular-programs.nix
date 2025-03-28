@@ -50,7 +50,7 @@
     trash-cli # Simple utility to clean trash but running trash-empty either as user or sudo for root.
     vlc # VLC media player
     yubikey-manager # To manage YubiKey on device.
-    yubikey-manager-qt # GUI to managhe Yubikey
+    #yubikey-manager-qt # GUI to managhe Yubikey
     yubioath-flutter # Desktop tool to manage OATH requests via Yubikey. This one doesn't work - replace with flatpak version.
     zoom-us # Video conferencing. AUR seems to work better than Flatpak.
 
