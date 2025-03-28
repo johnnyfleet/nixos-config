@@ -19,7 +19,7 @@
     gnome-keyring # Keyring to access secrets wallet - used for VS code
     google-chrome
     guestfs-tools # `virt-sparsify and other libvirt tools
-    hplipWithPlugin # HP Printer utility
+    #hplipWithPlugin # HP Printer utility
     htop
     insync                         # Cloud drive sync gui tool.
     ipafont # extra fonts for unicode support. Used for Japanese characters.
@@ -69,5 +69,5 @@
 
   # See https://github.com/Misterio77/nix-config/blob/main/home/gabriel/features/desktop/common/firefox.nix for tips
   programs.firefox.enable = true;
-  
+
 }
