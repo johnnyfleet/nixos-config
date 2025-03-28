@@ -58,7 +58,7 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-  # Downgrade kernal version to see if fixes tearing from suspend
+  # Downgrade kernal version to see if fixes tearing from suspend. This seems to work.
   boot.kernelPackages = pkgs.linuxPackages_5_10;
 
   #boot.loader.systemd-boot.enable = true;linuxPackages_latest
