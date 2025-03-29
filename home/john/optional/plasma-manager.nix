@@ -29,6 +29,17 @@
       command = "konsole";
     };
 
+    # Configure flameshot to use Meta+Shift+S as the shortcut for taking screenshots
+    shortcuts = {
+      "services/org.flameshot.Flameshot.desktop"."Capture" = "Meta+Shift+S";
+    };
+
+
+    #configFile = {
+    #  # Override the shortcut in the kglobalshortcutsrc file:
+    #  "kglobalshortcutsrc"."services/org.flameshot.Flameshot.desktop"."Capture" = "Meta+Shift+S";
+    #};
+
     panels = [
       # Windows-like panel at the bottom
       {

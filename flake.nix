@@ -60,6 +60,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup"; # backup existing config before HM manages.
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
@@ -85,6 +86,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup"; # backup existing config before HM manages.
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
@@ -110,6 +112,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup"; # backup existing config before HM manages.
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
