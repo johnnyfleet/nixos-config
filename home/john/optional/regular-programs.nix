@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, system, ... }:
 {
 
   # Packages that should be installed to the user profile.
@@ -53,6 +53,7 @@
     #yubikey-manager-qt # GUI to managhe Yubikey
     yubioath-flutter # Desktop tool to manage OATH requests via Yubikey. This one doesn't work - replace with flatpak version.
     zoom-us # Video conferencing. AUR seems to work better than Flatpak.
+    inputs.zen-browser.packages."${system}".default
 
     # DOCKER_PACKAGES:
     docker-compose # Compose
