@@ -66,7 +66,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup"; # backup existing config before HM manages.
+            home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
@@ -74,6 +74,7 @@
 
             # TODO replace ryan with your own username
             home-manager.users.john = import ./home/john/nixos-anywhere-vm.nix;
+            home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
@@ -92,7 +93,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "backup"; # backup existing config before HM manages.
+            home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
@@ -100,6 +101,7 @@
 
             # TODO replace ryan with your own username
             home-manager.users.john = import ./home/john/nixos-plasma-vm.nix;
+            home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
 
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
@@ -118,7 +120,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "HMBbackup"; # backup existing config before HM manages.
+            home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
