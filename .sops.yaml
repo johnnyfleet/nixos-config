@@ -2,7 +2,7 @@ keys:
   - &users
     - &john age1xa3e76y4g3526ge8gxhsf4g2ge7g4kn6ct3yp0nwmassnu4h65tsfc9c99
   - &hosts
-    - &john-laptop age1nvrqgn5xcnw6vq2y9y4gsh0cmdq38ug2ukdlje6mcdlkg9s9e3ks5csz8k
+    - &john-laptop age1esff9mgd0nwqgcfx3yhqsyhkufc6xrske6z2v4s9mwxs956083zq0t0pde
     - &nixos-gnome age13sy7jh7eug67h9d72djarjeyr63xxfdye3uuplkwcxkzryfadgjqtpazjy
     - &john-sony-laptop age1rvdsvvrud5nw94d5fu78yy8zhtr6x5qg0gsukfj36a2cglywfusslw647p
 creation_rules:
