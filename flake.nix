@@ -14,8 +14,7 @@
     };
     home-manager = {
       url = "github:nix-community/home-manager";
-      #url = "github:nix-community/home-manager/release-24.11";
-      
+      #url = "github:nix-community/home-manager/release-24.11"  
 
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with
@@ -35,6 +34,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   outputs =
@@ -45,6 +46,7 @@
       plasma-manager,
       sops-nix,
       zen-browser,
+      nixos-hardware,
       ...
     }@inputs:
     {
@@ -139,6 +141,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/john-laptop/default.nix
+          nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
