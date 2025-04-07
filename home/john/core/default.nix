@@ -17,10 +17,13 @@
   home.username = "john";
   home.homeDirectory = "/home/john";
 
+  # john profile: The option `programs.vscode.extensions' defined in 
+  #`/nix/store/3j51n5lyc7fli4w6ic7frvgjdkii1xa5-source/home/john/core/default.nix' 
+  # has been renamed to `programs.vscode.profiles.default.extensions'.
   # Enable VSCode
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       jnoortheen.nix-ide
       #henriiik.vscode-sort
       yzhang.markdown-all-in-one
