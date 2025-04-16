@@ -20,6 +20,7 @@
       gp = "cd ~/.config/nixos-config && git pull";
       sgc = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
       nf = "fastfetch";
+      ff = "fastfetch";
       sbj = "ssh john@big-john";
       ts = "tailscale status";
       tu = "sudo tailscale up";
