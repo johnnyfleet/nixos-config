@@ -74,6 +74,9 @@
   # Downgrade kernal version to see if fixes tearing from suspend. This seems to work.
   #boot.kernelPackages = pkgs.linuxPackages_5_10;
 
+  # Switch to Zen linux kernel for slightly smoother gameplay. 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   #boot.loader.systemd-boot.enable = true;linuxPackages_latest
   #boot.loader.efi.canTouchEfiVariables = true;
 
