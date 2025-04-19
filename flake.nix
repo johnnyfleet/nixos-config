@@ -162,6 +162,7 @@
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
+              nix-index-database.hmModules.nix-index
             ];
 
             # TODO replace ryan with your own username
