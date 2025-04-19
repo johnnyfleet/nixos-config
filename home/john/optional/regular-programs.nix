@@ -27,7 +27,6 @@
     jq # JSON parser
     kdePackages.discover # KDE store to install flatpak packages
     kdePackages.ghostwriter # Really good markdown editor, similar to Apostrophe
-    kdePackages.partitionmanager # Disk Partition Manager
     libinput-gestures # To get multi finger gestures on touchpad working
     microsoft-edge
     mosh # For connecting over SSH and maintaining session.
@@ -67,6 +66,8 @@
     #- com.moonlight_stream.Moonlight              # Moonlight came streaming client
 
   ];
+
+  programs.partition-manager.enable = true; # Disk Partition Manager
 
   # See https://github.com/Misterio77/nix-config/blob/main/home/gabriel/features/desktop/common/firefox.nix for tips
   programs.firefox.enable = true;
