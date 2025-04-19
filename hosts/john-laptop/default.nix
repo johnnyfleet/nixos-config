@@ -180,9 +180,12 @@
   ########################## PACKAGES ##############################
 
   # Enable fingerprint 
-  services.fprintd.enable = true;
-  services.fprintd.tod.enable = true;
-  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
+  services.fprintd = {
+    enable = true;
+    tod.enable = true;
+    tod.driver = pkgs.libfprint-2-tod1-goodix;
+  };
+  security.pam.services.login.fprintAuth = false; #disable fingerprint login - but allow everything else. 
 
   # Enable ssh & fail2ban
   services.sshd.enable = true;
