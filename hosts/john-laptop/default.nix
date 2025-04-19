@@ -179,6 +179,11 @@
 
   ########################## PACKAGES ##############################
 
+  # Enable fingerprint 
+  services.fprintd.enable = true;
+  services.fprintd.tod.enable = true;
+  services.fprintd.tod.driver = pkgs.libfprint-2-tod1-goodix;
+
   # Enable ssh & fail2ban
   services.sshd.enable = true;
   services.fail2ban.enable = true;
