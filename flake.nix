@@ -36,6 +36,10 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    
+    # To be able to use comma we need an index to query.
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -47,6 +51,7 @@
       sops-nix,
       zen-browser,
       nixos-hardware,
+      nix-index-database,
       ...
     }@inputs:
     {
@@ -61,6 +66,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/nixos-anywhere-vm/default.nix
+          nix-index-database.nixosModules.nix-index
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -88,6 +94,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/nixos-plasma-vm/default.nix
+          nix-index-database.nixosModules.nix-index
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -115,6 +122,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/john-sony-laptop/default.nix
+          nix-index-database.nixosModules.nix-index
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -142,6 +150,7 @@
         modules = [
           ./hosts/john-laptop/default.nix
           nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
+          nix-index-database.nixosModules.nix-index
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
