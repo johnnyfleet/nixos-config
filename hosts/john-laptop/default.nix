@@ -193,6 +193,7 @@
     age
     btop
     cifs-utils
+    comma # run programs without installing
     dig
     du-dust
     duf
