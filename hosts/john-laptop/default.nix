@@ -21,6 +21,7 @@
     ../common/optional/flatpak.nix
     ../common/optional/steam.nix
     ../common/core/gc-optimise.nix
+    ../common/optional/docker.nix
     inputs.sops-nix.nixosModules.sops
   ];
 
