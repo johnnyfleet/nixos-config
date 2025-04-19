@@ -21,10 +21,11 @@
       sgc = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
       nf = "fastfetch";
       ff = "fastfetch";
-      sbj = "ssh john@big-john";
+      sbj = "ssh root@big-john";
       ts = "tailscale status";
       tu = "sudo tailscale up";
       td = "sudo tailscale down";
+      ni = "nix-index";
     };
 
     plugins = [
