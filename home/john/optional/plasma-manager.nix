@@ -29,16 +29,26 @@
       command = "konsole";
     };
 
-    # Configure flameshot to use Meta+Shift+S as the shortcut for taking screenshots
+    
     shortcuts = {
+      # Configure flameshot to use Meta+Shift+S as the shortcut for taking screenshots
       "services/org.flameshot.Flameshot.desktop"."Capture" = "Meta+Shift+S";
+
     };
 
 
-    #configFile = {
-    #  # Override the shortcut in the kglobalshortcutsrc file:
-    #  "kglobalshortcutsrc"."services/org.flameshot.Flameshot.desktop"."Capture" = "Meta+Shift+S";
-    #};
+    configFile = {
+      #  # Override the shortcut in the kglobalshortcutsrc file:
+      #  "kglobalshortcutsrc"."services/org.flameshot.Flameshot.desktop"."Capture" = "Meta+Shift+S";
+      
+      # Launch empty session on reboot
+      # "ksmserverrc"."General"."loginMode" = "emptySession";
+      ksmserver = {
+        "General" = {
+          "loginMode" = "emptySession";
+        };
+      };
+    };
 
     panels = [
       # Windows-like panel at the bottom
