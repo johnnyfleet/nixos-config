@@ -21,6 +21,7 @@
     ../common/optional/flatpak.nix
     ../common/optional/steam.nix
     ../common/core/gc-optimise.nix
+    ../common/core/regular-programs.nix
     ../common/optional/docker.nix
     inputs.sops-nix.nixosModules.sops
   ];
@@ -197,38 +198,9 @@
   services.pcscd.enable = true;
 
   # Included packages here
-  nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    age
-    btop
-    cifs-utils
-    comma # run programs without installing
-    dig
-    du-dust
-    duf
-    eza
-    fastfetch
-    firefox
-    gh
-    git
-    glances
-    hey
-    htop
-    httpie
-    jq
-    mosh
-    ncdu
-    neofetch
-    #neovim
-    nh
-    nil # nix language server - for vscode autocomplete
-    nixfmt-rfc-style
-    sops
-    ssh-to-age
-    wget
-    wrk
-    hplipWithPlugin # HP Printer utility
-  ];
+  #nixpkgs.config.allowUnfree = true;
+  #environment.systemPackages = with pkgs; [ ];
+    
 
   system.stateVersion = "22.11";
 }
