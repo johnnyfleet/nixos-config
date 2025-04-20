@@ -23,13 +23,13 @@
     "sr_mod"
     "rtsx_pci_sdmmc"
   ];
-  #boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  #boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   # Support my HD7650M on sony laptop for Southern Islands (SI i.e. GCN 1) cards
-  #boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" ];
+  boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" ];
 
 
 
