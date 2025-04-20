@@ -14,6 +14,7 @@
       ../common/optional/flatpak.nix
       #../common/optional/steam.nix
       ../common/core/gc-optimise.nix
+      ../common/core/regular-programs.nix
       inputs.sops-nix.nixosModules.sops
     ];
 
@@ -162,31 +163,8 @@
   services.sshd.enable = true;
 
   # Included packages here
-  nixpkgs.config.allowUnfree = true;
-  environment.systemPackages = with pkgs; [
-    btop
-    dig
-    duf
-    eza
-    firefox
-    hey
-    httpie
-    htop
-    #google-chrome
-    neovim
-    wget
-    wrk
-    git
-    jq
-    ncdu
-    neofetch
-    fastfetch
-    glances
-    du-dust
-    gh
-    mosh
-    nh
-  ];
+  #nixpkgs.config.allowUnfree = true;
+  #environment.systemPackages = with pkgs; [ ];
 
   system.stateVersion = "22.11";
 }
