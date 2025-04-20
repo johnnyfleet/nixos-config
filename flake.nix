@@ -38,8 +38,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     
     # To be able to use comma we need an index to query.
-    nix-index-database.url = "github:nix-community/nix-index-database";
-    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -67,6 +69,8 @@
         modules = [
           ./hosts/nixos-anywhere-vm/default.nix
           nix-index-database.nixosModules.nix-index
+          # optional to also wrap and install comma
+          { programs.nix-index-database.comma.enable = true; }
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -78,6 +82,7 @@
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
+              nix-index-database.hmModules.nix-index
             ];
 
             # TODO replace ryan with your own username
@@ -95,6 +100,8 @@
         modules = [
           ./hosts/nixos-plasma-vm/default.nix
           nix-index-database.nixosModules.nix-index
+          # optional to also wrap and install comma
+          { programs.nix-index-database.comma.enable = true; }
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -106,6 +113,7 @@
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
+              nix-index-database.hmModules.nix-index
             ];
 
             # TODO replace ryan with your own username
@@ -123,6 +131,8 @@
         modules = [
           ./hosts/john-sony-laptop/default.nix
           nix-index-database.nixosModules.nix-index
+          # optional to also wrap and install comma
+          { programs.nix-index-database.comma.enable = true; }
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -134,6 +144,7 @@
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
+              nix-index-database.hmModules.nix-index
             ];
 
             # TODO replace ryan with your own username
@@ -151,6 +162,8 @@
           ./hosts/john-laptop/default.nix
           nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
           nix-index-database.nixosModules.nix-index
+          # optional to also wrap and install comma
+          { programs.nix-index-database.comma.enable = true; }
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
