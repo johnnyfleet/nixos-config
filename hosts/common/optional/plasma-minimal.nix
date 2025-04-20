@@ -47,4 +47,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
+  programs.partition-manager.enable = true; # KDE Disk Partition Manager
+
 }
