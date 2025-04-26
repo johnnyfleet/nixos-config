@@ -2,19 +2,17 @@
   description = "VM";
 
   inputs = {
+
+    ############ Official NixOS & Home Manager Package Sources #################
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # The next two are for pinning to stable vs unstable regardless of what the above is set to
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
-      # to have it up to date or simply don't specify the nixpkgs input  
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
-      #url = "github:nix-community/home-manager/release-24.11"  
+      #url = "github:nix-community/home-manager/release-24.11"
 
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with
@@ -23,20 +21,32 @@
       inputs.nixpkgs.follows = "nixpkgs";
 
     };
+
+    ############################ Utilities #####################################
+
     # Secrets management. See ./docs/secretsmgmt.md
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
+      # to have it up to date or simply don't specify the nixpkgs input
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # To control the look and feel of the desktop environment.
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
 
+    # Custom config for devices.
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    
+
     # To be able to use comma we need an index to query.
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
