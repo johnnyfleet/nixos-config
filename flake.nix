@@ -95,7 +95,6 @@
               nix-index-database.hmModules.nix-index
             ];
 
-            # TODO replace ryan with your own username
             home-manager.users.john = import ./home/john/nixos-anywhere-vm.nix;
             home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
 
@@ -126,7 +125,6 @@
               nix-index-database.hmModules.nix-index
             ];
 
-            # TODO replace ryan with your own username
             home-manager.users.john = import ./home/john/nixos-plasma-vm.nix;
             home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
 
@@ -157,7 +155,6 @@
               nix-index-database.hmModules.nix-index
             ];
 
-            # TODO replace ryan with your own username
             home-manager.users.john = import ./home/john/john-sony-laptop.nix;
             home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
@@ -188,7 +185,6 @@
               nix-index-database.hmModules.nix-index
             ];
 
-            # TODO replace ryan with your own username
             home-manager.users.john = import ./home/john/john-laptop.nix;
             home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
