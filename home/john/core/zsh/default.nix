@@ -8,7 +8,7 @@
     enableCompletion = true;
     #autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-    initExtra = "
+    initContent = "
       export MANPAGER='nvim +Man!'
       export GROFF_NO_SGR=1
     ";
