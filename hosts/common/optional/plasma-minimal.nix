@@ -49,4 +49,8 @@
 
   programs.partition-manager.enable = true; # KDE Disk Partition Manager
 
+  environment.systemPackages = with pkgs; [
+    kdePackages.kcalc
+  ];
+
 }
