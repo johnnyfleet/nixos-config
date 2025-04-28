@@ -14,6 +14,7 @@
     sddm.enable = true;
     sddm.wayland.enable = true;
     defaultSession = "plasma";
+    sddm.autoNumlock = true; # Enable Numlock at login screen. 
   };
 
   services.desktopManager.plasma6.enable = true;
