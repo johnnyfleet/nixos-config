@@ -28,8 +28,12 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  # Support my HD7650M on sony laptop for Southern Islands (SI i.e. GCN 1) cards
-  boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" ];
+  # Ideally make boot sequence less verbos. Likely only applies to stage 2 vs. stage 1. See: http://github.com/NixOS/nixpkgs/issues/32555
+  boot.consoleLogLevel = 0;
+  boot.initrd.verbose = false;
+
+  # Support my HD7650M on sony laptop for Southern Islands (SI i.e. GCN 1) cards. Also make boot quiet.
+  boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" "quiet" "udev.log_level=3" ];
 
 
 
