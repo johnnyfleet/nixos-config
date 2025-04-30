@@ -13,6 +13,11 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  # Ideally make boot sequence less verbos. Likely only applies to stage 2 vs. stage 1. See: http://github.com/NixOS/nixpkgs/issues/32555
+  boot.kernelParams = [ "quiet" "udev.log_level=3" ];
+  boot.consoleLogLevel = 0;
+  boot.initrd.verbose = false;
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/d1de93b0-5509-4c44-b374-76055ff05aef";
       fsType = "ext4";
