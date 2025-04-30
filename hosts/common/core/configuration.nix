@@ -10,25 +10,44 @@
 }:
 
 {
+
+  ###################### ESSENTIAL CONFIG ########################
+
   # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
 
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  ############################ NETWORKING ########################
 
   # Enable networking
   networking.networkmanager.enable = true;
   services.tailscale.enable = true;
+
+  services.avahi.enable = true;
+  
+  #Switch to more modern nftables implementation
+  networking.nftables.enable = true;
+  networking.firewall = {
+    # enable the firewall
+    enable = true;
+
+    # always allow traffic from your Tailscale network
+    trustedInterfaces = [ "tailscale0" ];
+
+    # allow the Tailscale UDP port through the firewall
+    allowedUDPPorts = [ config.services.tailscale.port ];
+
+    # let you SSH in over the public internet
+    allowedTCPPorts = [ 22 ];
+  };
+
+  ############################## LOCALE ############################
+  console.keyMap = "us";
 
   # Set your time zone.
   time.timeZone = "Pacific/Auckland";
@@ -48,11 +67,22 @@
     LC_TIME = "en_NZ.UTF-8";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  ############################# SSH ###############################
+
+  # Enable ssh & fail2ban
+  services.sshd.enable = true;
+  services.fail2ban.enable = true;
+
+  ########################### YUBIKEY #############################
+
+  # Enable smartcard reader - for Yubikey reading.
+  services.pcscd.enable = true;
+
+  ############################ SOUND ##############################
+
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  #sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -68,130 +98,19 @@
     #media-session.enable = true;
   };
 
+
+  ############################ FONTS ##############################
+
   # Configure system wide fonts.
   fonts = {
     enableDefaultPackages = true;
     fontDir.enable = true;
 
     packages = with pkgs; [
-      (nerdfonts.override {
-        fonts = [
-          "SpaceMono"
-          "JetBrainsMono"
-          "DejaVuSansMono"
-        ];
-      })
+      nerd-fonts.dejavu-sans-mono
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.space-mono
     ];
   };
-
-  # Enable firewall.
-  networking.firewall.enable = true;
-
-  # Enable Docker and configure in rootless mode
-  #virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
-    htop
-    neovim
-    neofetch
-    utterly-nord-plasma
-    libsForQt5.ktexteditor
-
-    # Enable flatpak support in discover.
-    libsForQt5.discover
-    libsForQt5.packagekit-qt
-    libportal-qt5
-
-    avahi
-    ctop
-    screen
-    jq
-    insync
-    ncdu
-    #	tailscale
-    expressvpn
-    google-chrome
-    speedtest-cli
-    glances
-    duf
-    obsidian
-    mutt
-    mosh
-    pandoc
-    steam
-    qmmp
-    tlp
-    docker-compose
-    du-dust
-    flameshot
-    trash-cli
-    ghostwriter
-    protonup-qt
-    heroic
-    rclone
-    git
-    gh
-
-    eza
-    nixos-generators
-    spice-vdagent
-  ];
-
-  # Install 1password
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    # Certain features, including CLI integration and system authentication support,
-    # require enabling PolKit integration on some desktop environments (e.g. Plasma).
-    polkitPolicyOwners = [ "john" ];
-  };
-
-  # Enable Flatpak support
-  services.flatpak.enable = true;
-  services.packagekit.enable = true;
-  services.fwupd.enable = true;
-
-  # VM guest additions to improve host-guest interaction
-  services.spice-vdagentd.enable = true;
-  services.qemuGuest.enable = true;
-  services.spice-autorandr.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
 
 }
