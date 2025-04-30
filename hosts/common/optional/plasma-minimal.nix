@@ -52,6 +52,7 @@
 
   environment.systemPackages = with pkgs; [
     kdePackages.kcalc
+    utterly-nord-plasma # Plasma theme
   ];
 
 }

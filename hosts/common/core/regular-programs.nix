@@ -35,7 +35,6 @@
     ssh-to-age
     wget
     wrk
-    hplipWithPlugin # HP Printer utility
   ];
 
 }

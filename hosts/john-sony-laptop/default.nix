@@ -13,16 +13,22 @@
 {
   imports = [
     ./hardware-configuration.nix
+
+    ##### Core Configuration
+    ../common/core/default.nix
+    inputs.sops-nix.nixosModules.sops
+
+    ##### Set up users
     ../common/users/john.nix
     #../common/users/guest.nix
-    ../common/optional/plasma-minimal.nix
-    #../common/optional/xfce-full.nix
-    ../common/optional/1password.nix
+
+    ##### Optional Configuration
+    ../common/optional/1password.nix   
     ../common/optional/flatpak.nix
+    ../common/optional/plasma-minimal.nix
+    ../common/optional/printing.nix
     ../common/optional/steam.nix
-    ../common/core/gc-optimise.nix
-    ../common/core/regular-programs.nix
-    inputs.sops-nix.nixosModules.sops
+
   ];
 
   ######################### NIX-SOPS ############################
@@ -46,13 +52,10 @@
   # Force update passwords for users on each run.
   users.mutableUsers = false;
 
-  ########################## OTHER CONFIG ############################
+   ############################ NETWORKING ########################
 
-  # Enable the Flakes feature and the accompanying new nix command-line tool
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  # Set hostname - the rest of networking is taken care of by the common config.
+  networking.hostName = "john-sony-laptop";
 
   ##################### BOOTLOADER ##########################
   # After switching bootloader - reinstall with 
@@ -78,116 +81,13 @@
   #boot.loader.systemd-boot.enable = true;linuxPackages_latest
   #boot.loader.efi.canTouchEfiVariables = true;
 
-  ############################ NETWORKING ########################
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-  networking.hostName = "john-sony-laptop";
-  services.tailscale.enable = true;
-
-  services.avahi.enable = true;
-  
-  #Switch to more modern nftables implementation
-  networking.nftables.enable = true;
-  networking.firewall = {
-    # enable the firewall
-    enable = true;
-
-    # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" ];
-
-    # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
-
-    # let you SSH in over the public internet
-    allowedTCPPorts = [ 22 ];
-  };
-
-  ############################## LOCALE ##############################
-  console.keyMap = "us";
-
-  # Set your time zone.
-  time.timeZone = "Pacific/Auckland";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_NZ.UTF-8";
-    LC_IDENTIFICATION = "en_NZ.UTF-8";
-    LC_MEASUREMENT = "en_NZ.UTF-8";
-    LC_MONETARY = "en_NZ.UTF-8";
-    LC_NAME = "en_NZ.UTF-8";
-    LC_NUMERIC = "en_NZ.UTF-8";
-    LC_PAPER = "en_NZ.UTF-8";
-    LC_TELEPHONE = "en_NZ.UTF-8";
-    LC_TIME = "en_NZ.UTF-8";
-  };
-
-  ########################## VIRTUALISATION ########################
-
-  /*
-    # Options for the screen
-    virtualisation.vmVariant = {
-      virtualisation.resolution = {
-        x = 1280;
-        y = 1024;
-      };
-      virtualisation.cores = 4;
-      virtualisation.memorySize = 2048;
-      virtualisation.qemu.options = [
-        # Better display option
-        "-vga virtio"
-        "-display gtk,zoom-to-fit=false,show-cursor=on"
-        # Enable copy/paste
-        # https://www.kraxel.org/blog/2021/05/qemu-cut-paste/
-        "-chardev qemu-vdagent,id=ch1,name=vdagent,clipboard=on"
-        "-device virtio-serial-pci"
-        "-device virtserialport,chardev=ch1,id=ch1,name=com.redhat.spice.0"
-      ];
-    };
-
-    # VM guest additions to improve host-guest interaction
-    services.spice-vdagentd.enable = true;
-    services.qemuGuest.enable = true;
-    services.spice-autorandr.enable = true;
-  */
-
-  #security.sudo.wheelNeedsPassword = false;
-
-  /*
-    # Set the default shell as zsh
-    programs.zsh.enable = true;
-    users.users.john.shell = pkgs.zsh;
-  */
-
-  ############################# DISPLAY #########################
-  /*
-    # X configuration
-    services.xserver.enable = true;
-    services.xserver.xkb.layout = "us";
-    services.xserver.xkb.variant = "";
-
-    services.displayManager.autoLogin.user = "john";
-    services.xserver.desktopManager.xfce.enable = true;
-    services.xserver.desktopManager.xfce.enableScreensaver = false;
-
-    #services.xserver.videoDrivers = [ "qxl" ];
-  */
-
   ########################## PACKAGES ##############################
 
-  # Enable ssh & fail2ban
-  services.sshd.enable = true;
-  services.fail2ban.enable = true;
-
-
-  # Enable smartcard reader - for Yubikey reading.
-  services.pcscd.enable = true;
-
-  # Included packages here
-  #nixpkgs.config.allowUnfree = true;
-  #environment.systemPackages = with pkgs; [ ];
-
-  system.stateVersion = "22.11";
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  system.stateVersion = "24.05"; # Did you read the comment?
 }
