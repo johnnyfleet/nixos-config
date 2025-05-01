@@ -7,5 +7,6 @@
     protonup-qt # Helper GUI to install ProtonGE
     lutris # Game manager
     moonlight-qt # Moonlight came streaming client
+    beyond-all-reason # Open source RTS game
   ];
 }
