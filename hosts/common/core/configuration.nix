@@ -24,9 +24,10 @@
 
   ############################ NETWORKING ########################
 
-  # Enable networking
+  # Enable networking & tailscale
   networking.networkmanager.enable = true;
   services.tailscale.enable = true;
+  services.tailscale.useRoutingFeatures = "client"; # Ensures that exit node functionality works. See: https://discourse.nixos.org/t/tailscale-exit-node-not-working-on-nixos/39897
 
   services.avahi.enable = true;
   
