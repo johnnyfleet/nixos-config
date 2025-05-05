@@ -18,7 +18,7 @@
       suu = "nh os switch ~/.config/nixos-config";
       suuu = "nix flake update --flake ~/.config/nixos-config && nh os switch ~/.config/nixos-config";
       gp = "cd ~/.config/nixos-config && git pull";
-      sgc = "sudo nix-collect-garbage -d && nix-collect-garbage -d";
+      sgc = "sudo nix-collect-garbage -d && nix-collect-garbage -d && sudo nix store optimise";
       nf = "fastfetch";
       ff = "fastfetch";
       sbj = "ssh root@big-john";
@@ -27,6 +27,7 @@
       tuu= "sudo tailscale up --exit-node=big-john";
       td = "sudo tailscale down";
       ni = "nix-index";
+      no = "sudo nix store optimise";
     };
 
     plugins = [
