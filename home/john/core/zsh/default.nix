@@ -24,7 +24,7 @@
       sbj = "ssh root@big-john";
       ts = "tailscale status";
       tu = "sudo tailscale up --exit-node=";
-      tuu= "sudo tailscale up --exit-node=100.64.154.8";
+      tuu= "sudo tailscale up --exit-node=big-john";
       td = "sudo tailscale down";
       ni = "nix-index";
     };
