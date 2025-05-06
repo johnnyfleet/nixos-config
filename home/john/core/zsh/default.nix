@@ -26,7 +26,7 @@
       tu = "sudo tailscale up --exit-node=";
       tuu= "sudo tailscale up --exit-node=big-john";
       td = "sudo tailscale down";
-      ni = "nix-index";
+      ni = "sudo nix-index";
       no = "sudo nix store optimise";
     };
 
