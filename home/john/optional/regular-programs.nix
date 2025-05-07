@@ -18,7 +18,6 @@
     glances # Another monitoring tool
     gnome-keyring # Keyring to access secrets wallet - used for VS code
     google-chrome
-    guestfs-tools # `virt-sparsify and other libvirt tools
     #hplipWithPlugin # HP Printer utility
     htop
     insync                         # Cloud drive sync gui tool.
@@ -38,7 +37,6 @@
     packer # create VM images
     plex-desktop # Plex Desktop
     plexamp # Plexamp player
-    quickemu # Quickly create and run vms.
     rclone # Sync to multiple cloud locations.
     remmina # Remote Desktop viewer
     screen # detached terminal session
