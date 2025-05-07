@@ -1,13 +1,18 @@
 { configVars, config, ... }:
 {
   imports = [
-    #################### Required Configs ####################
+    
+    ##### Core Configuration
     ./core/default.nix # required
+    
+    ##### Optional Configuration
+    
     ./optional/plasma-manager.nix # set up of plasma manager on plasma.
     ./optional/regular-programs.nix # Additional programs I usually have installed
     #./optional/additional-programs.nix # Additional programs I used to have but don't think I need right now.
     ./optional/work-applications.nix
-    ./optional/gaming.nix # Heroic & Lutris
+    #./optional/gaming.nix # Heroic & Lutris
+    #./optional/vm-tools.nix # Useful VM tools (quickemu, virt-sparsify etc.)
   ];
 
   # This value determines the home Manager release that your
