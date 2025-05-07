@@ -2,7 +2,11 @@
 
 {
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    # run on first setup: sudo hp-setup -i -a
+    enable  =  true;
+    drivers = [ pkgs.hplipWithPlugin ];
+  };
 
   environment.systemPackages = with pkgs; [
      hplipWithPlugin # HP Printer utility
