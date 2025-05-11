@@ -16,7 +16,6 @@
     duf
     eza
     fastfetch
-    firefox
     gh
     git
     glances
