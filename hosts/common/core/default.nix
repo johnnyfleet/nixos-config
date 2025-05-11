@@ -7,6 +7,7 @@
       ./configuration.nix
       ./gc-optimise.nix
       ./regular-programs.nix    
+      #./desktop-regular-programs.nix
 
     ];
 
