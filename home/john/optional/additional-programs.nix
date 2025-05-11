@@ -34,6 +34,7 @@
     scribus # PDF editor (for cd covers)
     terminator # Improved shell
     unzip
+    whatsapp-for-linux # WhatsApp client
 
   ];
 }
