@@ -9,6 +9,7 @@
   environment.systemPackages = with pkgs; [
     firefox
     whatsapp-for-linux
+    vdhcoapp # Companion application for the Video DownloadHelper browser add-on
   ];
 
 
