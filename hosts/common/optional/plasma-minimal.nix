@@ -17,6 +17,10 @@
     sddm.autoNumlock = true; # Enable Numlock at login screen. 
   };
 
+  # Enable the XDG portal for Flatpak support
+  # Specifically for Plex desktop to work. See: https://github.com/NixOS/nixpkgs/issues/341968
+  xdg.portal.xdgOpenUsePortal = true;
+
   services.desktopManager.plasma6.enable = true;
 
   #services.displayManager.autoLogin.user = "john";
