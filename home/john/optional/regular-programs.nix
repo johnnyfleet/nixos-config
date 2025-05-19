@@ -3,6 +3,10 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    libreoffice-qt # LibreOffice
+    hunspell # Spell checker for LibreOffice
+    hunspellDicts.en_GB # GB Languages for spell checker
+    hunspellDicts.en_NZ # NZ Languages for spell checker
     aribb24 # Allows VLC to play recordings done via HDHomeRun
     audacious # Music player
     baobab # Disk Usage Analyser
