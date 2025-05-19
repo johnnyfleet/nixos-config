@@ -53,10 +53,16 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Run M365 via docker vm.
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    {
+    inputs@{
       nixpkgs,
       self,
       home-manager,
@@ -65,8 +71,12 @@
       zen-browser,
       nixos-hardware,
       nix-index-database,
+      winapps,
       ...
-    }@inputs:
+    }:
+    let
+        system = "x86_64-linux";
+      in
     {
       apps."x86_64-linux" = {
         default = {
@@ -75,7 +85,6 @@
         };
       };
       nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/nixos-anywhere-vm/default.nix
@@ -105,7 +114,6 @@
       };
 
       nixosConfigurations.vm-plasma = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/nixos-plasma-vm/default.nix
@@ -135,7 +143,6 @@
       };
 
       nixosConfigurations.john-sony-laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/john-sony-laptop/default.nix
@@ -163,9 +170,10 @@
         ];
       };
 
+    
       nixosConfigurations.john-laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        
+        specialArgs = { inherit inputs system; };
         modules = [
           ./hosts/john-laptop/default.nix
           nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
@@ -190,8 +198,28 @@
             home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
+          
+          (
+            {
+              pkgs,
+              system ? pkgs.system,
+              ...
+            }:
+            {
+              # set up binary cache (optional)
+              nix.settings = {
+                substituters = [ "https://winapps.cachix.org/" ];
+                trusted-public-keys = [ "winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g=" ];
+              };
+
+              environment.systemPackages = [
+                winapps.packages."${system}".winapps
+                winapps.packages."${system}".winapps-launcher # optional
+              ];
+            }
+          )
+
         ];
       };
-
     };
 }
