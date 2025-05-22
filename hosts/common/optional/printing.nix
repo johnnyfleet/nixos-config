@@ -33,7 +33,8 @@
     { from = 49152; to = 65535; }
   ];
 
-  # Add HP PhotosSmart 5520 printer
+  # Add HP PhotosSmart 5520 printer. You shouldn't need to then setup through HPLIP. 
+  # It also seems faster this way to print vs. HPLIP.
   hardware.printers = {
     ensurePrinters = [
       {
