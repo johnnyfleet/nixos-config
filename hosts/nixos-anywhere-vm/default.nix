@@ -6,17 +6,29 @@
 { lib, config, inputs, pkgs, ... }:
 {
   imports = [
-      ./hardware-configuration.nix
-      ../common/users/john.nix
-      ../common/users/guest.nix
-      ../common/optional/plasma-minimal.nix
-      ../common/optional/1password.nix
-      ../common/optional/flatpak.nix
-      #../common/optional/steam.nix
-      ../common/core/gc-optimise.nix
-      ../common/core/regular-programs.nix
-      inputs.sops-nix.nixosModules.sops
-    ];
+    ./hardware-configuration.nix
+
+    ##### Core Configuration
+    ../common/core/default.nix
+    inputs.sops-nix.nixosModules.sops
+
+    ##### Set up users
+    ../common/users/john.nix
+    #../common/users/guest.nix
+
+    ##### Optional Configuration
+    ../common/optional/1password.nix
+    ../common/optional/docker.nix
+    ../common/optional/flatpak.nix
+    #../common/optional/gnome.nix
+    ../common/optional/plasma-minimal.nix
+    ../common/optional/printing.nix
+    ../common/optional/steam.nix
+    #../common/optional/xfce-full.nix
+    #../common/optional/xfce-minimal.nix
+  ];
+
+    
 
 
   ######################### NIX-SOPS ############################
