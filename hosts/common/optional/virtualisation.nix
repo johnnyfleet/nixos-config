@@ -14,6 +14,7 @@
   services.qemuGuest.enable = true;
   services.spice-autorandr.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
+  networking.firewall.trustedInterfaces = [ "virbr0" ]; # Allow the virtual network through the firewall.
  
 /* 
   # Options for the screen
