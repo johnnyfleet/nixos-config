@@ -35,7 +35,7 @@
       td = "sudo tailscale down";
       ni = "sudo nix-index";
       no = "sudo nix store optimise";
-          };
+    };
 
     plugins = [
         {
