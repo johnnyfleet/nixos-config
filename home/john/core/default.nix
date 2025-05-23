@@ -31,6 +31,15 @@
     ];
   };
 
+  # Allow 1password to be used as an SSH agent
+  programs.ssh = {
+    enable = true;
+    extraConfig = ''
+      Host *
+          IdentityAgent ~/.1password/agent.sock 
+    '';
+  };
+
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
@@ -62,4 +71,6 @@
       render-markdown-nvim
     ];
   };
+
+
 }
