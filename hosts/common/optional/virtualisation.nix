@@ -9,6 +9,7 @@
   # Enable the virt-manager GUI
   programs.virt-manager.enable = true;
 
+
   # Enable the virt-viewer GUI
   virtualisation.virtViewer.enable = true;
 
