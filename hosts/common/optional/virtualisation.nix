@@ -43,6 +43,7 @@
   # Install viewer
   environment.systemPackages = with pkgs; [
     remmina
+    virt-manager  
   ];
 
 

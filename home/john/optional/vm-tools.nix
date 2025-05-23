@@ -9,4 +9,12 @@
     quickemu # Quickly create and run vms.
   ];
 
+  # Configure virt-manager to correctly connect to the libvirt daemon.
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
+    };
+  };
+
 }
