@@ -30,6 +30,7 @@
     ../common/optional/plasma-minimal.nix
     ../common/optional/printing.nix
     ../common/optional/steam.nix
+    #../common/optional/virtualisation.nix
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
 
