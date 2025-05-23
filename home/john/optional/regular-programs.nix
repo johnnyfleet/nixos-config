@@ -31,7 +31,6 @@
     kdePackages.discover # KDE store to install flatpak packages
     kdePackages.ghostwriter # Really good markdown editor, similar to Apostrophe
     libinput-gestures # To get multi finger gestures on touchpad working
-    microsoft-edge
     mosh # For connecting over SSH and maintaining session.
     ncdu # Disk usage CLI
     neofetch # Nice system info CLI command
