@@ -9,10 +9,6 @@
   # Enable the virt-manager GUI
   programs.virt-manager.enable = true;
 
-
-  # Enable the virt-viewer GUI
-  virtualisation.virtViewer.enable = true;
-
   # VM guest additions to improve host-guest interaction
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
@@ -43,8 +39,6 @@
   # Install viewer
   environment.systemPackages = with pkgs; [
     remmina
-    virt-manager  
   ];
-
 
 }
