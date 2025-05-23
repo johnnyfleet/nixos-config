@@ -22,7 +22,13 @@
       sgc = "sudo nix-collect-garbage -d && nix-collect-garbage -d && sudo nix store optimise";
       nf = "fastfetch";
       ff = "fastfetch";
+
       sbj = "ssh root@big-john";
+      spi = "ssh pi@raspberrypi";
+      sp3 = "ssh john@raspberrypi3";
+      soc = "ssh ubuntu@minecraft-server";
+      sha = "ssh john@homeassistant";
+
       ts = "tailscale status";
       tu = "sudo tailscale up --exit-node=";
       tuu= "sudo tailscale up --exit-node=big-john";
