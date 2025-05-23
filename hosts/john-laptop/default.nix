@@ -26,10 +26,12 @@
     ../common/optional/1password.nix
     ../common/optional/docker.nix
     ../common/optional/flatpak.nix
+    #../common/optional/gnome.nix
     ../common/optional/plasma-minimal.nix
     ../common/optional/printing.nix
     ../common/optional/steam.nix
-    
+    #../common/optional/xfce-full.nix
+    #../common/optional/xfce-minimal.nix
   ];
 
   ######################### NIX-SOPS ############################
