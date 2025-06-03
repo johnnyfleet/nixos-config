@@ -24,4 +24,7 @@
 
         };
   };
+  
+  # Disable power-profiles-daemon as it conflicts with TLP
+  services.power-profiles-daemon.enable = false;
 }
