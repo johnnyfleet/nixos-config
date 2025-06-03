@@ -10,7 +10,7 @@
     ./optional/plasma-manager.nix # set up of plasma manager on plasma.
     ./optional/regular-programs.nix # Additional programs I usually have installed
     #./optional/additional-programs.nix # Additional programs I used to have but don't think I need right now.
-    ./optional/work-applications.nix
+    #./optional/work-applications.nix
     ./optional/gaming.nix # Heroic, Moonlight & Lutris
     ./optional/vm-tools.nix # Useful VM tools (quickemu, virt-sparsify etc.)
 
