@@ -1,7 +1,7 @@
 { pkgs, config, configVars, ... }:
 {
 
-  home.packages = with pkgs; [ zsh-powerlevel10k meslo-lgs-nf thefuck];
+  home.packages = with pkgs; [ zsh-powerlevel10k meslo-lgs-nf];
 
   programs.zsh = {
     enable = true;
@@ -61,7 +61,7 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "thefuck" ];
+      plugins = [ "git" ];
       theme = "robbyrussell";
     };
 
@@ -71,5 +71,6 @@
 
   # Integrate nix-index into command-not-found in zsh
     programs.nix-index.enable = true;
+    programs.pay-respects.enable = true; # For the "pay respects" command in zsh
     
 }
