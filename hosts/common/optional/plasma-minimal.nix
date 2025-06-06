@@ -57,6 +57,7 @@
   environment.systemPackages = with pkgs; [
     kdePackages.kcalc
     utterly-nord-plasma # Plasma theme
+    kdePackages.kdepim-runtime # To enable calendar sync on main system calendar with Thunderbird etc.
   ];
 
 }
