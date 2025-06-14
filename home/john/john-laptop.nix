@@ -13,6 +13,7 @@
     ./optional/work-applications.nix
     ./optional/gaming.nix # Heroic, Moonlight & Lutris
     ./optional/vm-tools.nix # Useful VM tools (quickemu, virt-sparsify etc.)
+    ./optional/dev-tools.nix # direnv, nix-direnv, etc.
 
   ];
 
