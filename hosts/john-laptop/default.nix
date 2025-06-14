@@ -34,6 +34,7 @@
     ../common/optional/virtualisation.nix
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
+    #../common/optional/minecraft-bedrock-client.nix
   ];
 
   ######################### NIX-SOPS ############################
