@@ -57,6 +57,7 @@
           "NumLock" = 0;
         };
       };
+    };
 
     panels = [
       # Windows-like panel at the bottom
