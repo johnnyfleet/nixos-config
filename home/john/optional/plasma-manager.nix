@@ -43,12 +43,20 @@
       
       # Launch empty session on reboot
       # "ksmserverrc"."General"."loginMode" = "emptySession";
+      
       ksmserver = {
         "General" = {
           "loginMode" = "emptySession";
         };
       };
-    };
+
+      # Enable NumLock on startup
+      #kcminputrc"."Keyboard"."NumLock" = 0;
+      kcminputrc = {
+        "Keyboard" = {
+          "NumLock" = 0;
+        };
+      };
 
     panels = [
       # Windows-like panel at the bottom
