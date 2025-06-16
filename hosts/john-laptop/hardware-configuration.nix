@@ -25,9 +25,15 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/9354-4A33";
+    { device = "/dev/disk/by-uuid/B975-1010";
       fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+  fileSystems."/efi" =
+    { device = "/dev/disk/by-uuid/AC92-5873";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices = [ ];
@@ -37,7 +43,6 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s13f0u3u6.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
