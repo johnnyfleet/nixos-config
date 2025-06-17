@@ -1,3 +1,4 @@
 #hardware-configuration.*
 #./hardware-configuration.nix
+nixos-iso/result/
 *.iso
