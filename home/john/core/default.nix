@@ -12,6 +12,7 @@
   #imports = (configLib.scanPaths ./.) ++ (builtins.attrValues outputs.homeManagerModules);
   imports = [
     ./zsh/default.nix
+    ./gnupg.nix
   ];
 
   home.username = "john";

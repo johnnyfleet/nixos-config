@@ -78,7 +78,10 @@
   ########################### YUBIKEY #############################
 
   # Enable smartcard reader - for Yubikey reading.
-  services.pcscd.enable = true;
+  services = {
+    pcscd.enable = true;
+    udev.packages = [ pkgs.yubikey-personalization ];
+  };
 
   ############################ SOUND ##############################
 
