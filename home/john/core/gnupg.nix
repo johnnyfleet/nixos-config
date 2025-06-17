@@ -42,7 +42,7 @@
     # https://github.com/drduh/config/blob/master/gpg-agent.conf
     defaultCacheTtl = 60;
     maxCacheTtl = 120;
-    pinentry.packageex = pkgs.pinentry-curses;
+    pinentry.package = pkgs.pinentry-curses;
     extraConfig = ''
       ttyname $GPG_TTY
     '';
