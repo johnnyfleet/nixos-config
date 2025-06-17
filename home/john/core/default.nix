@@ -37,7 +37,7 @@
     enable = true;
     extraConfig = ''
     Host *
-      IdentityAgent ~/.1password/agent.sock 
+      IdentityAgent ~/.1password/agent.sock  
     '';
   };
 
@@ -72,6 +72,9 @@
       render-markdown-nvim
     ];
   };
+
+  # Enable kitty terminal
+  programs.kitty.enable = true;
 
 
 }
