@@ -1,6 +1,5 @@
 keys:
   - &users
-    - &john-yubikey D2A9E7C77933EA4925E237F551327F33FEA3B06C
     - &john age1xa3e76y4g3526ge8gxhsf4g2ge7g4kn6ct3yp0nwmassnu4h65tsfc9c99
   - &hosts
     - &john-laptop age1esff9mgd0nwqgcfx3yhqsyhkufc6xrske6z2v4s9mwxs956083zq0t0pde
@@ -9,5 +8,4 @@ keys:
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
-      - pgp: [*john-yubikey]
       - age: [*john, *john-laptop, *nixos-gnome, *john-sony-laptop]
