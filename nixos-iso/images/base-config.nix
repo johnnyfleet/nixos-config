@@ -42,7 +42,7 @@
     "nixos" = {
       isNormalUser = true;
       home = "/home/nixos";
-      hashedPassword = "$6$EAug5WXlhumBG35n$lWALattLAjiGfWZ4QB/Btc7ea.ufYbIrS0OpN381gFEcdFgvQqU.uTzSQ6GCLl8.GQQXDZf7sY8MJ47FSPYGm/";
+      hashedPassword = "";
       uid = 1000;
       extraGroups = [ "systemd-journal" "wheel" ];
       openssh.authorizedKeys.keys =
@@ -59,7 +59,7 @@
   # sshd
   services.openssh = {
     enable = true;
-    settings.PasswordAuthentication = true;
+    settings.PasswordAuthentication = false;
     #settings.PermitRootLogin = lib.mkDefault "prohibit-password";
     hostKeys = [
       { type = "rsa"; bits = 4096; path = "/etc/ssh/ssh_host_rsa_key"; }
@@ -93,19 +93,6 @@
         && !(pkgs.lib.hasSuffix ".qcow2" path)
         && baseNameOf path != "secrets")
       ../.;
-
-  environment.systemPackages = with pkgs; [
-    git
-    htop
-    tmux
-    tree
-    nano
-    rsync
-    ripgrep
-    cryptsetup
-    nixpkgs-fmt
-    fastfetch
-  ];
 
   ## FIX for running out of space / tmp, which is used for building
   fileSystems."/nix/.rw-store" = {

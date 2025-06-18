@@ -12,6 +12,8 @@
 {
   imports = [
     ./base-config.nix
+    ../../hosts/core/yubikey.nix
+    ../../hosts/core/regular-programs.nix
   ];
 
   isoImage.volumeID = lib.mkForce "my-nixos-live";

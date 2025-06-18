@@ -6,7 +6,8 @@
   imports = [
       ./configuration.nix
       ./gc-optimise.nix
-      ./regular-programs.nix    
+      ./regular-programs.nix
+      ./yubikey.nix    
       #./desktop-regular-programs.nix
 
     ];
