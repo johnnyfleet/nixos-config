@@ -24,15 +24,19 @@
     httpie
     jq
     mosh
+    nano
     ncdu
     neofetch
+    nixfmt-rfc-style
     #neovim
     nh
     nil # nix language server - for vscode autocomplete
     nixfmt-rfc-style
     nix-tree # provides a way to view the size of the nix store. 
+    rsync
     sops
     ssh-to-age
+    tmux
     wget
     wrk
   ];
