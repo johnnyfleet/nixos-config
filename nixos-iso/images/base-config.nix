@@ -104,6 +104,7 @@
     ripgrep
     cryptsetup
     nixpkgs-fmt
+    fastfetch
   ];
 
   ## FIX for running out of space / tmp, which is used for building
@@ -114,16 +115,24 @@
   };
 
 
+ ############################## LOCALE ############################
+  console.keyMap = lib.mkDefault "us";
 
-
-
-  # Part of base-system.nix:
-  time.timeZone = lib.mkDefault "Etc/UTC";
+  # Set your time zone.
+  time.timeZone = lib.mkDefault "Pacific/Auckland";
 
   i18n = {
-    defaultLocale = "en_IE.UTF-8";
+    defaultLocale = "en_GB.UTF-8";
     extraLocaleSettings = {
-      LC_TIME = "en_GB.UTF-8";
+      LC_ADDRESS = "en_NZ.UTF-8";
+      LC_IDENTIFICATION = "en_NZ.UTF-8";
+      LC_MEASUREMENT = "en_NZ.UTF-8";
+      LC_MONETARY = "en_NZ.UTF-8";
+      LC_NAME = "en_NZ.UTF-8";
+      LC_NUMERIC = "en_NZ.UTF-8";
+      LC_PAPER = "en_NZ.UTF-8";
+      LC_TELEPHONE = "en_NZ.UTF-8";
+      LC_TIME = "en_NZ.UTF-8";
     };
     supportedLocales = lib.mkDefault [
       "en_GB.UTF-8/UTF-8"
