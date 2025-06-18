@@ -75,14 +75,6 @@
   services.sshd.enable = true;
   services.fail2ban.enable = true;
 
-  ########################### YUBIKEY #############################
-
-  # Enable smartcard reader - for Yubikey reading.
-  services = {
-    pcscd.enable = true;
-    udev.packages = [ pkgs.yubikey-personalization ];
-  };
-
   ############################ SOUND ##############################
 
 
