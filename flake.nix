@@ -59,6 +59,12 @@
       url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Manage provisioning through Nixos Anywhere.
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -72,6 +78,7 @@
       nixos-hardware,
       nix-index-database,
       winapps,
+      disko,
       ...
     }:
     let
@@ -87,6 +94,7 @@
       nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
+          disko.nixosModules.disko
           ./hosts/nixos-anywhere-vm/default.nix
           nix-index-database.nixosModules.nix-index
           # optional to also wrap and install comma
