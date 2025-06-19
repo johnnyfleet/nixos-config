@@ -16,7 +16,7 @@
   ];
 
   home.username = "john";
-  home.homeDirectory = "/home/john";
+  home.homeDirectory =  lib.mkDefault "/home/john";
 
   # Enable VSCode
   programs.vscode = {

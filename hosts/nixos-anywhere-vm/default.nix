@@ -8,29 +8,30 @@
   imports = [
     ./hardware-configuration.nix
 
+    ##### Disko setup
+    ./disk-config.nix
+
     ##### Core Configuration
     ../common/core/default.nix
     inputs.sops-nix.nixosModules.sops
 
     ##### Set up users
     ../common/users/john.nix
-    #../common/users/guest.nix
+    ../common/users/guest.nix
 
     ##### Optional Configuration
     ../common/optional/1password.nix
-    ../common/optional/docker.nix
-    ../common/optional/flatpak.nix
+    #../common/optional/docker.nix
+    #../common/optional/flatpak.nix
     #../common/optional/gnome.nix
     ../common/optional/plasma-minimal.nix
-    ../common/optional/printing.nix
-    ../common/optional/steam.nix
+    #../common/optional/printing.nix
+    #../common/optional/steam.nix
     #../common/optional/virtualisation.nix
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
     #../common/optional/minecraft-bedrock-client.nix
   ];
-
-    
 
 
   ######################### NIX-SOPS ############################
@@ -68,36 +69,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  ############################ NETWORKING ########################
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-  services.tailscale.enable = true;
-
-  services.avahi.enable = true;
-
-
-############################## LOCALE ##############################
-  console.keyMap = "us";
-
-   # Set your time zone.
-  time.timeZone = "Pacific/Auckland";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_NZ.UTF-8";
-    LC_IDENTIFICATION = "en_NZ.UTF-8";
-    LC_MEASUREMENT = "en_NZ.UTF-8";
-    LC_MONETARY = "en_NZ.UTF-8";
-    LC_NAME = "en_NZ.UTF-8";
-    LC_NUMERIC = "en_NZ.UTF-8";
-    LC_PAPER = "en_NZ.UTF-8";
-    LC_TELEPHONE = "en_NZ.UTF-8";
-    LC_TIME = "en_NZ.UTF-8";
-  };
-
   ########################## VIRTUALISATION ########################
 
   # Options for the screen
@@ -128,34 +99,16 @@
 
   ############################# USERS #############################
 
-/*   # A default user able to use sudo
-  users.users.guest = {
-    isNormalUser = true;
-    home = "/home/guest";
-    extraGroups = [ "wheel" ];
-    initialPassword = "guest";
-  }; */
-
-/*   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.john = {
-    isNormalUser = true;
-    description = "John Stephenson";
-    extraGroups = [ "wheel" ];
-    hashedPasswordFile = config.sops.secrets.john-password.path;
-    openssh.authorizedKeys.keys = let
+  security.sudo.wheelNeedsPassword = false;
+  users.users.root.openssh.authorizedKeys.keys =
+    let
       authorizedKeys = pkgs.fetchurl {
         url = "https://github.com/johnnyfleet.keys";
-        sha256 = "bfeb247accafffbc6350ee0732c7e77e14b7ea853111282baa4989664f0cff58";
+        sha256 = "fce5536148d8d8f607dc0612d47c9ca721a75c62539a07e571183f56070c31d1";
       };
-    in pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
-  };
- */
+    in
+    pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
 
-  security.sudo.wheelNeedsPassword = false;
-
-/*   # Set the default shell as zsh
-  programs.zsh.enable = true;
-  users.users.john.shell = pkgs.zsh; */
 
  ############################# DISPLAY #########################
 /*
@@ -172,8 +125,6 @@
 
 ########################## PACKAGES ##############################
 
-  # Enable ssh
-  services.sshd.enable = true;
 
   # Included packages here
   #nixpkgs.config.allowUnfree = true;
