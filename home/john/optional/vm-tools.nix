@@ -2,7 +2,6 @@
 
 { pkgs, inputs, system, ... }:
 {
-
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     guestfs-tools # `virt-sparsify and other libvirt tools
