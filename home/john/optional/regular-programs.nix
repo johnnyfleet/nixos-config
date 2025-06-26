@@ -65,6 +65,7 @@
     #- com.yubico.yubioath                         # Yubikey OATH tool
     #- com.plexamp.Plexamp                         # Plexamp player
     #- com.moonlight_stream.Moonlight              # Moonlight came streaming client
+    #- tv.plex.PlexDesktop                         # Plex Desktop (installed via Flatpak due to nixpkgs dependency issues)
 
   ];
 
