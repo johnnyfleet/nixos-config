@@ -65,6 +65,12 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Niri scrollable-tiling Wayland compositor.
+    niri = {
+      url = "github:YaLTeR/niri";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -79,6 +85,7 @@
       nix-index-database,
       winapps,
       disko,
+      niri,
       ...
     }:
     let

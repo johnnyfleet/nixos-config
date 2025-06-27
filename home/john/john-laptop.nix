@@ -7,7 +7,8 @@
     
     ##### Optional Configuration
     
-    ./optional/plasma-manager.nix # set up of plasma manager on plasma.
+    #./optional/plasma-manager.nix # set up of plasma manager on plasma.
+    ./optional/niri.nix # Niri wayland compositor setup
     ./optional/regular-programs.nix # Additional programs I usually have installed
     #./optional/additional-programs.nix # Additional programs I used to have but don't think I need right now.
     ./optional/work-applications.nix
