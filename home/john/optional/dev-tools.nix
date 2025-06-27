@@ -9,4 +9,8 @@
       nix-direnv.enable = true;
     };
   };
+
+  home.packages = with pkgs; [
+    windsurf  # AI IDE
+  ];
 }
