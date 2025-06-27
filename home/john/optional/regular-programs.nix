@@ -38,7 +38,7 @@
     nettools # ipconfig etc.
     obsidian # Note taking app
     packer # create VM images
-    #plex-desktop # Plex Desktop
+    #plex-desktop # Plex Desktop NOTE: Due to dependency issues with nixpkgs, this is now installed via flatpak. 
     plexamp # Plexamp player
     rclone # Sync to multiple cloud locations.
     remmina # Remote Desktop viewer
