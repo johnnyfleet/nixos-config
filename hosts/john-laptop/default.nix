@@ -28,7 +28,7 @@
     ../common/optional/flatpak.nix
     #../common/optional/gnome.nix
     ../common/optional/laptop-power-settings.nix
-    #../common/optional/plasma-minimal.nix
+    ../common/optional/plasma-minimal.nix
     ../common/optional/niri.nix
     ../common/optional/printing.nix
     ../common/optional/steam.nix
