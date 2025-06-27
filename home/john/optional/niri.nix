@@ -242,18 +242,22 @@
 
   # Configure mako notification daemon
   services.mako = {
-    enable = true;
-    backgroundColor = "#1e1e2e";
-    borderColor = "#89b4fa";
-    borderRadius = 10;
-    borderSize = 2;
-    textColor = "#cdd6f4";
-    font = "JetBrains Mono 11";
-    width = 350;
-    height = 150;
-    margin = "10";
-    padding = "15";
-    defaultTimeout = 5000;
+    enable = true;   
+    
+    settings = {
+      default-timeout = 5000;
+      border-radius = 10;
+      border-color = "#89b4fa";
+      border-size = 2;
+      padding = "15";
+      width = 350;
+      height = 150;
+      margin = "10";  
+      text-color = "#cdd6f4";
+      background-color = "#1e1e2e";
+      font = "JetBrains Mono 11";
+    };
+    
     extraConfig = ''
       [urgency=high]
       border-color=#f38ba8
@@ -434,7 +438,7 @@
   home.sessionVariables = {
     # Required for niri
     NIXOS_OZONE_WL = "1";
-    MOZ_ENABLE_WAYLAND = "1";
+    #MOZ_ENABLE_WAYLAND = "1";
     CLUTTER_BACKEND = "wayland";
     SDL_VIDEODRIVER = "wayland";
     GDK_BACKEND = "wayland,x11";
