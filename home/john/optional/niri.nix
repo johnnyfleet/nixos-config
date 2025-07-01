@@ -246,6 +246,7 @@
     
     settings = {
       default-timeout = 5000;
+      dismiss-on-click=true;
       border-radius = 10;
       border-color = "#89b4fa";
       border-size = 2;
