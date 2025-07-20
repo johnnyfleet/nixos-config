@@ -117,7 +117,7 @@
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
-              nix-index-database.hmModules.nix-index
+              nix-index-database.homeModules.nix-index
             ];
 
             home-manager.users.john = import ./home/john/nixos-anywhere-vm.nix;
@@ -146,7 +146,7 @@
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
-              nix-index-database.hmModules.nix-index
+              nix-index-database.homeModules.nix-index
             ];
 
             home-manager.users.john = import ./home/john/nixos-plasma-vm.nix;
@@ -175,7 +175,7 @@
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
-              nix-index-database.hmModules.nix-index
+              nix-index-database.homeModules.nix-index
             ];
 
             home-manager.users.john = import ./home/john/john-sony-laptop.nix;
@@ -206,7 +206,7 @@
             home-manager.sharedModules = [
               plasma-manager.homeManagerModules.plasma-manager
               inputs.sops-nix.homeManagerModules.sops
-              nix-index-database.hmModules.nix-index
+              nix-index-database.homeModules.nix-index
             ];
 
             home-manager.users.john = import ./home/john/john-laptop.nix;
