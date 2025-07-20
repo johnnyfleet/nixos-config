@@ -41,7 +41,18 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  swapDevices = [ ];
+  swapDevices = [ 
+    { 
+      device = "/dev/disk/by-uuid/70fb9644-66fe-4d1b-9fd8-0c583b6ea1bd"; 
+    }
+  ];
+
+  # Enables zram which will compress in memory before falling back to swap partition. 
+  # 50% seemed a normal amount for laptops use, but can lower to 25% if too much.
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
