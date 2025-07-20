@@ -85,8 +85,8 @@
   boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
 
   # Switch to Zen linux kernel for slightly smoother gameplay. 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
 
   ########################## PACKAGES ##############################
