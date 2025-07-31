@@ -14,6 +14,7 @@
   services.qemuGuest.enable = true;
   services.spice-autorandr.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation.libvirtd.qemu.swtpm.enable = true;
   networking.firewall.trustedInterfaces = [ "virbr0" ]; # Allow the virtual network through the firewall.
  
 /* 
@@ -40,6 +41,8 @@
   # Install viewer
   environment.systemPackages = with pkgs; [
     remmina
+    swtpm # For TPM support in VMs
+
   ];
 
 }
