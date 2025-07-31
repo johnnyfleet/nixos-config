@@ -5,6 +5,11 @@
   virtualisation.libvirtd.enable = true;
   users.groups.libvirtd.members = ["john"];
 
+  # Enable TPM emulation (optional)
+  virtualisation.libvirtd.qemu = {
+    swtpm.enable = true;
+    ovmf.packages = [ pkgs.OVMFFull.fd ];
+  };
 
   # Enable the virt-manager GUI
   programs.virt-manager.enable = true;
@@ -14,7 +19,6 @@
   services.qemuGuest.enable = true;
   services.spice-autorandr.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
-  virtualisation.libvirtd.qemu.swtpm.enable = true;
   networking.firewall.trustedInterfaces = [ "virbr0" ]; # Allow the virtual network through the firewall.
  
 /* 
