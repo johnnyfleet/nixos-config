@@ -46,6 +46,7 @@
   environment.systemPackages = with pkgs; [
     remmina
     swtpm # For TPM support in VMs
+    virtiofsd # For virtio file system support - sharing folders to guest.
 
   ];
 
