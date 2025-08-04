@@ -7,9 +7,6 @@
   services.tlp = {
         enable = true;
         settings = {
-          TLP_DEFAULT_MODE = "auto";
-          TLP_PERSISTENT_DEFAULT = 1;
-
           CPU_SCALING_GOVERNOR_ON_AC = "performance";
           CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
@@ -27,11 +24,6 @@
 
         };
   };
-
-  environment.systemPackages = with pkgs; [
-    tlp
-    tlp-rdw # Allows to set profiles
-  ];
   
   # Disable power-profiles-daemon as it conflicts with TLP
   services.power-profiles-daemon.enable = false;
