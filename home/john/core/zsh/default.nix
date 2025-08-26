@@ -35,10 +35,6 @@
       td = "sudo tailscale down";
       ni = "sudo nix-index";
       no = "sudo nix store optimise";
-
-      tlps = "sudo tlp-stat -s";
-      tlperf = "sudo tlp setprofile performance";
-      tlpower = "sudo tlp setprofile powersave";
     };
 
     plugins = [
