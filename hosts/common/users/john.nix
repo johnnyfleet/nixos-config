@@ -15,7 +15,7 @@
     isNormalUser = true;
     description = "John Stephenson";
     extraGroups = [ "wheel" ];
-    hashedPasswordFile = config.sops.secrets.john-password.path;
+    #hashedPasswordFile = config.sops.secrets.john-password.path;
     openssh.authorizedKeys.keys =
       let
         authorizedKeys = pkgs.fetchurl {
