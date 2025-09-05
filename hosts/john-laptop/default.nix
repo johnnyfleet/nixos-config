@@ -37,6 +37,7 @@
     #../common/optional/xfce-minimal.nix
     #../common/optional/minecraft-bedrock-client.nix
     ../common/optional/node-sonos-http-firewall.nix
+    ../common/optional/cloudflare-warp.nix
   ];
 
   ######################### NIX-SOPS ############################
