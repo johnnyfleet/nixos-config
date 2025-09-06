@@ -33,6 +33,7 @@
     ../common/optional/printing.nix
     ../common/optional/steam.nix
     ../common/optional/virtualisation.nix
+    #../common/optional/virtualisation-bridge.nix
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
     #../common/optional/minecraft-bedrock-client.nix
