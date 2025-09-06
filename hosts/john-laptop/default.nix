@@ -37,7 +37,7 @@
     #../common/optional/xfce-minimal.nix
     #../common/optional/minecraft-bedrock-client.nix
     ../common/optional/node-sonos-http-firewall.nix
-    ../common/optional/cloudflare-warp.nix
+    #../common/optional/cloudflare-warp.nix
   ];
 
   ######################### NIX-SOPS ############################
@@ -106,7 +106,7 @@
 
   virtualisation.vmVariant = {
     virtualisation = {
-      memorySize = 2048; # Set memory to 2048MiB (2GB)
+      memorySize = 4096; # Set memory to 4GB
       cores = 2;        # You can also set the number of CPU cores here
      };
   };
