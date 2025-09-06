@@ -101,6 +101,14 @@
 
   # Included packages here
   #environment.systemPackages = with pkgs; [ ];
+
+
+  virtualisation.vmVariant = {
+    virtualisation = {
+      memorySize = 2048; # Set memory to 2048MiB (2GB)
+      cores = 2;        # You can also set the number of CPU cores here
+     };
+  };
   
 
   # This value determines the NixOS release from which the default
