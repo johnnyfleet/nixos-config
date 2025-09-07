@@ -98,6 +98,15 @@
           program = "${self.nixosConfigurations.vm.config.system.build.vm}/bin/run-nixos-vm";
         };
       };
+
+      # Sets formatter option 
+      formatter.x86_64-linux =
+        let pkgs = import nixpkgs { system = "x86_64-linux"; };
+        in pkgs.alejandra;
+        # Alternatives:
+        # in pkgs.nixfmt       # classic nixfmt
+        # in pkgs.alejandra    # widely used opinionated formatter
+
       nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
