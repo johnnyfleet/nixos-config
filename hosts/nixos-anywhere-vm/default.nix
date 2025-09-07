@@ -17,20 +17,25 @@
 
     ##### Set up users
     ../common/users/john.nix
-    ../common/users/guest.nix
+    #../common/users/guest.nix
 
     ##### Optional Configuration
     ../common/optional/1password.nix
-    #../common/optional/docker.nix
-    #../common/optional/flatpak.nix
+    ../common/optional/docker.nix
+    ../common/optional/flatpak.nix
     #../common/optional/gnome.nix
+    ../common/optional/tlp.nix
     ../common/optional/plasma-minimal.nix
+    #../common/optional/niri.nix
     #../common/optional/printing.nix
-    #../common/optional/steam.nix
-    #../common/optional/virtualisation.nix
+    ../common/optional/steam.nix
+    .#./common/optional/virtualisation.nix
+    #../common/optional/virtualisation-bridge.nix
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
     #../common/optional/minecraft-bedrock-client.nix
+    #../common/optional/node-sonos-http-firewall.nix
+    #../common/optional/cloudflare-warp.nix
   ];
 
 
