@@ -3,3 +3,4 @@
 nixos-iso/result/
 result
 *.iso
+*.qcow2

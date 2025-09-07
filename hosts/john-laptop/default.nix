@@ -33,11 +33,12 @@
     ../common/optional/printing.nix
     ../common/optional/steam.nix
     ../common/optional/virtualisation.nix
+    #../common/optional/virtualisation-bridge.nix
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
     #../common/optional/minecraft-bedrock-client.nix
     ../common/optional/node-sonos-http-firewall.nix
-    ../common/optional/cloudflare-warp.nix
+    #../common/optional/cloudflare-warp.nix
   ];
 
   ######################### NIX-SOPS ############################
@@ -102,6 +103,14 @@
 
   # Included packages here
   #environment.systemPackages = with pkgs; [ ];
+
+
+  virtualisation.vmVariant = {
+    virtualisation = {
+      memorySize = 4096; # Set memory to 4GB
+      cores = 2;        # You can also set the number of CPU cores here
+     };
+  };
   
 
   # This value determines the NixOS release from which the default

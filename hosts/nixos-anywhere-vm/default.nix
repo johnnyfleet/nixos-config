@@ -3,8 +3,13 @@
 # To be able to connect with ssh enable port forwarding with:
 # QEMU_NET_OPTS="hostfwd=tcp::2222-:22" ./result/bin/run-nixos-vm
 # Then connect with ssh -p 2222 guest@localhost
-{ lib, config, inputs, pkgs, ... }:
 {
+  lib,
+  config,
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
 
@@ -13,29 +18,34 @@
 
     ##### Core Configuration
     ../common/core/default.nix
-    inputs.sops-nix.nixosModules.sops
+    #inputs.sops-nix.nixosModules.sops
 
     ##### Set up users
     ../common/users/john.nix
-    ../common/users/guest.nix
+    #../common/users/guest.nix
 
     ##### Optional Configuration
     ../common/optional/1password.nix
-    #../common/optional/docker.nix
-    #../common/optional/flatpak.nix
+    ../common/optional/docker.nix
+    ../common/optional/flatpak.nix
     #../common/optional/gnome.nix
+    ../common/optional/tlp.nix
     ../common/optional/plasma-minimal.nix
+    #../common/optional/niri.nix
     #../common/optional/printing.nix
-    #../common/optional/steam.nix
+    ../common/optional/steam.nix
     #../common/optional/virtualisation.nix
+    #../common/optional/virtualisation-bridge.nix
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
     #../common/optional/minecraft-bedrock-client.nix
+    #../common/optional/node-sonos-http-firewall.nix
+    #../common/optional/cloudflare-warp.nix
   ];
-
 
   ######################### NIX-SOPS ############################
 
+  /*
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
 
@@ -52,14 +62,17 @@
   # This will generate a new key if the key specified above does not exist
   sops.age.generateKey = true;
 
-  # Force update passwords for users on each run. 
+  # Force update passwords for users on each run.
   users.mutableUsers = false;
+  */
 
-########################## OTHER CONFIG ############################
+  ########################## OTHER CONFIG ############################
 
-
- # Enable the Flakes feature and the accompanying new nix command-line tool
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Enable the Flakes feature and the accompanying new nix command-line tool
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Bootloader.
   #boot.loader.grub.enable = true;
@@ -78,7 +91,7 @@
       y = 1024;
     };
     virtualisation.cores = 4;
-    virtualisation.memorySize =  2048;
+    virtualisation.memorySize = 2048;
     virtualisation.qemu.options = [
       # Better display option
       "-vga virtio"
@@ -96,22 +109,19 @@
   services.qemuGuest.enable = true;
   services.spice-autorandr.enable = true;
 
-
   ############################# USERS #############################
 
   security.sudo.wheelNeedsPassword = false;
-  users.users.root.openssh.authorizedKeys.keys =
-    let
-      authorizedKeys = pkgs.fetchurl {
-        url = "https://github.com/johnnyfleet.keys";
-        sha256 = "fce5536148d8d8f607dc0612d47c9ca721a75c62539a07e571183f56070c31d1";
-      };
-    in
+  users.users.root.openssh.authorizedKeys.keys = let
+    authorizedKeys = pkgs.fetchurl {
+      url = "https://github.com/johnnyfleet.keys";
+      sha256 = "fce5536148d8d8f607dc0612d47c9ca721a75c62539a07e571183f56070c31d1";
+    };
+  in
     pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
 
-
- ############################# DISPLAY #########################
-/*
+  ############################# DISPLAY #########################
+  /*
   # X configuration
   services.xserver.enable = true;
   services.xserver.xkb.layout = "us";
@@ -121,10 +131,10 @@
   services.xserver.desktopManager.xfce.enable = true;
   services.xserver.desktopManager.xfce.enableScreensaver = false;
 
-  #services.xserver.videoDrivers = [ "qxl" ]; */
+  #services.xserver.videoDrivers = [ "qxl" ];
+  */
 
-########################## PACKAGES ##############################
-
+  ########################## PACKAGES ##############################
 
   # Included packages here
   #nixpkgs.config.allowUnfree = true;
