@@ -38,7 +38,6 @@
     #../common/optional/cloudflare-warp.nix
   ];
 
-
   ######################### NIX-SOPS ############################
 
 /*   sops.defaultSopsFile = ../../secrets/secrets.yaml;
