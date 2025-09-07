@@ -2,7 +2,6 @@
   description = "VM";
 
   inputs = {
-
     ############ Official NixOS & Home Manager Package Sources #################
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -20,7 +19,6 @@
       # the `inputs.nixpkgs` of the current flake,
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
-
     };
 
     ############################ Utilities #####################################
@@ -73,148 +71,151 @@
     };
   };
 
-  outputs =
-    inputs@{
-      nixpkgs,
-      self,
-      home-manager,
-      plasma-manager,
-      sops-nix,
-      zen-browser,
-      nixos-hardware,
-      nix-index-database,
-      winapps,
-      disko,
-      niri,
-      ...
-    }:
-    let
-        system = "x86_64-linux";
-      in
-    {
-      apps."x86_64-linux" = {
-        default = {
-          type = "app";
-          program = "${self.nixosConfigurations.vm.config.system.build.vm}/bin/run-nixos-vm";
-        };
-      };
-
-      # Sets formatter option 
-      formatter.x86_64-linux =
-        let pkgs = import nixpkgs { system = "x86_64-linux"; };
-        in pkgs.alejandra;
-        # Alternatives:
-        # in pkgs.nixfmt       # classic nixfmt
-        # in pkgs.alejandra    # widely used opinionated formatter
-
-      nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          disko.nixosModules.disko
-          ./hosts/nixos-anywhere-vm/default.nix
-          nix-index-database.nixosModules.nix-index
-          # optional to also wrap and install comma
-          { programs.nix-index-database.comma.enable = true; }
-
-          # make home-manager as a module of nixos
-          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
-            home-manager.sharedModules = [
-              plasma-manager.homeManagerModules.plasma-manager
-              inputs.sops-nix.homeManagerModules.sops
-              nix-index-database.homeModules.nix-index
-            ];
-
-            home-manager.users.john = import ./home/john/nixos-anywhere-vm.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
-
-            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
-          }
-        ];
-      };
-
-      nixosConfigurations.john-sony-laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/john-sony-laptop/default.nix
-          nix-index-database.nixosModules.nix-index
-          # optional to also wrap and install comma
-          { programs.nix-index-database.comma.enable = true; }
-
-          # make home-manager as a module of nixos
-          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
-            home-manager.sharedModules = [
-              plasma-manager.homeManagerModules.plasma-manager
-              inputs.sops-nix.homeManagerModules.sops
-              nix-index-database.homeModules.nix-index
-            ];
-
-            home-manager.users.john = import ./home/john/john-sony-laptop.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
-            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
-          }
-        ];
-      };
-
-    
-      nixosConfigurations.john-laptop = nixpkgs.lib.nixosSystem {
-        
-        specialArgs = { inherit inputs system; };
-        modules = [
-          ./hosts/john-laptop/default.nix
-          nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
-          nix-index-database.nixosModules.nix-index
-          # optional to also wrap and install comma
-          { programs.nix-index-database.comma.enable = true; }
-
-          # make home-manager as a module of nixos
-          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
-            home-manager.sharedModules = [
-              plasma-manager.homeManagerModules.plasma-manager
-              inputs.sops-nix.homeManagerModules.sops
-              nix-index-database.homeModules.nix-index
-            ];
-
-            home-manager.users.john = import ./home/john/john-laptop.nix;
-            home-manager.extraSpecialArgs = { inherit inputs; system = "x86_64-linux";};
-            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
-          }
-          
-          (
-            {
-              pkgs,
-              system ? pkgs.system,
-              ...
-            }:
-            {
-              # set up binary cache (optional)
-              nix.settings = {
-                substituters = [ "https://winapps.cachix.org/" ];
-                trusted-public-keys = [ "winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g=" ];
-              };
-
-              environment.systemPackages = [
-                winapps.packages."${system}".winapps
-                winapps.packages."${system}".winapps-launcher # optional
-              ];
-            }
-          )
-
-        ];
+  outputs = inputs @ {
+    nixpkgs,
+    self,
+    home-manager,
+    plasma-manager,
+    sops-nix,
+    zen-browser,
+    nixos-hardware,
+    nix-index-database,
+    winapps,
+    disko,
+    niri,
+    ...
+  }: let
+    system = "x86_64-linux";
+  in {
+    apps."x86_64-linux" = {
+      default = {
+        type = "app";
+        program = "${self.nixosConfigurations.vm.config.system.build.vm}/bin/run-nixos-vm";
       };
     };
+
+    # Sets formatter option
+    formatter.x86_64-linux = let
+      pkgs = import nixpkgs {system = "x86_64-linux";};
+    in
+      pkgs.alejandra;
+    # Alternatives:
+    # in pkgs.nixfmt       # classic nixfmt
+    # in pkgs.alejandra    # widely used opinionated formatter
+
+    nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        disko.nixosModules.disko
+        ./hosts/nixos-anywhere-vm/default.nix
+        nix-index-database.nixosModules.nix-index
+        # optional to also wrap and install comma
+        {programs.nix-index-database.comma.enable = true;}
+
+        # make home-manager as a module of nixos
+        # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
+          home-manager.sharedModules = [
+            plasma-manager.homeManagerModules.plasma-manager
+            inputs.sops-nix.homeManagerModules.sops
+            nix-index-database.homeModules.nix-index
+          ];
+
+          home-manager.users.john = import ./home/john/nixos-anywhere-vm.nix;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            system = "x86_64-linux";
+          };
+
+          # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+        }
+      ];
+    };
+
+    nixosConfigurations.john-sony-laptop = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./hosts/john-sony-laptop/default.nix
+        nix-index-database.nixosModules.nix-index
+        # optional to also wrap and install comma
+        {programs.nix-index-database.comma.enable = true;}
+
+        # make home-manager as a module of nixos
+        # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
+          home-manager.sharedModules = [
+            plasma-manager.homeManagerModules.plasma-manager
+            inputs.sops-nix.homeManagerModules.sops
+            nix-index-database.homeModules.nix-index
+          ];
+
+          home-manager.users.john = import ./home/john/john-sony-laptop.nix;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            system = "x86_64-linux";
+          };
+          # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+        }
+      ];
+    };
+
+    nixosConfigurations.john-laptop = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs system;};
+      modules = [
+        ./hosts/john-laptop/default.nix
+        nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
+        nix-index-database.nixosModules.nix-index
+        # optional to also wrap and install comma
+        {programs.nix-index-database.comma.enable = true;}
+
+        # make home-manager as a module of nixos
+        # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
+          home-manager.sharedModules = [
+            plasma-manager.homeManagerModules.plasma-manager
+            inputs.sops-nix.homeManagerModules.sops
+            nix-index-database.homeModules.nix-index
+          ];
+
+          home-manager.users.john = import ./home/john/john-laptop.nix;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            system = "x86_64-linux";
+          };
+          # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+        }
+
+        (
+          {
+            pkgs,
+            system ? pkgs.system,
+            ...
+          }: {
+            # set up binary cache (optional)
+            nix.settings = {
+              substituters = ["https://winapps.cachix.org/"];
+              trusted-public-keys = ["winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g="];
+            };
+
+            environment.systemPackages = [
+              winapps.packages."${system}".winapps
+              winapps.packages."${system}".winapps-launcher # optional
+            ];
+          }
+        )
+      ];
+    };
+  };
 }
