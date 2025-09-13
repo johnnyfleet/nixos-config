@@ -60,7 +60,7 @@
   sops.age.generateKey = true;
 
   # Force update passwords for users on each run.
-  users.mutableUsers = false;
+  users.mutableUsers = true;
 
   ############################ NETWORKING ########################
 
