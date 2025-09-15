@@ -28,6 +28,7 @@
     ../common/optional/flatpak.nix
     #../common/optional/gnome.nix
     ../common/optional/tlp.nix
+    #../common/optional/power-profiles.nix
     ../common/optional/plasma-minimal.nix
     #../common/optional/niri.nix
     ../common/optional/printing.nix
