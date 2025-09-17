@@ -32,7 +32,7 @@
     ../common/optional/plasma-minimal.nix
     #../common/optional/niri.nix
     ../common/optional/printing.nix
-    ../common/optional/fwupd.nix
+    #../common/optional/fwupd.nix
     ../common/optional/steam.nix
     ../common/optional/virtualisation.nix
     #../common/optional/virtualisation-bridge.nix
