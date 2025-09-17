@@ -3,6 +3,18 @@
 { pkgs, ... }:
 { 
   services.fwupd.enable = true;      # starts the fwupd system daemon
-  services.bolt.enable = true;       # good idea for Thunderbolt management
-  # Optional: if you’re using Secure Boot with shim, fwupd handles it fine
+
+  #Thunderbolt management
+  environment.systemPackages = with pkgs; [
+        bolt
+  ];
+
+  # Auto-start the bolt daemon
+  systemd.user.services.bolt = {
+    description = "Thunderbolt device management daemon";
+    serviceConfig = {
+      ExecStart = "${pkgs.bolt}/bin/boltd";
+    };
+    wantedBy = [ "default.target" ];
+  };
 }
