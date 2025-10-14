@@ -53,7 +53,7 @@
 
   # Set your time zone.
   #time.timeZone = "Pacific/Auckland";
-  time.timeZone = "Europe/London";
+  time.timeZone = "Asia/Singapore";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
