@@ -8,7 +8,6 @@
   # Enable TPM emulation (optional)
   virtualisation.libvirtd.qemu = {
     swtpm.enable = true;
-    ovmf.packages = [ pkgs.OVMFFull.fd ];
   };
 
   # Enable the virt-manager GUI
