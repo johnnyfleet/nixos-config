@@ -52,8 +52,7 @@
   console.keyMap = "us";
 
   # Set your time zone.
-  #time.timeZone = "Pacific/Auckland";
-  time.timeZone = "Asia/Singapore";
+  time.timeZone = "Pacific/Auckland";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
