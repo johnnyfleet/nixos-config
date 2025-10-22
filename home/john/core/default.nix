@@ -57,8 +57,8 @@
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
-    userName = "John Stephenson";
-    userEmail = "14134347+johnnyfleet@users.noreply.github.com";
+    settings.user.name = "John Stephenson";
+    settings.user.email = "14134347+johnnyfleet@users.noreply.github.com";
   };
 
   home.sessionVariables = {
