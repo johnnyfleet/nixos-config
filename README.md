@@ -60,6 +60,9 @@ i.e. if this is a vm.
 - `sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos`
 - `sudo nixos-rebuild switch --upgrade`
 
+## Setup Yubikey passwordless login
+If you want, follow [these instructions](./docs/Yubikey%20u2f.md) to setup Yubikey to allow for passwordless unlock & sudo
+
 ## How to clean up
 
 ``` bash
