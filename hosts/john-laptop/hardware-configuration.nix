@@ -15,7 +15,8 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   # Ideally make boot sequence less verbos. Likely only applies to stage 2 vs. stage 1. See: http://github.com/NixOS/nixpkgs/issues/32555
-  boot.kernelParams = [ "quiet" "udev.log_level=3" ];
+  # Disable i915 PSR (Panel Self Refresh) to avoid screen freezing issue: https://chatgpt.com/c/68f6e22a-f564-8324-b3b3-812c4a9bbfce
+  boot.kernelParams = [ "quiet" "udev.log_level=3" "i915.enable_psr=0"];
   boot.consoleLogLevel = 0;
   boot.initrd.verbose = false;
 
