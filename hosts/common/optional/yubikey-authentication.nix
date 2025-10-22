@@ -2,14 +2,6 @@
 
 { config, lib, pkgs, ... }:
 
-let
-  # Helpers to build a standard footer for account/password/session
-  pamFooter = ''
-    account   include system-account
-    password  include system-password
-    session   include system-session
-  '';
-in
 {
   # 1) Enable U2F and (optionally) fingerprint
   security.pam.u2f = {
@@ -25,8 +17,7 @@ in
     tod.enable = true;
     tod.driver = pkgs.libfprint-2-tod1-goodix;
   };
-  #security.pam.services.login.fprintAuth = false; #disable fingerprint login - but allow everything else.
-
+  
   # 2) SUDO: YubiKey OR fingerprint OR password
   security.pam.services.sudo = {
     u2fAuth   = true;
