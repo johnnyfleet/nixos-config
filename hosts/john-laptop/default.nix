@@ -41,6 +41,7 @@
     #../common/optional/minecraft-bedrock-client.nix
     ../common/optional/node-sonos-http-firewall.nix
     #../common/optional/cloudflare-warp.nix
+    ../common/optional/yubikey-authentication.nix
   ];
 
   ######################### NIX-SOPS ############################
@@ -104,13 +105,13 @@
     })
   ];
 
-  # Enable fingerprint 
+  /* # Enable fingerprint 
   services.fprintd = {
     enable = true;
     tod.enable = true;
     tod.driver = pkgs.libfprint-2-tod1-goodix;
   };
-  security.pam.services.login.fprintAuth = false; #disable fingerprint login - but allow everything else. 
+  security.pam.services.login.fprintAuth = false; #disable fingerprint login - but allow everything else. */ 
 
   # Included packages here
   #environment.systemPackages = with pkgs; [ ];
