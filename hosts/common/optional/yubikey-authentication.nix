@@ -52,8 +52,9 @@ in
   };
 
   # 5) INITIAL LOGIN (TTY getty): PASSWORD ONLY, no U2F/fingerprint
+  # Typically only have password as otherwise you need to manually unlock Kwallet anyway - which is annoying experience.
   security.pam.services.login = {
-    u2fAuth   = true;
+    u2fAuth   = false;
     fprintAuth= false;
     unixAuth  = true;
   };
