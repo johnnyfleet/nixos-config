@@ -53,7 +53,7 @@ in
 
   # 5) INITIAL LOGIN (TTY getty): PASSWORD ONLY, no U2F/fingerprint
   security.pam.services.login = {
-    u2fAuth   = false;
+    u2fAuth   = true;
     fprintAuth= false;
     unixAuth  = true;
   };
