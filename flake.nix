@@ -120,7 +120,7 @@
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
           home-manager.sharedModules = [
-            plasma-manager.homeManagerModules.plasma-manager
+            plasma-manager.homeModules.plasma-manager
             inputs.sops-nix.homeManagerModules.sops
             nix-index-database.homeModules.nix-index
           ];
@@ -152,7 +152,7 @@
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
           home-manager.sharedModules = [
-            plasma-manager.homeManagerModules.plasma-manager
+            plasma-manager.homeModules.plasma-manager
             inputs.sops-nix.homeManagerModules.sops
             nix-index-database.homeModules.nix-index
           ];
@@ -184,7 +184,7 @@
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
           home-manager.sharedModules = [
-            plasma-manager.homeManagerModules.plasma-manager
+            plasma-manager.homeModules.plasma-manager
             inputs.sops-nix.homeManagerModules.sops
             nix-index-database.homeModules.nix-index
           ];
