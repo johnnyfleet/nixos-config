@@ -41,7 +41,7 @@
     #../common/optional/minecraft-bedrock-client.nix
     ../common/optional/node-sonos-http-firewall.nix
     #../common/optional/cloudflare-warp.nix
-    ../common/optional/yubikey-authentication.nix
+    ../common/optional/yubikey-u2f-authentication.nix
   ];
 
   ######################### NIX-SOPS ############################
