@@ -2,6 +2,37 @@
 {
   #imports = [ <plasma-manager/modules> ];
 
+  # Shortcuts for launcher
+  xdg.desktopEntries = {
+    trello = {
+      name = "Trello";
+      comment = "Open Trello as a Chrome app";
+      exec = "${pkgs.google-chrome}/bin/google-chrome-stable --profile-directory=Default --class=Trello --app=https://trello.com/";
+      # If using Chromium:
+      # exec = "${pkgs.chromium}/bin/chromium --profile-directory=Default --class=Trello --app=https://trello.com/";
+      icon = "trello";
+      categories = [ "Network" "Office" ];
+      terminal = false;
+      type = "Application";
+      settings = {
+        StartupWMClass = "Trello";
+      };
+    };
+
+    github = {
+      name = "GitHub";
+      comment = "Open GitHub as a Chrome app";
+      exec = "${pkgs.google-chrome}/bin/google-chrome-stable --profile-directory=Default --class=GitHub --app=https://github.com/";
+      icon = "github";
+      categories = [ "Network" "Development" ];
+      terminal = false;
+      type = "Application";
+      settings = {
+        StartupWMClass = "GitHub";
+      };
+    };
+  };
+
   programs.plasma = {
     enable = true;
 
@@ -80,6 +111,10 @@
                 "applications:1password.desktop"
                 "applications:steam.desktop"
                 "applications:firefox.desktop"
+                "applications:google-chrome.desktop"
+
+                "applications:trello.desktop"
+                "applications:github.desktop"
               ];
             };
             /*
