@@ -117,14 +117,14 @@
 
   ############################# USERS #############################
 
-  /* security.sudo.wheelNeedsPassword = false;
+  security.sudo.wheelNeedsPassword = false;
   users.users.root.openssh.authorizedKeys.keys = let
     authorizedKeys = pkgs.fetchurl {
       url = "https://github.com/johnnyfleet.keys";
       sha256 = "sha256-/inXDjnOnTqriEqwUK5UNwg+Fp56FdB+Av5mWH+KLAw=";
     };
   in
-    pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys); */
+    pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
 
   ############################# DISPLAY #########################
   /*
