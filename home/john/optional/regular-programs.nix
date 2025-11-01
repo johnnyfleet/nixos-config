@@ -11,7 +11,7 @@
     audacious # Music player
     baobab # Disk Usage Analyser
     btop # Advanced system utilisation monitor (think top, htop)
-    du-dust # Filesystem cli tool
+    dust # Filesystem cli tool
     duf # Fancier version of df
     easytag # Edit MP3 ID3 files
     expressvpn # VPN client
