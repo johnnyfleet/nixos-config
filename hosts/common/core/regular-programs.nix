@@ -12,7 +12,7 @@
     cifs-utils
     #comma # run programs without installing
     dig
-    du-dust
+    dust
     duf
     eza
     fastfetch
