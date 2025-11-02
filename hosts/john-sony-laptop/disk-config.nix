@@ -8,6 +8,7 @@
         #   --disk disk1 /dev/nvme0n1
         # or set it here:
         # device = "/dev/disk/by-id/your-disk-id";
+        device = lib.mkDefault "/dev/vda";
         content = {
           type = "gpt";
           partitions = {
