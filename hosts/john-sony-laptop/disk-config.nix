@@ -12,9 +12,14 @@
         content = {
           type = "gpt";
           partitions = {
-            ESP = {
+            boot = {
+              name = "boot";
+              size = "1M";
+              type = "EF02";
+            };
+            esp = {
               name = "ESP";
-              size = "512MiB";
+              size = "500M";
               type = "ef00"; # EFI System Partition
               content = {
                 type = "filesystem";
