@@ -49,7 +49,7 @@
         lvs = {
           root = {
             name = "lv_root";
-            size = "30GiB";
+            size = "100GiB";
             content = {
               type = "filesystem";
               format = "ext4";
