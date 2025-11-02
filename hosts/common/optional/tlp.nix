@@ -1,40 +1,47 @@
 ## Applies TLP and thermald to manage laptop power settings.
 
 { pkgs, ... }:
-{ 
+{
   services.thermald.enable = true;
 
   services.tlp = {
-        enable = true;
-        settings = {
-          CPU_SCALING_GOVERNOR_ON_AC = "performance";
-          CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    enable = true;
+    settings = {
+      # Governors (intel_pstate): 'powersave' + HWP/EPP do the real tuning
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
 
-          CPU_ENERGY_PERF_POLICY_ON_BAT = "balanced";
-          CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      # HWP / EPP
+      CPU_HWP_ON_AC = "performance";
+      CPU_HWP_ON_BAT = "balance_power";      # was balance_performance
+      CPU_HWP_DYN_BOOST_ON_AC = 1;
+      CPU_HWP_DYN_BOOST_ON_BAT = 0;          # save a lot of watts on Zoom
 
-          # HWP + EPP (the real tuning knobs on Tiger Lake)
-          CPU_HWP_ON_AC = "performance";
-          CPU_HWP_ON_BAT = "balance_performance";   # key change from 'power'
-          CPU_HWP_DYN_BOOST_ON_AC = 1;
-          CPU_HWP_DYN_BOOST_ON_BAT = 1;
+      # Turbo/boost
+      CPU_BOOST_ON_AC = 1;
+      CPU_BOOST_ON_BAT = 0;                   # big saver; flip to 1 if you miss snap
 
-          # Allow short turbo bursts on battery
-          CPU_BOOST_ON_AC = 1;
-          CPU_BOOST_ON_BAT = 1;
+      # Sustained performance caps
+      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 55;               # was 65; try 50–60
 
-          CPU_MIN_PERF_ON_AC = 0;
-          CPU_MAX_PERF_ON_AC = 100;
-          CPU_MIN_PERF_ON_BAT = 0;
-          CPU_MAX_PERF_ON_BAT = 65;
+      # Platform profile (firmware dependent; harmless if unsupported)
+      PLATFORM_PROFILE_ON_AC = "performance";
+      PLATFORM_PROFILE_ON_BAT = "balanced";
 
-          #Optional helps save long term battery health
-          START_CHARGE_THRESH_BAT0 = 50; # 50 and below it starts to charge
-          STOP_CHARGE_THRESH_BAT0 = 90; # 90 and above it stops charging
+      # Nice-to-haves that often help battery during calls/browsing
+      RUNTIME_PM_ON_BAT = "auto";
+      PCIE_ASPM_ON_BAT = "powersupersave";
+      WIFI_PWR_ON_BAT = 5;
+      SATA_LINKPWR_ON_BAT = "med_power_with_dipm";
+      USB_AUTOSUSPEND = 1;
 
-        };
+      START_CHARGE_THRESH_BAT0 = 50;
+      STOP_CHARGE_THRESH_BAT0 = 90;
+    };
   };
-  
-  # Disable power-profiles-daemon as it conflicts with TLP
+
   services.power-profiles-daemon.enable = false;
 }
