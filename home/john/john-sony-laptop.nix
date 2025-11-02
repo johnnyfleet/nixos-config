@@ -3,7 +3,7 @@
   imports = [
     #################### Required Configs ####################
     ./core/default.nix # required
-    ./optional/plasma-manager.nix # set up of plasma manager on plasma.
+    #./optional/plasma-manager.nix # set up of plasma manager on plasma.
     ./optional/regular-programs.nix # Additional programs I usually have installed
     #./optional/additional-programs.nix # Additional programs I used to have but don't think I need right now.
     ./optional/gaming.nix # Heroic & Lutris
