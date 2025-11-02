@@ -38,10 +38,10 @@
 
 
 
-  fileSystems."/" = {
+  /* fileSystems."/" = {
     device = "/dev/disk/by-uuid/f4d4171a-e1d5-4b30-a1b1-14bc0038d060";
     fsType = "ext4";
-  };
+  }; */
 
   #swapDevices = [ ];
 
