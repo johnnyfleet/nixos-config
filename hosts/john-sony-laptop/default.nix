@@ -18,6 +18,9 @@
     ../common/core/default.nix
     inputs.sops-nix.nixosModules.sops
 
+    ##### Disko setup
+    ./disk-config.nix
+
     ##### Set up users
     ../common/users/john.nix
     #../common/users/guest.nix
@@ -40,7 +43,7 @@
 
   ######################### NIX-SOPS ############################
 
-  sops.defaultSopsFile = ../../secrets/secrets.yaml;
+  /* sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
 
   #sops.age.keyFile = "/home/john/.config/sops/age/keys.txt";
@@ -57,7 +60,7 @@
   sops.age.generateKey = true;
 
   # Force update passwords for users on each run.
-  users.mutableUsers = false;
+  users.mutableUsers = false; */
 
    ############################ NETWORKING ########################
 

@@ -139,6 +139,7 @@
     nixosConfigurations.john-sony-laptop = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
+        disko.nixosModules.disko
         ./hosts/john-sony-laptop/default.nix
         nix-index-database.nixosModules.nix-index
         # optional to also wrap and install comma
