@@ -27,7 +27,7 @@
 
   xsession.numlock.enable = true;
 
-  sops = {
+/*   sops = {
     #age.keyFile = "/home/user/.age-key.txt"; # must have no password!
     # It's also possible to use a ssh key, but only when it has no password:
     age.sshKeyPaths = [ "/home/john/.ssh/id_ed25519" ];
@@ -39,5 +39,5 @@
     secrets.git-user-email = {
       key = "git-user-email";
     };
-  };
+  }; */
 }
