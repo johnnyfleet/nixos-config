@@ -12,7 +12,7 @@
 {
   imports = [
     ./base-config.nix
-    ../../hosts/common/core/yubikey.nix
+    #../../hosts/common/core/yubikey.nix
     ../../hosts/common/core/regular-programs.nix
   ];
 
