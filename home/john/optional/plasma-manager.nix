@@ -1,34 +1,37 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   #imports = [ <plasma-manager/modules> ];
+
+  home.file.".local/share/icons/trello.svg".source = ../../../icons/trello.svg;
+  home.file.".local/share/icons/github.svg".source = ../../../icons/github.svg;
 
   # Shortcuts for launcher
   xdg.desktopEntries = {
     trello = {
       name = "Trello";
       comment = "Open Trello as a Chrome app";
-      exec = "${pkgs.google-chrome}/bin/google-chrome-stable --profile-directory=Default --class=Trello --app=https://trello.com/";
-      # If using Chromium:
-      # exec = "${pkgs.chromium}/bin/chromium --profile-directory=Default --class=Trello --app=https://trello.com/";
-      icon = "trello";
+      exec = "${pkgs.google-chrome}/bin/google-chrome-stable --ozone-platform=x11 --profile-directory=Default --class=ChromeAppTrello --app=https://trello.com/b/7Pr30Oly/personal-kanban";
+      icon = "/home/${config.home.username}/.local/share/icons/trello.svg";
       categories = [ "Network" "Office" ];
       terminal = false;
       type = "Application";
       settings = {
-        StartupWMClass = "Trello";
+        StartupWMClass = "ChromeAppTrello";
+        X-KDE-WaylandAppId = "ChromeAppTrello";
       };
     };
 
     github = {
       name = "GitHub";
       comment = "Open GitHub as a Chrome app";
-      exec = "${pkgs.google-chrome}/bin/google-chrome-stable --profile-directory=Default --class=GitHub --app=https://github.com/";
-      icon = "github";
+      exec = "${pkgs.google-chrome}/bin/google-chrome-stable --ozone-platform=x11 --profile-directory=Default --class=ChromeAppGitHub --app=https://github.com/";
+      icon = "/home/${config.home.username}/.local/share/icons/github.svg";
       categories = [ "Network" "Development" ];
       terminal = false;
       type = "Application";
       settings = {
-        StartupWMClass = "GitHub";
+        StartupWMClass = "ChromeAppGitHub";
+        X-KDE-WaylandAppId = "ChromeAppGitHub";
       };
     };
   };
@@ -105,15 +108,12 @@
             config = {
               General.launchers = [
                 "applications:code.desktop"
+                "applications:google-chrome.desktop"
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.kde.konsole.desktop"
-                "applications:obsidian.desktop"
-                "applications:1password.desktop"
-                "applications:steam.desktop"
-                "applications:firefox.desktop"
-                "applications:google-chrome.desktop"
-
                 "applications:trello.desktop"
+                "applications:obsidian.desktop"
+                "applications:1password.desktop"                
                 "applications:github.desktop"
               ];
             };
