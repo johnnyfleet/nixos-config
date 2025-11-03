@@ -159,6 +159,7 @@
           ];
 
           home-manager.users.john = import ./home/john/john-sony-laptop.nix;
+          home-manager.users.kiran = import ./home/kiran/john-sony-laptop.nix;
           home-manager.extraSpecialArgs = {
             inherit inputs;
             system = "x86_64-linux";
