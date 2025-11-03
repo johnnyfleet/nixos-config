@@ -1,4 +1,4 @@
-{ configVars, config, ... }:
+{ configVars, config, lib, ... }:
 {
   imports = [
     #################### Required Configs ####################
