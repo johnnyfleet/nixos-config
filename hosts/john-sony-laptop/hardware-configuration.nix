@@ -23,8 +23,8 @@
     "sr_mod"
     "rtsx_pci_sdmmc"
   ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  #boot.initrd.kernelModules = [ ];
+  #boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.supportedFilesystems = [ "ntfs" ];
@@ -33,8 +33,18 @@
   boot.consoleLogLevel = 0;
   boot.initrd.verbose = false;
 
+  # Use the right stack
+  hardware.graphics.enable = true;          
+  hardware.enableRedistributableFirmware = true;
+
+  # Tell X/Wayland which driver to use for this card
+  services.xserver.videoDrivers = [ "radeon" "modesetting" ];
+
   # Support my HD7650M on sony laptop for Southern Islands (SI i.e. GCN 1) cards. Also make boot quiet.
-  boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" "quiet" "udev.log_level=3" ];
+  #boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" "quiet" "udev.log_level=3" ];
+
+  # Acutally support for HD7650M is only on Turks which is pre GCN.
+  boot.kernelParams = [ "radeon.runpm=1" "quiet" "udev.log_level=3" ];
   #boot.kernelParams = [ "quiet" "udev.log_level=3" ];
 
   /* fileSystems."/" = {
