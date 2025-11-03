@@ -23,8 +23,8 @@
     "sr_mod"
     "rtsx_pci_sdmmc"
   ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  #boot.initrd.kernelModules = [ ];
+  #boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
   boot.supportedFilesystems = [ "ntfs" ];
@@ -34,9 +34,8 @@
   boot.initrd.verbose = false;
 
   # Support my HD7650M on sony laptop for Southern Islands (SI i.e. GCN 1) cards. Also make boot quiet.
-  boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" "quiet" "udev.log_level=3" ];
-
-
+  #boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" "quiet" "udev.log_level=3" ];
+  boot.kernelParams = [ "quiet" "udev.log_level=3" ];
 
   /* fileSystems."/" = {
     device = "/dev/disk/by-uuid/f4d4171a-e1d5-4b30-a1b1-14bc0038d060";
@@ -51,6 +50,13 @@
       size = 16 * 1024;
     }
   ];
+
+  # Enables zram which will compress in memory before falling back to swap partition. 
+  # 50% seemed a normal amount for laptops use, but can lower to 25% if too much.
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+  };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
