@@ -94,7 +94,7 @@
 
   services.displayManager = {
     autoLogin.enable = true;
-    autoLogin.user = 'kiran';
+    autoLogin.user = "kiran";
   };
 
   ########################## PACKAGES ##############################
