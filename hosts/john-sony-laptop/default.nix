@@ -23,6 +23,7 @@
 
     ##### Set up users
     ../common/users/john.nix
+    ../common/users/kiran.nix
     #../common/users/guest.nix
 
     ##### Optional Configuration
@@ -30,7 +31,8 @@
     #../common/optional/docker.nix
     ../common/optional/flatpak.nix
     #../common/optional/gnome.nix
-    ../common/optional/tlp.nix
+    ../common/optional/power-profiles.nix
+    #../common/optional/tlp.nix
     ../common/optional/plasma-minimal.nix
     ../common/optional/printing.nix
     ../common/optional/steam.nix
@@ -88,6 +90,12 @@
   # Downgrade kernal version to see if fixes tearing from suspend. This seems to work.
   #boot.kernelPackages = pkgs.linuxPackages_5_10;
 
+  ########################### USERS ################################
+
+  services.displayManager = {
+    autoLogin.enable = true;
+    autoLogin.user = 'kiran';
+  };
 
   ########################## PACKAGES ##############################
 
