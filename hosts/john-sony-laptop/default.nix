@@ -94,14 +94,16 @@
   ######################## WORKAROUNDS #############################
 
   # Fix chrome screen tearing on old AMD graphics cards in Wayland sessions.
-  programs.google-chrome.enable = true;  # or programs.google-chrome.enable on your channel
-  programs.google-chrome.commandLineArgs = [
+  
+  #TODO: FIXME - this is not working yet. You need to add the below arguments to the chrome shortcut before the %U. 
+  #I need to find a way to override this in NixOS for simplicity.
+  /* programs.google-chrome.commandLineArgs = [
     "--ozone-platform-hint=wayland"
     "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
     "--use-gl=egl"
     "--disable-vulkan"
     "--enable-gpu-rasterization"
-  ];
+  ]; */
 
   ########################### USERS ################################
 
