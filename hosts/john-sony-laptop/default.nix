@@ -90,6 +90,19 @@
   # Downgrade kernal version to see if fixes tearing from suspend. This seems to work.
   #boot.kernelPackages = pkgs.linuxPackages_5_10;
 
+
+  ######################## WORKAROUNDS #############################
+
+  # Fix chrome screen tearing on old AMD graphics cards in Wayland sessions.
+  programs.google-chrome.enable = true;  # or programs.google-chrome.enable on your channel
+  programs.google-chrome.commandLineArgs = [
+    "--ozone-platform-hint=wayland"
+    "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
+    "--use-gl=egl"
+    "--disable-vulkan"
+    "--enable-gpu-rasterization"
+  ];
+
   ########################### USERS ################################
 
   services.displayManager.sddm = {
