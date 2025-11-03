@@ -92,9 +92,11 @@
 
   ########################### USERS ################################
 
-  services.displayManager = {
-    autoLogin.enable = true;
-    autoLogin.user = "kiran";
+  services.displayManager.sddm = {
+    autoLogin = {
+      enable = true;
+      user = "kiran";  # replace with your username
+    };
   };
 
   ########################## PACKAGES ##############################
