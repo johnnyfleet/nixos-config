@@ -107,7 +107,7 @@
 
   ########################### USERS ################################
 
-  services.displayManager.sddm = {
+  services.displayManager = {
     autoLogin = {
       enable = true;
       user = "kiran";  # replace with your username
