@@ -53,10 +53,10 @@
     };
 
     # Run M365 via docker vm.
-    winapps = {
-      url = "github:winapps-org/winapps";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # winapps = {
+    #   url = "github:winapps-org/winapps";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # Manage provisioning through Nixos Anywhere.
     disko = {
@@ -80,7 +80,7 @@
     zen-browser,
     nixos-hardware,
     nix-index-database,
-    winapps,
+    #winapps,
     disko,
     niri,
     ...
@@ -199,7 +199,7 @@
           # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
         }
 
-        (
+        /* (
           {
             pkgs,
             system ? pkgs.system,
@@ -216,7 +216,7 @@
               winapps.packages."${system}".winapps-launcher # optional
             ];
           }
-        )
+        ) */
       ];
     };
   };
