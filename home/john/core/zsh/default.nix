@@ -13,6 +13,12 @@
       export GROFF_NO_SGR=1
     ";
 
+    initExtra = ''
+      gem() {
+        gemini -p "$*"
+      }
+    '';
+
     shellAliases = {
       ll = "eza -al --icons --color";
       suu = "nh os switch ~/.config/nixos-config";
