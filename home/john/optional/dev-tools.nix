@@ -11,6 +11,8 @@
   };
 
   home.packages = with pkgs; [
+    gemini-cli
+    warp-terminal
     windsurf  # AI IDE
   ];
 }

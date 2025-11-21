@@ -37,7 +37,6 @@
     sops
     ssh-to-age
     tmux
-    warp-terminal
     wget
     wrk
   ];
