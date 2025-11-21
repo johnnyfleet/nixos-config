@@ -98,13 +98,21 @@
 
   # Override tailscale to skip failing tests
   nixpkgs.overlays = [
+    # --- Existing tailscale overlay ---
     (final: prev: {
       tailscale = prev.tailscale.overrideAttrs (oldAttrs: {
-        doCheck = false;  # Disable tests to avoid portlist test failures
+        doCheck = false;
+      });
+    })
+
+    # --- New winboat overlay ---
+    (final: prev: {
+      winboat = prev.winboat.overrideAttrs (old: {
+        makeCacheWritable = true;
+        npmFlags = (old.npmFlags or []) ++ [ "--legacy-peer-deps" ];
       });
     })
   ];
-
   /* # Enable fingerprint 
   services.fprintd = {
     enable = true;
