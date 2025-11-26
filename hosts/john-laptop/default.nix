@@ -70,6 +70,7 @@
 
   # Set hostname - the rest of networking is taken care of by the common config.
   networking.hostName = "john-laptop";
+  time.hardwareClockInLocalTime = true;
 
   ##################### BOOTLOADER ##########################
   # After switching bootloader - reinstall with 
