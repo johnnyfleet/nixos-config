@@ -108,12 +108,12 @@
     })
 
     # --- New winboat overlay ---
-    (final: prev: {
+/*     (final: prev: {
       winboat = prev.winboat.overrideAttrs (old: {
         makeCacheWritable = true;
         npmFlags = (old.npmFlags or []) ++ [ "--legacy-peer-deps" ];
       });
-    })
+    }) */
   ];
   /* # Enable fingerprint 
   services.fprintd = {
