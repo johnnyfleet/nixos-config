@@ -69,6 +69,9 @@
     LC_TIME = "en_NZ.UTF-8";
   };
 
+  # Enablt ntp sync
+  services.timesyncd.enable = true;
+
   ############################# SSH ###############################
 
   # Enable ssh & fail2ban
