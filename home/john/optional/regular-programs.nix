@@ -13,7 +13,7 @@
     btop # Advanced system utilisation monitor (think top, htop)
     dust # Filesystem cli tool
     duf # Fancier version of df
-    easytag # Edit MP3 ID3 files
+    # easytag # Edit MP3 ID3 files (removed due to build failure)
     expressvpn # VPN client
     eza # alternative to ls which is more colourful and includes icons.
     fastfetch # Neofetch replacement
