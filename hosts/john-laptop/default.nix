@@ -107,6 +107,18 @@
       });
     })
 
+    # --- Patch easytag to fix id3lib detection ---
+    (final: prev: {
+      easytag = prev.easytag.overrideAttrs (old: {
+        configureFlags = (old.configureFlags or []) ++ [ "--with-id3lib" ];
+        buildInputs = (old.buildInputs or []) ++ [ prev.id3lib ];
+        # Optionally, patch the configure script if needed
+        # postPatch = (old.postPatch or "") + ''
+        #   substituteInPlace configure --replace 'exit 1' ':'
+        # '';
+      });
+    })
+
     # --- New winboat overlay ---
 /*     (final: prev: {
       winboat = prev.winboat.overrideAttrs (old: {
