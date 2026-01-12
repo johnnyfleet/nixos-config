@@ -5,6 +5,12 @@
   home.file.".local/share/icons/trello.svg".source = ../../../icons/trello.svg;
   home.file.".local/share/icons/github.svg".source = ../../../icons/github.svg;
 
+  # Setup timezones in clock/calendar widget
+  home.file.".config/plasma-org.kde.plasma.desktop-appletsrc".text = ''
+    [Containments][711][Applets][716][Configuration][Appearance]
+    selectedTimeZones=America/Los_Angeles,America/Toronto,Local,Europe/London,Asia/Kolkata
+  '';
+
   # Shortcuts for launcher
   xdg.desktopEntries = {
     trello = {
@@ -62,13 +68,14 @@
       key = "Meta+Alt+K";
       command = "konsole";
     };
-
     
     shortcuts = {
       # Configure flameshot to use Meta+Shift+S as the shortcut for taking screenshots
       "services/org.flameshot.Flameshot.desktop"."Capture" = "Meta+Shift+S";
 
     };
+
+    
 
 
     configFile = {
