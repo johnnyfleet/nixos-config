@@ -8,12 +8,9 @@
     enableCompletion = true;
     #autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-    initContent = "
+    initContent = ''
       export MANPAGER='nvim +Man!'
       export GROFF_NO_SGR=1
-    ";
-
-    initExtra = ''
       gem() {
         gemini -p "$*"
       }
