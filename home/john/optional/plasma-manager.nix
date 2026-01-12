@@ -5,11 +5,11 @@
   home.file.".local/share/icons/trello.svg".source = ../../../icons/trello.svg;
   home.file.".local/share/icons/github.svg".source = ../../../icons/github.svg;
 
-  # Setup timezones in clock/calendar widget
-  home.file.".config/plasma-org.kde.plasma.desktop-appletsrc".text = ''
+  # Setup timezones in clock/calendar widget. DOESN'T WORK YET as it overwrites the whole file. 
+  /* home.file.".config/plasma-org.kde.plasma.desktop-appletsrc".text = ''
     [Containments][711][Applets][716][Configuration][Appearance]
     selectedTimeZones=America/Los_Angeles,America/Toronto,Local,Europe/London,Asia/Kolkata
-  '';
+  ''; */
 
   # Shortcuts for launcher
   xdg.desktopEntries = {
