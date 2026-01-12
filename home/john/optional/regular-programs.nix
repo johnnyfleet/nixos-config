@@ -81,4 +81,17 @@
     };
   };
 
+  # Autostart Slack on login. 
+  home.file.".config/autostart/slack.desktop".text = ''
+  [Desktop Entry]
+  Type=Application
+  Exec=slack
+  Hidden=false
+  NoDisplay=false
+  X-GNOME-Autostart-enabled=true
+  Name=Slack
+  Comment=Start Slack on login
+  Icon=slack
+  '';
+
 }
