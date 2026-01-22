@@ -1,7 +1,4 @@
-{ pkgs, ... }:
-
-{
-
+{pkgs, ...}: {
   # Enable Plymouth at boot
   boot.plymouth.enable = true;
 
@@ -14,7 +11,7 @@
     sddm.enable = true;
     sddm.wayland.enable = true;
     defaultSession = "plasma";
-    sddm.autoNumlock = true; # Enable Numlock at login screen. 
+    sddm.autoNumlock = true; # Enable Numlock at login screen.
   };
 
   # Enable the XDG portal for Flatpak support
@@ -30,10 +27,10 @@
 
   # Enable kwallet so that it auto unlocks on login.
   /*
-    security.pam.services.kwallet = {
-      name = "kwallet";
-      enableKwallet = true;
-    };
+  security.pam.services.kwallet = {
+    name = "kwallet";
+    enableKwallet = true;
+  };
   */
   security.pam.services.sddm.enableKwallet = true;
 
@@ -61,5 +58,4 @@
     utterly-nord-plasma # Plasma theme
     kdePackages.kdepim-runtime # To enable calendar sync on main system calendar with Thunderbird etc.
   ];
-
 }

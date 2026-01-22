@@ -1,16 +1,16 @@
-{ config, pkgs, ... }:
-
 {
-
+  config,
+  pkgs,
+  ...
+}: {
   # Firmware update daemon - used by kde discover
   services.fwupd.enable = true;
-
 
   # Enable flakpak backend.
   services.flatpak.enable = true;
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+    extraPortals = [pkgs.kdePackages.xdg-desktop-portal-kde];
   };
 
   # Enable flathub repo
@@ -21,5 +21,4 @@
       hash = "sha256-M3HdJQ5h2eFjNjAHP+/aFTzUQm9y9K+gwzc64uj+oDo=";
     };
   };
-
 }

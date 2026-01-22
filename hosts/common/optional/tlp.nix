@@ -1,7 +1,5 @@
 ## Applies TLP and thermald to manage laptop power settings.
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   services.thermald.enable = true;
 
   services.tlp = {
@@ -13,19 +11,19 @@
 
       # HWP / EPP
       CPU_HWP_ON_AC = "performance";
-      CPU_HWP_ON_BAT = "balance_power";      # was balance_performance
+      CPU_HWP_ON_BAT = "balance_power"; # was balance_performance
       CPU_HWP_DYN_BOOST_ON_AC = 1;
-      CPU_HWP_DYN_BOOST_ON_BAT = 0;          # save a lot of watts on Zoom
+      CPU_HWP_DYN_BOOST_ON_BAT = 0; # save a lot of watts on Zoom
 
       # Turbo/boost
       CPU_BOOST_ON_AC = 1;
-      CPU_BOOST_ON_BAT = 0;                   # big saver; flip to 1 if you miss snap
+      CPU_BOOST_ON_BAT = 0; # big saver; flip to 1 if you miss snap
 
       # Sustained performance caps
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 55;               # was 65; try 50–60
+      CPU_MAX_PERF_ON_BAT = 55; # was 65; try 50–60
 
       # Platform profile (firmware dependent; harmless if unsupported)
       PLATFORM_PROFILE_ON_AC = "performance";

@@ -1,7 +1,8 @@
 # images/iso.nix
-{ lib
-, pkgs
-, ...
+{
+  lib,
+  pkgs,
+  ...
 }:
 ##   - Build iso:
 # nix build .#iso

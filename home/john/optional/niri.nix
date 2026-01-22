@@ -1,8 +1,6 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # Home Manager configuration for niri
-  
+
   # Configure waybar for niri
   programs.waybar = {
     enable = true;
@@ -12,22 +10,22 @@
         position = "top";
         height = 30;
         spacing = 4;
-        
-        modules-left = [ "niri/workspaces" "niri/window" ];
-        modules-center = [ "clock" ];
-        modules-right = [ "pulseaudio" "network" "battery" "tray" ];
-        
+
+        modules-left = ["niri/workspaces" "niri/window"];
+        modules-center = ["clock"];
+        modules-right = ["pulseaudio" "network" "battery" "tray"];
+
         "niri/workspaces" = {
           all-outputs = true;
           format = "{name}";
         };
-        
+
         "niri/window" = {
           format = "{title}";
           max-length = 50;
           separate-outputs = true;
         };
-        
+
         clock = {
           timezone = "Pacific/Auckland";
           format = "{:%Y-%m-%d %H:%M}";
@@ -47,7 +45,7 @@
             };
           };
         };
-        
+
         pulseaudio = {
           format = "{volume}% {icon} {format_source}";
           format-bluetooth = "{volume}% {icon} {format_source}";
@@ -62,11 +60,11 @@
             phone = "";
             portable = "";
             car = "";
-            default = [ "" "" "" ];
+            default = ["" "" ""];
           };
           on-click = "pavucontrol";
         };
-        
+
         network = {
           format-wifi = "{essid} ({signalStrength}%) ";
           format-ethernet = "{ipaddr}/{cidr} ";
@@ -75,7 +73,7 @@
           format-disconnected = "Disconnected ⚠";
           format-alt = "{ifname}: {ipaddr}/{cidr}";
         };
-        
+
         battery = {
           states = {
             warning = 30;
@@ -85,15 +83,15 @@
           format-charging = "{capacity}% ";
           format-plugged = "{capacity}% ";
           format-alt = "{time} {icon}";
-          format-icons = [ "" "" "" "" "" ];
+          format-icons = ["" "" "" "" ""];
         };
-        
+
         tray = {
           spacing = 10;
         };
       };
     };
-    
+
     style = ''
       * {
           font-family: "JetBrains Mono Nerd Font", monospace;
@@ -242,23 +240,23 @@
 
   # Configure mako notification daemon
   services.mako = {
-    enable = true;   
-    
+    enable = true;
+
     settings = {
       default-timeout = 5000;
-      dismiss-on-click=true;
+      dismiss-on-click = true;
       border-radius = 10;
       border-color = "#89b4fa";
       border-size = 2;
       padding = "15";
       width = 350;
       height = 150;
-      margin = "10";  
+      margin = "10";
       text-color = "#cdd6f4";
       background-color = "#1e1e2e";
       font = "JetBrains Mono 11";
     };
-    
+
     extraConfig = ''
       [urgency=high]
       border-color=#f38ba8
@@ -411,8 +409,14 @@
           white = "#bac2de";
         };
         indexed_colors = [
-          { index = 16; color = "#fab387"; }
-          { index = 17; color = "#f5e0dc"; }
+          {
+            index = 16;
+            color = "#fab387";
+          }
+          {
+            index = 17;
+            color = "#f5e0dc";
+          }
         ];
       };
     };
@@ -452,28 +456,28 @@
   home.packages = with pkgs; [
     # Image viewer
     imv
-    
+
     # Video player
     mpv
-    
+
     # PDF viewer
     zathura
-    
+
     # Archive manager
     file-roller
-    
+
     # Calculator
     gnome-calculator
-    
+
     # Text editor
     gnome-text-editor
-    
+
     # System monitor
     gnome-system-monitor
-    
+
     # Settings app
     gnome-control-center
-    
+
     # Power management
     gnome-power-manager
   ];
@@ -549,37 +553,37 @@
 
     animations {
         slowdown 1.0
-        
+
         window-open {
             duration-ms 200
             curve "ease-out-expo"
         }
-        
+
         window-close {
             duration-ms 150
             curve "ease-out-quad"
         }
-        
+
         horizontal-view-movement {
             duration-ms 200
             curve "ease-out-cubic"
         }
-        
+
         workspace-switch {
             duration-ms 200
             curve "ease-out-cubic"
         }
-        
+
         window-movement {
             duration-ms 200
             curve "ease-out-cubic"
         }
-        
+
         window-resize {
             duration-ms 200
             curve "ease-out-cubic"
         }
-        
+
         config-notification-open-close {
             duration-ms 200
             curve "ease-out-cubic"

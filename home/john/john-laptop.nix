@@ -1,12 +1,14 @@
-{ configVars, config, ... }:
 {
+  configVars,
+  config,
+  ...
+}: {
   imports = [
-    
     ##### Core Configuration
     ./core/default.nix # required
-    
+
     ##### Optional Configuration
-    
+
     ./optional/plasma-manager.nix # set up of plasma manager on plasma.
     #./optional/niri.nix # Niri wayland compositor setup
     ./optional/regular-programs.nix # Additional programs I usually have installed
@@ -16,7 +18,6 @@
     ./optional/vm-tools.nix # Useful VM tools (quickemu, virt-sparsify etc.)
     ./optional/dev-tools.nix # direnv, nix-direnv, etc.
     ./optional/obs-studio.nix # OBS Studio setup
-
   ];
 
   # This value determines the home Manager release that your
@@ -40,9 +41,8 @@
     #age.sshKeyPaths = [ "/home/john/.ssh/id_ed25519" ];
 
     # Make sure to allow read access to the ssh key with "sudo setfacl -m u:john:r /etc/ssh/ssh_host_ed25519_key"
-    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
 
-     
     defaultSopsFile = ../../secrets/secrets.yaml;
 
     secrets.git-user-name = {

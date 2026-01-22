@@ -1,6 +1,9 @@
-{ pkgs, inputs, system, ... }:
 {
-
+  pkgs,
+  inputs,
+  system,
+  ...
+}: {
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     libreoffice-qt # LibreOffice
@@ -24,7 +27,7 @@
     google-chrome
     #hplipWithPlugin # HP Printer utility
     htop
-    insync                         # Cloud drive sync gui tool.
+    insync # Cloud drive sync gui tool.
     ipafont # extra fonts for unicode support. Used for Japanese characters.
     iucode-tool # Check intel microcode for updates (dependency on needrestart)
     jq # JSON parser
@@ -38,8 +41,8 @@
     nettools # ipconfig etc.
     obsidian # Note taking app
     packer # create VM images
-    #plex-desktop # Plex Desktop NOTE: Due to dependency issues with nixpkgs, this is now installed via flatpak. 
-    #plexamp # Plexamp player - now installed via flatpak. 
+    #plex-desktop # Plex Desktop NOTE: Due to dependency issues with nixpkgs, this is now installed via flatpak.
+    #plexamp # Plexamp player - now installed via flatpak.
     rclone # Sync to multiple cloud locations.
     remmina # Remote Desktop viewer
     screen # detached terminal session
@@ -66,7 +69,6 @@
     #- com.plexamp.Plexamp                         # Plexamp player
     #- com.moonlight_stream.Moonlight              # Moonlight came streaming client
     #- tv.plex.PlexDesktop                         # Plex Desktop (installed via Flatpak due to nixpkgs dependency issues)
-
   ];
 
   # See https://github.com/Misterio77/nix-config/blob/main/home/gabriel/features/desktop/common/firefox.nix for tips
@@ -81,17 +83,16 @@
     };
   };
 
-  # Autostart Slack on login. 
+  # Autostart Slack on login.
   home.file.".config/autostart/slack.desktop".text = ''
-  [Desktop Entry]
-  Type=Application
-  Exec=slack
-  Hidden=false
-  NoDisplay=false
-  X-GNOME-Autostart-enabled=true
-  Name=Slack
-  Comment=Start Slack on login
-  Icon=slack
+    [Desktop Entry]
+    Type=Application
+    Exec=slack
+    Hidden=false
+    NoDisplay=false
+    X-GNOME-Autostart-enabled=true
+    Name=Slack
+    Comment=Start Slack on login
+    Icon=slack
   '';
-
 }

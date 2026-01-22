@@ -1,17 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   config,
   lib,
   pkgs,
   secrets,
   ...
-}:
-
-{
-
+}: {
   ###################### ESSENTIAL CONFIG ########################
 
   # Enable the Flakes feature and the accompanying new nix command-line tool
@@ -31,7 +27,7 @@
   services.tailscale.useRoutingFeatures = "client"; # Ensures that exit node functionality works. See: https://discourse.nixos.org/t/tailscale-exit-node-not-working-on-nixos/39897
 
   services.avahi.enable = true;
-  
+
   #Switch to more modern nftables implementation
   networking.nftables.enable = true;
   networking.firewall = {
@@ -39,13 +35,13 @@
     enable = true;
 
     # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" ];
+    trustedInterfaces = ["tailscale0"];
 
     # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [config.services.tailscale.port];
 
     # let you SSH in over the public internet
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [22];
   };
 
   ############################## LOCALE ############################
@@ -80,7 +76,6 @@
 
   ############################ SOUND ##############################
 
-
   # Enable sound with pipewire.
   #sound.enable = true;
   services.pulseaudio.enable = false;
@@ -98,7 +93,6 @@
     #media-session.enable = true;
   };
 
-
   ############################ FONTS ##############################
 
   # Configure system wide fonts.
@@ -114,17 +108,16 @@
   };
 
   ######################## Enable Numlock ##########################
-  
-  systemd.services.numLockOnTty = {
-  wantedBy = [ "multi-user.target" ];
-  serviceConfig = {
-    # /run/current-system/sw/bin/setleds -D +num < "$tty";
-    ExecStart = lib.mkForce (pkgs.writeShellScript "numLockOnTty" ''
-      for tty in /dev/tty{1..6}; do
-          ${pkgs.kbd}/bin/setleds -D +num < "$tty";
-      done
-    '');
-  };
-};
 
+  systemd.services.numLockOnTty = {
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      # /run/current-system/sw/bin/setleds -D +num < "$tty";
+      ExecStart = lib.mkForce (pkgs.writeShellScript "numLockOnTty" ''
+        for tty in /dev/tty{1..6}; do
+            ${pkgs.kbd}/bin/setleds -D +num < "$tty";
+        done
+      '');
+    };
+  };
 }

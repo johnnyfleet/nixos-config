@@ -199,7 +199,8 @@
           # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
         }
 
-        /* (
+        /*
+           (
           {
             pkgs,
             system ? pkgs.system,
@@ -216,7 +217,8 @@
               winapps.packages."${system}".winapps-launcher # optional
             ];
           }
-        ) */
+        )
+        */
       ];
     };
   };
