@@ -16,5 +16,6 @@
     windsurf  # AI IDE
     claude-code
     claude-monitor
+    uv #Python package manager. 
   ];
 }
