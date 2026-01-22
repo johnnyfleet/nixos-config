@@ -71,7 +71,6 @@
   # Set hostname - the rest of networking is taken care of by the common config.
   networking.hostName = "vm";
 
-
   ########################## OTHER CONFIG ############################
 
   # Enable the Flakes feature and the accompanying new nix command-line tool

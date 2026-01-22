@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Install Steam client and enable remote play.
   programs.steam = {
     enable = true;
@@ -16,7 +19,6 @@
     libGL
     vulkan-tools
     mesa
-  # Optional: lutris if you want more control
+    # Optional: lutris if you want more control
   ];
-
 }

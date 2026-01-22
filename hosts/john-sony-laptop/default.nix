@@ -9,8 +9,7 @@
   inputs,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./hardware-configuration.nix
 
@@ -40,12 +39,12 @@
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
     #../common/optional/minecraft-bedrock-client.nix
-
   ];
 
   ######################### NIX-SOPS ############################
 
-  /* sops.defaultSopsFile = ../../secrets/secrets.yaml;
+  /*
+     sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
 
   #sops.age.keyFile = "/home/john/.config/sops/age/keys.txt";
@@ -62,22 +61,23 @@
   sops.age.generateKey = true;
 
   # Force update passwords for users on each run.
-  users.mutableUsers = false; */
+  users.mutableUsers = false;
+  */
 
-   ############################ NETWORKING ########################
+  ############################ NETWORKING ########################
 
   # Set hostname - the rest of networking is taken care of by the common config.
   networking.hostName = "john-sony-laptop";
 
   ##################### BOOTLOADER ##########################
-  # After switching bootloader - reinstall with 
+  # After switching bootloader - reinstall with
   # sudo nixos-rebuild --install-bootloader boot
 
   # Grub Bootloader
   boot.loader.systemd-boot.enable = false;
   #boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
-  boot.loader.grub.devices = [ "nodev" ];
+  boot.loader.grub.devices = ["nodev"];
   #boot.loader.grub.efiSupport = true;
   #boot.loader.grub.useOSProber = true;
 
@@ -86,31 +86,31 @@
   #boot.loader.efi.canTouchEfiVariables = true;
   #boot.loader.grub.enable = false;
 
-
   # Downgrade kernal version to see if fixes tearing from suspend. This seems to work.
   #boot.kernelPackages = pkgs.linuxPackages_5_10;
-
 
   ######################## WORKAROUNDS #############################
 
   # Fix chrome screen tearing on old AMD graphics cards in Wayland sessions.
-  
-  #TODO: FIXME - this is not working yet. You need to add the below arguments to the chrome shortcut before the %U. 
+
+  #TODO: FIXME - this is not working yet. You need to add the below arguments to the chrome shortcut before the %U.
   #I need to find a way to override this in NixOS for simplicity.
-  /* programs.google-chrome.commandLineArgs = [
+  /*
+     programs.google-chrome.commandLineArgs = [
     "--ozone-platform-hint=wayland"
     "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
     "--use-gl=egl"
     "--disable-vulkan"
     "--enable-gpu-rasterization"
-  ]; */
+  ];
+  */
 
   ########################### USERS ################################
 
   services.displayManager = {
     autoLogin = {
       enable = true;
-      user = "kiran";  # replace with your username
+      user = "kiran"; # replace with your username
     };
   };
 

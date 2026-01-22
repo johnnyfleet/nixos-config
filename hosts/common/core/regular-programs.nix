@@ -1,9 +1,10 @@
 # This file installs most of the regular base packages that
 # I would want to use on all machines
-
-{ config, pkgs, ... }:
 {
-
+  config,
+  pkgs,
+  ...
+}: {
   # Included packages here
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
@@ -31,7 +32,7 @@
     nh
     nil # nix language server - for vscode autocomplete
     nixfmt
-    nix-tree # provides a way to view the size of the nix store. 
+    nix-tree # provides a way to view the size of the nix store.
     rsync
     sops
     ssh-to-age
@@ -40,5 +41,4 @@
     wget
     wrk
   ];
-
 }

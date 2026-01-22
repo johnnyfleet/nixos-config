@@ -1,9 +1,9 @@
 # images/base-config.nix
-{ lib
-, pkgs
-, ...
-}:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     # ../modules/base-system.nix
     # ../modules/services/numlock-on-tty
@@ -24,19 +24,18 @@
     # nameservers = [ "192.168.1.1" "1.1.1.1" "8.8.8.8" ];
   };
 
-  boot.supportedFilesystems = [ "zfs" "f2fs" ];
+  boot.supportedFilesystems = ["zfs" "f2fs"];
   # serial connection for apu
-  boot.kernelParams = [ "console=ttyS0,115200n8" ];
+  boot.kernelParams = ["console=ttyS0,115200n8"];
 
   users.mutableUsers = false;
-  users.users.root.openssh.authorizedKeys.keys = 
-    let
-      authorizedKeys = pkgs.fetchurl {
-        url = "https://github.com/johnnyfleet.keys";
-        sha256 = "fce5536148d8d8f607dc0612d47c9ca721a75c62539a07e571183f56070c31d1";
-      };
-    in
-      pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
+  users.users.root.openssh.authorizedKeys.keys = let
+    authorizedKeys = pkgs.fetchurl {
+      url = "https://github.com/johnnyfleet.keys";
+      sha256 = "fce5536148d8d8f607dc0612d47c9ca721a75c62539a07e571183f56070c31d1";
+    };
+  in
+    pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
 
   users.users = {
     "nixos" = {
@@ -44,15 +43,14 @@
       home = "/home/nixos";
       hashedPassword = "";
       uid = 1000;
-      extraGroups = [ "systemd-journal" "wheel" ];
-      openssh.authorizedKeys.keys =
-        let
+      extraGroups = ["systemd-journal" "wheel"];
+      openssh.authorizedKeys.keys = let
         authorizedKeys = pkgs.fetchurl {
           url = "https://github.com/johnnyfleet.keys";
           sha256 = "fce5536148d8d8f607dc0612d47c9ca721a75c62539a07e571183f56070c31d1";
         };
-        in
-          pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
+      in
+        pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
     };
   };
 
@@ -62,8 +60,15 @@
     settings.PasswordAuthentication = false;
     #settings.PermitRootLogin = lib.mkDefault "prohibit-password";
     hostKeys = [
-      { type = "rsa"; bits = 4096; path = "/etc/ssh/ssh_host_rsa_key"; }
-      { type = "ed25519"; path = "/etc/ssh/ssh_host_ed25519_key"; }
+      {
+        type = "rsa";
+        bits = 4096;
+        path = "/etc/ssh/ssh_host_rsa_key";
+      }
+      {
+        type = "ed25519";
+        path = "/etc/ssh/ssh_host_ed25519_key";
+      }
     ];
   };
 
@@ -86,23 +91,22 @@
   # includes this flake in the live iso : "/etc/nixcfg"
   environment.etc.nixcfg.source =
     builtins.filterSource
-      (path: type:
-        baseNameOf path
-        != ".git"
-        && type != "symlink"
-        && !(pkgs.lib.hasSuffix ".qcow2" path)
-        && baseNameOf path != "secrets")
-      ../.;
+    (path: type:
+      baseNameOf path
+      != ".git"
+      && type != "symlink"
+      && !(pkgs.lib.hasSuffix ".qcow2" path)
+      && baseNameOf path != "secrets")
+    ../.;
 
   ## FIX for running out of space / tmp, which is used for building
   fileSystems."/nix/.rw-store" = {
     fsType = "tmpfs";
-    options = [ "mode=0755" "nosuid" "nodev" "relatime" "size=14G" ];
+    options = ["mode=0755" "nosuid" "nodev" "relatime" "size=14G"];
     neededForBoot = true;
   };
 
-
- ############################## LOCALE ############################
+  ############################## LOCALE ############################
   console.keyMap = lib.mkDefault "us";
 
   # Set your time zone.
@@ -159,12 +163,14 @@
     useXkbConfig = true; # Use same config for linux console
   };
 
-  services.xserver = {
-    enable = lib.mkDefault false; # but still here so we can copy the XKB config to TTYs
-    autoRepeatDelay = 300;
-    autoRepeatInterval = 35;
-  } // lib.optionalAttrs false {
-    xkbVariant = "colemak";
-    xkbOptions = "caps:super,compose:ralt,shift:both_capslock";
-  };
+  services.xserver =
+    {
+      enable = lib.mkDefault false; # but still here so we can copy the XKB config to TTYs
+      autoRepeatDelay = 300;
+      autoRepeatInterval = 35;
+    }
+    // lib.optionalAttrs false {
+      xkbVariant = "colemak";
+      xkbOptions = "caps:super,compose:ralt,shift:both_capslock";
+    };
 }

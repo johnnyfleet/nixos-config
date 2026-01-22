@@ -1,7 +1,10 @@
-{ pkgs, config, configVars, ... }:
 {
-
-  home.packages = with pkgs; [ zsh-powerlevel10k meslo-lgs-nf];
+  pkgs,
+  config,
+  configVars,
+  ...
+}: {
+  home.packages = with pkgs; [zsh-powerlevel10k meslo-lgs-nf];
 
   programs.zsh = {
     enable = true;
@@ -35,45 +38,45 @@
 
       ts = "tailscale status";
       tu = "sudo tailscale up --exit-node=";
-      tuu= "sudo tailscale up --exit-node=big-john";
+      tuu = "sudo tailscale up --exit-node=big-john";
       td = "sudo tailscale down";
       ni = "sudo nix-index";
       no = "sudo nix store optimise";
     };
 
     plugins = [
-        {
-          name = "powerlevel10k";
-          src = pkgs.zsh-powerlevel10k;
-          file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-        }
-	      {
-          name = "powerlevel10k-config";
-          src = ./p10k;
-          file = "p10k.zsh";
-        }
-        {
-          name = "zsh-autosuggestions";
-          file = "zsh-autosuggestions.plugin.zsh";
-          src = builtins.fetchGit {
-            url = "https://github.com/zsh-users/zsh-autosuggestions";
-            #rev = "a411ef3e0992d4839f0732ebeb9823024afaaaa8";
-            rev = "0e810e5afa27acbd074398eefbe28d13005dbc15";
-          };
-        }
-        {
-          name = "claude-code";
-          file = "claude-code.plugin.zsh";
-          src = builtins.fetchGit {
-            url = "https://github.com/1160054/claude-code-zsh-completion";
-            rev = "639212dbbe9862ed8b8429ef118d05d4d2658fe6";
-          };
-        }
-      ];
+      {
+        name = "powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      }
+      {
+        name = "powerlevel10k-config";
+        src = ./p10k;
+        file = "p10k.zsh";
+      }
+      {
+        name = "zsh-autosuggestions";
+        file = "zsh-autosuggestions.plugin.zsh";
+        src = builtins.fetchGit {
+          url = "https://github.com/zsh-users/zsh-autosuggestions";
+          #rev = "a411ef3e0992d4839f0732ebeb9823024afaaaa8";
+          rev = "0e810e5afa27acbd074398eefbe28d13005dbc15";
+        };
+      }
+      {
+        name = "claude-code";
+        file = "claude-code.plugin.zsh";
+        src = builtins.fetchGit {
+          url = "https://github.com/1160054/claude-code-zsh-completion";
+          rev = "639212dbbe9862ed8b8429ef118d05d4d2658fe6";
+        };
+      }
+    ];
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" ];
+      plugins = ["git"];
       theme = "robbyrussell";
     };
 
@@ -82,7 +85,6 @@
   };
 
   # Integrate nix-index into command-not-found in zsh
-    programs.nix-index.enable = true;
-    programs.pay-respects.enable = true; # For the "pay respects" command in zsh
-    
+  programs.nix-index.enable = true;
+  programs.pay-respects.enable = true; # For the "pay respects" command in zsh
 }

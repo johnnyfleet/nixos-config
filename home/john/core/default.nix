@@ -7,8 +7,7 @@
   sops-nix,
   secrets,
   ...
-}:
-{
+}: {
   #imports = (configLib.scanPaths ./.) ++ (builtins.attrValues outputs.homeManagerModules);
   imports = [
     ./zsh/default.nix
@@ -16,7 +15,7 @@
   ];
 
   home.username = "john";
-  home.homeDirectory =  lib.mkDefault "/home/john";
+  home.homeDirectory = lib.mkDefault "/home/john";
 
   # Enable VSCode
   programs.vscode = {
@@ -36,8 +35,8 @@
   programs.ssh = {
     enable = true;
     extraConfig = ''
-    Host *
-      IdentityAgent ~/.1password/agent.sock
+      Host *
+        IdentityAgent ~/.1password/agent.sock
     '';
     enableDefaultConfig = false;
     matchBlocks."*" = {
@@ -88,6 +87,4 @@
 
   # Enable kitty terminal
   programs.kitty.enable = true;
-
-
 }

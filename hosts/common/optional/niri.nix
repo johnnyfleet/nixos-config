@@ -1,8 +1,10 @@
-{ pkgs, inputs, ... }:
-
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   # Create niri session file for display manager
-  services.displayManager.sessionPackages = [ inputs.niri.packages.${pkgs.system}.niri ];
+  services.displayManager.sessionPackages = [inputs.niri.packages.${pkgs.system}.niri];
 
   # Enable Plymouth at boot for smooth transitions
   boot.plymouth.enable = true;
@@ -18,7 +20,7 @@
   # XDG portal configuration - extend what plasma-minimal provides
   xdg.portal = {
     # enable = true;  # Already enabled by plasma-minimal
-    wlr.enable = true;  # Add wlr support for niri
+    wlr.enable = true; # Add wlr support for niri
     extraPortals = with pkgs; [
       # xdg-desktop-portal-gtk  # Likely already provided by plasma
       # xdg-desktop-portal-gnome  # May conflict with plasma
@@ -47,47 +49,47 @@
   environment.systemPackages = with pkgs; [
     # Application launcher
     fuzzel
-    
+
     # Terminal
     alacritty
-    
+
     # Status bar
     waybar
-    
+
     # Screen locker
     swaylock
-    
+
     # Wallpaper setter
     swaybg
-    
+
     # Notification daemon
     mako
-    
+
     # Screenshot tools
     grim
     slurp
-    
+
     # File manager
     nautilus
-    
+
     # Network manager applet
     networkmanagerapplet
-    
+
     # Audio control
     pavucontrol
-    
+
     # Brightness control
     brightnessctl
-    
+
     # XWayland satellite for X11 app compatibility
     xwayland-satellite
-    
+
     # Clipboard manager
     wl-clipboard
-    
+
     # Display configuration
     wlr-randr
-    
+
     # GTK themes and icons
     adwaita-icon-theme
     gnome-themes-extra
@@ -112,13 +114,13 @@
   services = {
     # Thumbnail generation
     tumbler.enable = true;
-    
+
     # GVfs for trash and other file operations
     gvfs.enable = true;
-    
+
     # UDISKS2 for automounting
     udisks2.enable = true;
-    
+
     # D-Bus
     # dbus.enable = true;  # Already enabled by core
   };

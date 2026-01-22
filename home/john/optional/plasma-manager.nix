@@ -1,15 +1,20 @@
-{ pkgs, config, ... }:
 {
+  pkgs,
+  config,
+  ...
+}: {
   #imports = [ <plasma-manager/modules> ];
 
   home.file.".local/share/icons/trello.svg".source = ../../../icons/trello.svg;
   home.file.".local/share/icons/github.svg".source = ../../../icons/github.svg;
 
-  # Setup timezones in clock/calendar widget. DOESN'T WORK YET as it overwrites the whole file. 
-  /* home.file.".config/plasma-org.kde.plasma.desktop-appletsrc".text = ''
+  # Setup timezones in clock/calendar widget. DOESN'T WORK YET as it overwrites the whole file.
+  /*
+     home.file.".config/plasma-org.kde.plasma.desktop-appletsrc".text = ''
     [Containments][711][Applets][716][Configuration][Appearance]
     selectedTimeZones=America/Los_Angeles,America/Toronto,Local,Europe/London,Asia/Kolkata
-  ''; */
+  '';
+  */
 
   # Shortcuts for launcher
   xdg.desktopEntries = {
@@ -18,7 +23,7 @@
       comment = "Open Trello as a Chrome app";
       exec = "${pkgs.google-chrome}/bin/google-chrome-stable --ozone-platform=x11 --profile-directory=Default --class=ChromeAppTrello --app=https://trello.com/b/7Pr30Oly/personal-kanban";
       icon = "/home/${config.home.username}/.local/share/icons/trello.svg";
-      categories = [ "Network" "Office" ];
+      categories = ["Network" "Office"];
       terminal = false;
       type = "Application";
       settings = {
@@ -32,7 +37,7 @@
       comment = "Open GitHub as a Chrome app";
       exec = "${pkgs.google-chrome}/bin/google-chrome-stable --ozone-platform=x11 --profile-directory=Default --class=ChromeAppGitHub --app=https://github.com/";
       icon = "/home/${config.home.username}/.local/share/icons/github.svg";
-      categories = [ "Network" "Development" ];
+      categories = ["Network" "Development"];
       terminal = false;
       type = "Application";
       settings = {
@@ -57,7 +62,7 @@
       wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/1920x1080.jpg";
     };
 
-    # Set screen timeout to 10 minutes. 
+    # Set screen timeout to 10 minutes.
     kscreenlocker = {
       lockOnResume = true;
       timeout = 10;
@@ -68,23 +73,19 @@
       key = "Meta+Alt+K";
       command = "konsole";
     };
-    
+
     shortcuts = {
       # Configure flameshot to use Meta+Shift+S as the shortcut for taking screenshots
       "services/org.flameshot.Flameshot.desktop"."Capture" = "Meta+Shift+S";
-
     };
-
-    
-
 
     configFile = {
       #  # Override the shortcut in the kglobalshortcutsrc file:
       #  "kglobalshortcutsrc"."services/org.flameshot.Flameshot.desktop"."Capture" = "Meta+Shift+S";
-      
+
       # Launch empty session on reboot
       # "ksmserverrc"."General"."loginMode" = "emptySession";
-      
+
       ksmserver = {
         "General" = {
           "loginMode" = "emptySession";
@@ -120,17 +121,17 @@
                 "applications:org.kde.konsole.desktop"
                 "applications:trello.desktop"
                 "applications:obsidian.desktop"
-                "applications:1password.desktop"                
+                "applications:1password.desktop"
                 "applications:github.desktop"
               ];
             };
             /*
-              appearance = {
-                  showTooltips = true;
-                  highlightWindows = true;
-                  indicateAudioStreams = true;
-                  fill = true;
-              };
+            appearance = {
+                showTooltips = true;
+                highlightWindows = true;
+                indicateAudioStreams = true;
+                fill = true;
+            };
             */
           }
           "org.kde.plasma.marginsseparator"
@@ -172,7 +173,7 @@
           "org.kde.plasma.systemmonitor.memory"
           {
             name = "org.kde.plasma.systemtray"; # System tray
-            config = { };
+            config = {};
           }
           {
             name = "org.kde.plasma.lock_logout";
@@ -187,7 +188,6 @@
           }
         ];
       }
-
     ];
   };
 

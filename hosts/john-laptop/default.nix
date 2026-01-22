@@ -9,8 +9,7 @@
   inputs,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./hardware-configuration.nix
 
@@ -59,7 +58,7 @@
   };
 
   # This will automatically import SSH keys as age keys
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   # This will generate a new key if the key specified above does not exist
   sops.age.generateKey = true;
 
@@ -73,7 +72,7 @@
   time.hardwareClockInLocalTime = true;
 
   ##################### BOOTLOADER ##########################
-  # After switching bootloader - reinstall with 
+  # After switching bootloader - reinstall with
   # sudo nixos-rebuild --install-bootloader boot
 
   # Grub Bootloader
@@ -91,10 +90,9 @@
   boot.loader.efi.efiSysMountPoint = "/efi";
   boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
 
-  # Switch to Zen linux kernel for slightly smoother gameplay. 
+  # Switch to Zen linux kernel for slightly smoother gameplay.
   #boot.kernelPackages = pkgs.linuxPackages_zen;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
 
   ########################## PACKAGES ##############################
 
@@ -110,8 +108,8 @@
     # --- Patch easytag to fix id3lib detection ---
     (final: prev: {
       easytag = prev.easytag.overrideAttrs (old: {
-        configureFlags = (old.configureFlags or []) ++ [ "--with-id3lib" ];
-        buildInputs = (old.buildInputs or []) ++ [ prev.id3lib ];
+        configureFlags = (old.configureFlags or []) ++ ["--with-id3lib"];
+        buildInputs = (old.buildInputs or []) ++ [prev.id3lib];
         # Optionally, patch the configure script if needed
         # postPatch = (old.postPatch or "") + ''
         #   substituteInPlace configure --replace 'exit 1' ':'
@@ -120,32 +118,34 @@
     })
 
     # --- New winboat overlay ---
-/*     (final: prev: {
+    /*
+       (final: prev: {
       winboat = prev.winboat.overrideAttrs (old: {
         makeCacheWritable = true;
         npmFlags = (old.npmFlags or []) ++ [ "--legacy-peer-deps" ];
       });
-    }) */
+    })
+    */
   ];
-  /* # Enable fingerprint 
+  /*
+     # Enable fingerprint
   services.fprintd = {
     enable = true;
     tod.enable = true;
     tod.driver = pkgs.libfprint-2-tod1-goodix;
   };
-  security.pam.services.login.fprintAuth = false; #disable fingerprint login - but allow everything else. */ 
+  security.pam.services.login.fprintAuth = false; #disable fingerprint login - but allow everything else.
+  */
 
   # Included packages here
   #environment.systemPackages = with pkgs; [ ];
 
-
   virtualisation.vmVariant = {
     virtualisation = {
       memorySize = 4096; # Set memory to 4GB
-      cores = 2;        # You can also set the number of CPU cores here
-     };
+      cores = 2; # You can also set the number of CPU cores here
+    };
   };
-  
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

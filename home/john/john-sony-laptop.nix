@@ -1,5 +1,8 @@
-{ configVars, config, ... }:
 {
+  configVars,
+  config,
+  ...
+}: {
   imports = [
     #################### Required Configs ####################
     ./core/default.nix # required
@@ -9,7 +12,6 @@
     ./optional/gaming.nix # Heroic & Lutris
     #./optional/vm-tools.nix # Useful VM tools (quickemu, virt-sparsify etc.)
     #./optional/dev-tools.nix # direnv, nix-direnv, etc.
-    
   ];
 
   # This value determines the home Manager release that your
@@ -27,7 +29,8 @@
 
   xsession.numlock.enable = true;
 
-/*   sops = {
+  /*
+     sops = {
     #age.keyFile = "/home/user/.age-key.txt"; # must have no password!
     # It's also possible to use a ssh key, but only when it has no password:
     age.sshKeyPaths = [ "/home/john/.ssh/id_ed25519" ];
@@ -39,5 +42,6 @@
     secrets.git-user-email = {
       key = "git-user-email";
     };
-  }; */
+  };
+  */
 }

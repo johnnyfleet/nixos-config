@@ -1,7 +1,4 @@
-{ pkgs, ... }:
-
-{
-
+{pkgs, ...}: {
   # Enable Plymouth at boot
   boot.plymouth.enable = true;
 
@@ -16,5 +13,4 @@
   hardware = {
     bluetooth.enable = true;
   };
-
 }

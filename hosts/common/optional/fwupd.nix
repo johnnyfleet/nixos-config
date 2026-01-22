@@ -1,12 +1,10 @@
 ## Installs fwupd and fwupdmgr to manage firmware updates.
-
-{ pkgs, ... }:
-{ 
-  services.fwupd.enable = true;      # starts the fwupd system daemon
+{pkgs, ...}: {
+  services.fwupd.enable = true; # starts the fwupd system daemon
 
   #Thunderbolt management
   environment.systemPackages = with pkgs; [
-        bolt
+    bolt
   ];
 
   # Auto-start the bolt daemon
@@ -15,6 +13,6 @@
     serviceConfig = {
       ExecStart = "${pkgs.bolt}/bin/boltd";
     };
-    wantedBy = [ "default.target" ];
+    wantedBy = ["default.target"];
   };
 }

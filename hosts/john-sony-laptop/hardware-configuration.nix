@@ -7,9 +7,7 @@
   pkgs,
   modulesPath,
   ...
-}:
-
-{
+}: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -24,33 +22,35 @@
     "rtsx_pci_sdmmc"
   ];
   #boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
+  boot.supportedFilesystems = ["ntfs"];
 
   # Ideally make boot sequence less verbos. Likely only applies to stage 2 vs. stage 1. See: http://github.com/NixOS/nixpkgs/issues/32555
   boot.consoleLogLevel = 0;
   boot.initrd.verbose = false;
 
   # Use the right stack
-  hardware.graphics.enable = true;          
+  hardware.graphics.enable = true;
   hardware.enableRedistributableFirmware = true;
 
   # Tell X/Wayland which driver to use for this card
-  services.xserver.videoDrivers = [ "radeon" "modesetting" ];
+  services.xserver.videoDrivers = ["radeon" "modesetting"];
 
   # Support my HD7650M on sony laptop for Southern Islands (SI i.e. GCN 1) cards. Also make boot quiet.
   #boot.kernelParams = [ "radeon.si_support=0" "amdgpu.si_support=1" "quiet" "udev.log_level=3" ];
 
   # Acutally support for HD7650M is only on Turks which is pre GCN.
-  boot.kernelParams = [ "radeon.runpm=1" "quiet" "udev.log_level=3" ];
+  boot.kernelParams = ["radeon.runpm=1" "quiet" "udev.log_level=3"];
   #boot.kernelParams = [ "quiet" "udev.log_level=3" ];
 
-  /* fileSystems."/" = {
+  /*
+     fileSystems."/" = {
     device = "/dev/disk/by-uuid/f4d4171a-e1d5-4b30-a1b1-14bc0038d060";
     fsType = "ext4";
-  }; */
+  };
+  */
 
   #swapDevices = [ ];
 
@@ -61,7 +61,7 @@
     }
   ];
 
-  # Enables zram which will compress in memory before falling back to swap partition. 
+  # Enables zram which will compress in memory before falling back to swap partition.
   # 50% seemed a normal amount for laptops use, but can lower to 25% if too much.
   zramSwap = {
     enable = true;

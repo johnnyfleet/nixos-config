@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   # Enable the libvirt daemon
   virtualisation.libvirtd.enable = true;
   users.groups.libvirtd.members = ["john"];
@@ -18,9 +20,9 @@
   services.qemuGuest.enable = true;
   services.spice-autorandr.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
-  networking.firewall.trustedInterfaces = [ "virbr0" ]; # Allow the virtual network through the firewall.
- 
-/* 
+  networking.firewall.trustedInterfaces = ["virbr0"]; # Allow the virtual network through the firewall.
+
+  /*
   # Options for the screen
   virtualisation.vmVariant = {
     virtualisation.resolution = {
@@ -39,7 +41,8 @@
       "-device virtio-serial-pci"
       "-device virtserialport,chardev=ch1,id=ch1,name=com.redhat.spice.0"
     ];
-  }; */
+  };
+  */
 
   # Install viewer
   environment.systemPackages = with pkgs; [
@@ -47,7 +50,5 @@
     swtpm # For TPM support in VMs
     virtiofsd # For virtio file system support - sharing folders to guest.
     winboat # UI helper to install and manage Windows VMs + run office365 seamlessly
-
   ];
-
 }

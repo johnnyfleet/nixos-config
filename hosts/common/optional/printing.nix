@@ -1,24 +1,21 @@
 ## Setup CUPS and HPLIP for printing
-## See https://wiki.nixos.org/wiki/Printing 
+## See https://wiki.nixos.org/wiki/Printing
 ## Set up by manual discovery.
 ## Once completed set:
 ## Printing Quality = Best
 ## Page size = A4
 ## Two sided printing = Long edge
-
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # Enable CUPS to print documents.
   # Access CUPS UI via http://localhost:631/
   services.printing = {
     # run on first setup: sudo hp-setup -i -a
-    enable  =  true;
-    drivers = [ pkgs.hplipWithPlugin ];
+    enable = true;
+    drivers = [pkgs.hplipWithPlugin];
   };
 
   environment.systemPackages = with pkgs; [
-     hplipWithPlugin # HP Printer utility
+    hplipWithPlugin # HP Printer utility
   ];
 
   # Enable auto discovery of printers on the network.
@@ -30,10 +27,13 @@
 
   # Allow discovery using this port range. See: https://discourse.nixos.org/t/how-to-detect-what-firewall-ports-i-need-to-open-for-a-certain-service/37314/6
   networking.firewall.allowedUDPPortRanges = [
-    { from = 49152; to = 65535; }
+    {
+      from = 49152;
+      to = 65535;
+    }
   ];
 
-  # Add HP PhotosSmart 5520 printer. You shouldn't need to then setup through HPLIP. 
+  # Add HP PhotosSmart 5520 printer. You shouldn't need to then setup through HPLIP.
   # It also seems faster this way to print vs. HPLIP.
   hardware.printers = {
     ensurePrinters = [
@@ -52,4 +52,4 @@
     ];
     ensureDefaultPrinter = "HP_PhotoSmart_5520-NixOS";
   };
-} 
+}
