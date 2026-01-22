@@ -61,6 +61,14 @@
             rev = "0e810e5afa27acbd074398eefbe28d13005dbc15";
           };
         }
+        {
+          name = "claude-code";
+          file = "claude-code.plugin.zsh";
+          src = builtins.fetchGit {
+            url = "https://github.com/1160054/claude-code-zsh-completion";
+            rev = "639212dbbe9862ed8b8429ef118d05d4d2658fe6";
+          };
+        }
       ];
 
     oh-my-zsh = {
