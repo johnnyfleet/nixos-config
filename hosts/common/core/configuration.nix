@@ -65,8 +65,8 @@
     LC_TIME = "en_NZ.UTF-8";
   };
 
-  # Enablt ntp sync
-  services.timesyncd.enable = true;
+  # Enable ntp sync (use mkDefault to allow VM modules to override)
+  services.timesyncd.enable = lib.mkDefault true;
 
   ############################# SSH ###############################
 

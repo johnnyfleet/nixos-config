@@ -25,21 +25,44 @@
     ../common/users/kiran.nix
     #../common/users/guest.nix
 
-    ##### Optional Configuration
+    ##### Optional Configuration - Converted modules
     ../common/optional/1password.nix
-    #../common/optional/docker.nix
+    ../common/optional/docker.nix
+    ../common/optional/syncthing.nix
+    ../common/optional/steam.nix
+    ../common/optional/virtualisation.nix
+
+    ##### Optional Configuration - Legacy modules
     ../common/optional/flatpak.nix
     #../common/optional/gnome.nix
     ../common/optional/power-profiles.nix
     #../common/optional/tlp.nix
     ../common/optional/plasma-minimal.nix
     ../common/optional/printing.nix
-    ../common/optional/steam.nix
-    #../common/optional/virtualisation.nix
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
     #../common/optional/minecraft-bedrock-client.nix
   ];
+
+  ######################### MODULE CONFIGURATION ##########################
+
+  modules._1password = {
+    enable = true;
+    polkitPolicyOwners = ["john" "kiran"];
+  };
+
+  # Docker disabled on this machine
+  modules.docker.enable = false;
+
+  # Syncthing disabled on this machine
+  modules.syncthing.enable = false;
+
+  modules.steam = {
+    enable = true;
+  };
+
+  # Virtualisation disabled on this machine
+  modules.virtualisation.enable = false;
 
   ######################### NIX-SOPS ############################
 

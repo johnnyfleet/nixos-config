@@ -8,7 +8,10 @@
     #################### Required Configs ####################
     #./core/default.nix # required
     #./optional/plasma-manager.nix # set up of plasma manager on plasma.
-    ../john/optional/regular-programs.nix # Additional programs I usually have installed
+
+    # Use shared modules from home/common instead of cross-user imports
+    ../common/optional/regular-programs.nix
+
     #./optional/additional-programs.nix # Additional programs I used to have but don't think I need right now.
     #./optional/gaming.nix # Heroic & Lutris
     #./optional/vm-tools.nix # Useful VM tools (quickemu, virt-sparsify etc.)
