@@ -103,6 +103,112 @@
     # in pkgs.nixfmt       # classic nixfmt
     # in pkgs.alejandra    # widely used opinionated formatter
 
+    # Development shell with linting and formatting tools
+    devShells.x86_64-linux = let
+      pkgs = import nixpkgs {system = "x86_64-linux";};
+    in {
+      default = pkgs.mkShell {
+        name = "nixos-config";
+        buildInputs = with pkgs; [
+          # Nix tools
+          alejandra # Nix formatter
+          statix # Nix linter
+          deadnix # Find dead code in Nix
+          nix-tree # Visualize nix dependencies
+
+          # Git hooks
+          pre-commit
+
+          # Secrets management
+          sops
+          age
+
+          # Useful utilities
+          nil # Nix LSP
+          nixfmt-classic # Alternative formatter
+        ];
+
+        shellHook = ''
+          echo "NixOS Config Development Shell"
+          echo ""
+          echo "Available commands:"
+          echo "  nix fmt        - Format all Nix files"
+          echo "  statix check   - Lint Nix files"
+          echo "  deadnix        - Find dead code"
+          echo "  nix flake check - Verify flake"
+          echo ""
+          echo "To set up pre-commit hooks: pre-commit install"
+        '';
+      };
+    };
+
+    # Expose custom library functions
+    lib = import ./lib {
+      inherit (nixpkgs) lib;
+      pkgs = import nixpkgs {system = "x86_64-linux";};
+      inherit inputs;
+    };
+
+    # Export overlays for external use
+    overlays = import ./overlays;
+
+    # Export NixOS modules for external use
+    nixosModules = {
+      # Optional feature modules
+      docker = ./hosts/common/optional/docker.nix;
+      syncthing = ./hosts/common/optional/syncthing.nix;
+      virtualisation = ./hosts/common/optional/virtualisation.nix;
+      _1password = ./hosts/common/optional/1password.nix;
+      steam = ./hosts/common/optional/steam.nix;
+      flatpak = ./hosts/common/optional/flatpak.nix;
+      printing = ./hosts/common/optional/printing.nix;
+      niri = ./hosts/common/optional/niri.nix;
+      tlp = ./hosts/common/optional/tlp.nix;
+      fwupd = ./hosts/common/optional/fwupd.nix;
+
+      # Core modules
+      core = ./hosts/common/core/default.nix;
+
+      # Feature system
+      options = ./hosts/common/options.nix;
+      features = ./hosts/common/features.nix;
+
+      # Profiles
+      profiles = {
+        minimal = ./profiles/minimal.nix;
+        desktop = ./profiles/desktop.nix;
+        workstation = ./profiles/workstation.nix;
+        gaming = ./profiles/gaming.nix;
+        server = ./profiles/server.nix;
+      };
+    };
+
+    # Export Home Manager modules for external use
+    homeManagerModules = {
+      devTools = ./home/john/optional/dev-tools.nix;
+      gaming = ./home/john/optional/gaming.nix;
+      regularPrograms = ./home/john/optional/regular-programs.nix;
+      workApplications = ./home/john/optional/work-applications.nix;
+      vmTools = ./home/john/optional/vm-tools.nix;
+      obsStudio = ./home/john/optional/obs-studio.nix;
+      plasmaManager = ./home/john/optional/plasma-manager.nix;
+    };
+
+    # Flake checks for validation
+    checks.x86_64-linux = let
+      pkgs = import nixpkgs {system = "x86_64-linux";};
+    in {
+      # Verify all configurations build
+      vm = self.nixosConfigurations.vm.config.system.build.toplevel;
+      john-laptop = self.nixosConfigurations.john-laptop.config.system.build.toplevel;
+      john-sony-laptop = self.nixosConfigurations.john-sony-laptop.config.system.build.toplevel;
+
+      # Formatting check
+      formatting = pkgs.runCommand "check-formatting" {} ''
+        ${pkgs.alejandra}/bin/alejandra --check ${./.} && touch $out
+      '';
+    };
+
     nixosConfigurations.vm = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [

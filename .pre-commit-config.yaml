@@ -1,0 +1,33 @@
+repos:
+  - repo: local
+    hooks:
+      - id: alejandra
+        name: Alejandra (Nix Formatter)
+        entry: alejandra
+        language: system
+        files: '\.nix$'
+        pass_filenames: true
+
+      - id: statix
+        name: Statix (Nix Linter)
+        entry: statix check
+        language: system
+        files: '\.nix$'
+        pass_filenames: false
+
+      - id: deadnix
+        name: Deadnix (Find Dead Code)
+        entry: deadnix --fail
+        language: system
+        files: '\.nix$'
+        pass_filenames: true
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '\.nix$'
+      - id: end-of-file-fixer
+        exclude: '\.nix$'
+      - id: check-yaml
+      - id: check-added-large-files

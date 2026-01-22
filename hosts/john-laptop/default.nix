@@ -21,9 +21,14 @@
     ../common/users/john.nix
     #../common/users/guest.nix
 
-    ##### Optional Configuration
+    ##### Optional Configuration - Converted modules (use options below to enable)
     ../common/optional/1password.nix
     ../common/optional/docker.nix
+    ../common/optional/syncthing.nix
+    ../common/optional/steam.nix
+    ../common/optional/virtualisation.nix
+
+    ##### Optional Configuration - Legacy modules (not yet converted)
     ../common/optional/flatpak.nix
     #../common/optional/gnome.nix
     ../common/optional/tlp.nix
@@ -32,8 +37,6 @@
     #../common/optional/niri.nix
     ../common/optional/printing.nix
     #../common/optional/fwupd.nix
-    ../common/optional/steam.nix
-    ../common/optional/virtualisation.nix
     #../common/optional/virtualisation-bridge.nix
     #../common/optional/xfce-full.nix
     #../common/optional/xfce-minimal.nix
@@ -41,8 +44,36 @@
     ../common/optional/node-sonos-http-firewall.nix
     #../common/optional/cloudflare-warp.nix
     ../common/optional/yubikey-u2f-authentication.nix
-    ../common/optional/syncthing.nix
   ];
+
+  ######################### MODULE CONFIGURATION ##########################
+  # Configure converted modules using the new options system
+
+  modules._1password = {
+    enable = true;
+    polkitPolicyOwners = ["john"];
+  };
+
+  modules.docker = {
+    enable = true;
+    users = ["john"];
+  };
+
+  modules.syncthing = {
+    enable = true;
+    user = "john";
+    dataDir = "/home/john/Pictures/Syncthing";
+    configDir = "/home/john/.config/syncthing";
+  };
+
+  modules.steam = {
+    enable = true;
+  };
+
+  modules.virtualisation = {
+    enable = true;
+    users = ["john"];
+  };
 
   ######################### NIX-SOPS ############################
 
@@ -96,36 +127,9 @@
 
   ########################## PACKAGES ##############################
 
-  # Override tailscale to skip failing tests
+  # Import overlays from overlays directory
   nixpkgs.overlays = [
-    # --- Existing tailscale overlay ---
-    (final: prev: {
-      tailscale = prev.tailscale.overrideAttrs (oldAttrs: {
-        doCheck = false;
-      });
-    })
-
-    # --- Patch easytag to fix id3lib detection ---
-    (final: prev: {
-      easytag = prev.easytag.overrideAttrs (old: {
-        configureFlags = (old.configureFlags or []) ++ ["--with-id3lib"];
-        buildInputs = (old.buildInputs or []) ++ [prev.id3lib];
-        # Optionally, patch the configure script if needed
-        # postPatch = (old.postPatch or "") + ''
-        #   substituteInPlace configure --replace 'exit 1' ':'
-        # '';
-      });
-    })
-
-    # --- New winboat overlay ---
-    /*
-       (final: prev: {
-      winboat = prev.winboat.overrideAttrs (old: {
-        makeCacheWritable = true;
-        npmFlags = (old.npmFlags or []) ++ [ "--legacy-peer-deps" ];
-      });
-    })
-    */
+    (import ../../overlays/default.nix).default
   ];
   /*
      # Enable fingerprint
