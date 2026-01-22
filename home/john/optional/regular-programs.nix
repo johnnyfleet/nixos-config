@@ -39,7 +39,7 @@
     obsidian # Note taking app
     packer # create VM images
     #plex-desktop # Plex Desktop NOTE: Due to dependency issues with nixpkgs, this is now installed via flatpak. 
-    plexamp # Plexamp player
+    #plexamp # Plexamp player - now installed via flatpak. 
     rclone # Sync to multiple cloud locations.
     remmina # Remote Desktop viewer
     screen # detached terminal session
