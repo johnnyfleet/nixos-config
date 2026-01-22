@@ -14,5 +14,7 @@
     gemini-cli
     warp-terminal
     windsurf  # AI IDE
+    claude-code
+    claude-monitor
   ];
 }
