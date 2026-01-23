@@ -56,7 +56,8 @@ jobs:
       - name: Push to Attic
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          attic push nixos-config ./result
+          # Push full closure including substituted paths
+          attic push nixos-config $(nix path-info --recursive ./result)
 
       - name: Run flake check
         if: matrix.config == 'john-laptop'

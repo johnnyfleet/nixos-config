@@ -65,7 +65,8 @@ jobs:
       - name: Push to Attic
         if: steps.check.outputs.changes == 'true'
         run: |
-          attic push nixos-config ./result
+          # Push full closure including substituted paths
+          attic push nixos-config $(nix path-info --recursive ./result)
 
       - name: Commit and push
         if: steps.check.outputs.changes == 'true'
