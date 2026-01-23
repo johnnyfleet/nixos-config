@@ -11,10 +11,27 @@
   ###################### ESSENTIAL CONFIG ########################
 
   # Enable the Flakes feature and the accompanying new nix command-line tool
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+
+    # Binary caches - tries in order, falls back if unavailable
+    substituters = [
+      "http://big-john.zapus-interval.ts.net:8085/nixos-config" # Self-hosted Attic (via Tailscale)
+      "https://cache.nixos.org/" # Fallback
+    ];
+
+    trusted-public-keys = [
+      "nixos-config:rjFIX22X+ouzAFC483PIwXqF1/2XQ059C+QSoUq+XWo="
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    ];
+
+    # Don't fail if self-hosted cache is unreachable
+    fallback = true;
+    connect-timeout = 5;
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
