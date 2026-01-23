@@ -28,7 +28,7 @@ jobs:
 
       - name: Setup Attic
         run: |
-          nix-env -iA nixpkgs.attic-client
+          nix profile install nixpkgs#attic-client
           attic login ci "${{ secrets.ATTIC_SERVER }}" "${{ secrets.ATTIC_TOKEN }}"
           attic use nixos-config
 
