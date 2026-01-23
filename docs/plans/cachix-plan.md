@@ -37,29 +37,37 @@ Use this to track progress and resume in a new session.
 - [x] Create `.github/workflows/update-flake.yml`
 - [x] **Fixed:** Added `jlumbroso/free-disk-space` action (runner was running out of disk)
 - [x] **Fixed:** Changed `nix-env -iA` to `nix profile install` for attic-client
+- [x] **Fixed:** Push full closure with `$(nix path-info --recursive ./result)` to include substituted paths
 - [x] Push to main and verify CI connects to Tailscale
 - [x] Verify CI builds and pushes to Attic cache
 
 ### Final Verification
-- [ ] Trigger a flake update to test new packages fetching from cache
-- [ ] Verify fallback works when off Tailscale
+- [x] Tested scheduled flake update workflow - working
+- [x] Verified packages download from Attic cache on local rebuild
+- [ ] Verify fallback works when off Tailscale (optional - test when away from home)
 
 ---
 
 ### Session Resume Context
 
-**Current state:** Full setup complete! Attic is running on Unraid, NixOS is configured to use the cache, and GitHub Actions CI is building and pushing to the cache successfully.
+**Current state:** ✅ SETUP COMPLETE! Everything is working end-to-end.
 
-**Key details for resumption:**
+**What's working:**
+- Attic binary cache running on Unraid (via Docker)
+- NixOS configured to fetch from Attic with fallback to cache.nixos.org
+- GitHub Actions builds all configs on push to main and uploads to Attic
+- Weekly flake updates run automatically (Thursday 01:00 NZST)
+- Full closure pushed to cache (including substituted paths)
+
+**Key details:**
 - Attic URL: `http://big-john.zapus-interval.ts.net:8085`
 - Cache name: `nixos-config`
 - Public key: `nixos-config:rjFIX22X+ouzAFC483PIwXqF1/2XQ059C+QSoUq+XWo=`
 - NixOS config file: `hosts/common/core/configuration.nix`
-- GitHub secrets are configured in the repository
 - Workflow files: `.github/workflows/build-and-cache.yml` and `.github/workflows/update-flake.yml`
-- Weekly flake update runs: Wednesday 13:00 UTC (Thursday 01:00 NZST)
+- Weekly schedule: Wednesday 13:00 UTC (Thursday 01:00 NZST)
 
-**Next step:** Test that fetching from cache works after a flake update, and verify fallback works when off Tailscale
+**Optional remaining task:** Verify fallback works when off Tailscale (test when away from home)
 
 ---
 
