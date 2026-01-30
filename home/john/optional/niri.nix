@@ -1,23 +1,42 @@
 {pkgs, ...}: {
   # Home Manager configuration for niri
+  # All configuration is session-isolated and uses Nord theme
 
-  # Configure waybar for niri
+  # ============================================================================
+  # WAYBAR - Top status bar with Nord theme
+  # Layout: workspaces (left) | clock (center) | tray, power (right)
+  # ============================================================================
   programs.waybar = {
     enable = true;
+    # Don't auto-start via systemd - niri handles this via spawn-at-startup
+    systemd.enable = false;
     settings = {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 30;
+        height = 40;
         spacing = 4;
 
         modules-left = ["niri/workspaces" "niri/window"];
         modules-center = ["clock"];
-        modules-right = ["pulseaudio" "network" "battery" "tray"];
+        modules-right = ["pulseaudio" "network" "battery" "tray" "custom/power"];
 
         "niri/workspaces" = {
           all-outputs = true;
-          format = "{name}";
+          format = "{icon}";
+          format-icons = {
+            "1" = "1";
+            "2" = "2";
+            "3" = "3";
+            "4" = "4";
+            "5" = "5";
+            "6" = "6";
+            "7" = "7";
+            "8" = "8";
+            "9" = "9";
+            "10" = "10";
+            default = "";
+          };
         };
 
         "niri/window" = {
@@ -28,7 +47,7 @@
 
         clock = {
           timezone = "Pacific/Auckland";
-          format = "{:%Y-%m-%d %H:%M}";
+          format = "  {:%a %d %b   %H:%M}";
           format-alt = "{:%A, %B %d, %Y (%R)}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
@@ -37,22 +56,20 @@
             weeks-pos = "right";
             on-scroll = 1;
             format = {
-              months = "<span color='#ffead3'><b>{}</b></span>";
-              days = "<span color='#ecc6d9'><b>{}</b></span>";
-              weeks = "<span color='#99ffdd'><b>W{}</b></span>";
-              weekdays = "<span color='#ffcc66'><b>{}</b></span>";
-              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+              months = "<span color='#88c0d0'><b>{}</b></span>";
+              days = "<span color='#d8dee9'><b>{}</b></span>";
+              weeks = "<span color='#a3be8c'><b>W{}</b></span>";
+              weekdays = "<span color='#ebcb8b'><b>{}</b></span>";
+              today = "<span color='#bf616a'><b><u>{}</u></b></span>";
             };
           };
         };
 
         pulseaudio = {
-          format = "{volume}% {icon} {format_source}";
-          format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = " {format_source}";
-          format-source = "{volume}% ";
-          format-source-muted = "";
+          format = "{volume}% {icon}";
+          format-bluetooth = "{volume}% {icon}";
+          format-bluetooth-muted = " {icon}";
+          format-muted = "";
           format-icons = {
             headphone = "";
             hands-free = "";
@@ -66,10 +83,10 @@
         };
 
         network = {
-          format-wifi = "{essid} ({signalStrength}%) ";
-          format-ethernet = "{ipaddr}/{cidr} ";
-          tooltip-format = "{ifname} via {gwaddr} ";
-          format-linked = "{ifname} (No IP) ";
+          format-wifi = "{essid} ";
+          format-ethernet = "";
+          tooltip-format = "{ifname}: {ipaddr}/{cidr} via {gwaddr}";
+          format-linked = "{ifname} (No IP)";
           format-disconnected = "Disconnected ⚠";
           format-alt = "{ifname}: {ipaddr}/{cidr}";
         };
@@ -89,9 +106,16 @@
         tray = {
           spacing = 10;
         };
+
+        "custom/power" = {
+          format = "⏻";
+          tooltip = false;
+          on-click = "fuzzel --dmenu --prompt 'Power: ' < /tmp/power-menu | xargs -I {} sh -c '{}'";
+        };
       };
     };
 
+    # Nord theme styling
     style = ''
       * {
           font-family: "JetBrains Mono Nerd Font", monospace;
@@ -99,11 +123,9 @@
       }
 
       window#waybar {
-          background-color: rgba(43, 48, 59, 0.9);
-          border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-          color: #ffffff;
-          transition-property: background-color;
-          transition-duration: 0.5s;
+          background-color: rgba(46, 52, 64, 0.95);
+          border-bottom: 2px solid #4c566a;
+          color: #d8dee9;
       }
 
       button {
@@ -113,69 +135,77 @@
       }
 
       #workspaces button {
-          padding: 0 5px;
+          padding: 0 8px;
           background-color: transparent;
-          color: #ffffff;
+          color: #d8dee9;
+          border-radius: 4px;
+          margin: 4px 2px;
       }
 
       #workspaces button:hover {
-          background: rgba(0, 0, 0, 0.2);
+          background: #434c5e;
       }
 
       #workspaces button.active {
-          background-color: #64727D;
-          box-shadow: inset 0 -3px #ffffff;
+          background-color: #5e81ac;
+          color: #eceff4;
+      }
+
+      #workspaces button.urgent {
+          background-color: #bf616a;
+      }
+
+      #window {
+          color: #81a1c1;
+          padding: 0 10px;
       }
 
       #clock,
       #battery,
       #cpu,
       #memory,
-      #disk,
-      #temperature,
-      #backlight,
       #network,
       #pulseaudio,
-      #wireplumber,
-      #custom-media,
       #tray,
-      #mode,
-      #idle_inhibitor,
-      #scratchpad,
-      #mpd {
-          padding: 0 10px;
-          color: #ffffff;
-      }
-
-      #window,
-      #workspaces {
-          margin: 0 4px;
+      #custom-power {
+          padding: 0 12px;
+          margin: 4px 2px;
+          border-radius: 4px;
+          background-color: #3b4252;
+          color: #d8dee9;
       }
 
       #clock {
-          background-color: #64727D;
+          background-color: #5e81ac;
+          color: #eceff4;
+          font-weight: bold;
       }
 
       #battery {
-          background-color: #ffffff;
-          color: #000000;
+          background-color: #a3be8c;
+          color: #2e3440;
       }
 
       #battery.charging, #battery.plugged {
-          color: #ffffff;
-          background-color: #26A65B;
+          background-color: #a3be8c;
+          color: #2e3440;
+      }
+
+      #battery.warning:not(.charging) {
+          background-color: #ebcb8b;
+          color: #2e3440;
       }
 
       @keyframes blink {
           to {
-              background-color: #ffffff;
-              color: #000000;
+              background-color: #bf616a;
+              color: #eceff4;
           }
       }
 
       #battery.critical:not(.charging) {
-          background-color: #f53c3c;
-          color: #ffffff;
+          background-color: #bf616a;
+          color: #eceff4;
           animation-name: blink;
           animation-duration: 0.5s;
           animation-timing-function: linear;
@@ -184,21 +214,27 @@
       }
 
       #network {
-          background-color: #2980b9;
+          background-color: #88c0d0;
+          color: #2e3440;
       }
 
       #network.disconnected {
-          background-color: #f53c3c;
+          background-color: #bf616a;
+          color: #eceff4;
       }
 
       #pulseaudio {
-          background-color: #f1c40f;
-          color: #000000;
+          background-color: #b48ead;
+          color: #2e3440;
       }
 
       #pulseaudio.muted {
-          background-color: #90b1b1;
-          color: #2a5c45;
+          background-color: #4c566a;
+          color: #d8dee9;
+      }
+
+      #tray {
+          background-color: #3b4252;
       }
 
       #tray > .passive {
@@ -207,12 +243,25 @@
 
       #tray > .needs-attention {
           -gtk-icon-effect: highlight;
-          background-color: #eb4d4b;
+          background-color: #bf616a;
+      }
+
+      #custom-power {
+          background-color: #bf616a;
+          color: #eceff4;
+          font-size: 16px;
+          padding: 0 14px;
+      }
+
+      #custom-power:hover {
+          background-color: #d08770;
       }
     '';
   };
 
-  # Configure fuzzel application launcher
+  # ============================================================================
+  # FUZZEL - Application launcher with Nord theme
+  # ============================================================================
   programs.fuzzel = {
     enable = true;
     settings = {
@@ -221,91 +270,110 @@
         layer = "overlay";
         width = 40;
         font = "JetBrains Mono:size=12";
+        prompt = "❯ ";
       };
       colors = {
-        background = "1e1e2edd";
-        text = "cdd6f4ff";
-        match = "f38ba8ff";
-        selection = "585b70ff";
-        selection-text = "cdd6f4ff";
-        selection-match = "f38ba8ff";
-        border = "b4befeff";
+        # Nord theme colors
+        background = "2e3440ee";
+        text = "d8dee9ff";
+        match = "88c0d0ff";
+        selection = "4c566aff";
+        selection-text = "eceff4ff";
+        selection-match = "8fbcbbff";
+        border = "5e81acff";
       };
       border = {
         width = 2;
-        radius = 10;
+        radius = 8;
       };
     };
   };
 
-  # Configure mako notification daemon
+  # ============================================================================
+  # MAKO - Notification daemon with Nord theme
+  # IMPORTANT: Service disabled to avoid conflict with Plasma notifications
+  # Mako is started by niri via spawn-at-startup only in niri sessions
+  # ============================================================================
   services.mako = {
     enable = true;
 
     settings = {
       default-timeout = 5000;
       dismiss-on-click = true;
-      border-radius = 10;
-      border-color = "#89b4fa";
+      border-radius = 8;
+      # Nord frost blue
+      border-color = "#5e81ac";
       border-size = 2;
       padding = "15";
       width = 350;
       height = 150;
       margin = "10";
-      text-color = "#cdd6f4";
-      background-color = "#1e1e2e";
+      # Nord snow storm
+      text-color = "#eceff4";
+      # Nord polar night
+      background-color = "#2e3440";
       font = "JetBrains Mono 11";
     };
 
     extraConfig = ''
       [urgency=high]
-      border-color=#f38ba8
+      border-color=#bf616a
       default-timeout=0
 
+      [urgency=low]
+      border-color=#a3be8c
+      default-timeout=3000
+
       [app-name=volume]
-      border-color=#fab387
+      border-color=#b48ead
       default-timeout=1000
 
       [app-name=brightness]
-      border-color=#f9e2af
+      border-color=#ebcb8b
       default-timeout=1000
     '';
   };
 
-  # Configure swaylock
+  # Disable mako systemd service - we start it manually in niri config
+  # This prevents mako from running in Plasma sessions
+  systemd.user.services.mako.Install.WantedBy = pkgs.lib.mkForce [];
+
+  # ============================================================================
+  # SWAYLOCK - Screen locker with Nord theme
+  # ============================================================================
   programs.swaylock = {
     enable = true;
     settings = {
-      color = "1e1e2e";
+      # Nord polar night
+      color = "2e3440";
       font-size = 24;
       indicator-idle-visible = false;
       indicator-radius = 100;
-      line-color = "313244";
-      ring-color = "11111b";
-      inside-color = "1e1e2e";
-      key-hl-color = "89b4fa";
+      # Nord colors for lock indicator
+      line-color = "4c566a";
+      ring-color = "3b4252";
+      inside-color = "2e3440";
+      key-hl-color = "88c0d0";
       separator-color = "00000000";
-      text-color = "cdd6f4";
-      text-caps-lock-color = "";
-      line-caps-lock-color = "";
-      inside-caps-lock-color = "";
-      ring-caps-lock-color = "";
-      inside-clear-color = "";
-      text-clear-color = "";
-      ring-clear-color = "";
-      line-clear-color = "";
-      inside-ver-color = "";
-      text-ver-color = "";
-      ring-ver-color = "";
-      line-ver-color = "";
-      inside-wrong-color = "";
-      text-wrong-color = "";
-      ring-wrong-color = "";
-      line-wrong-color = "";
+      text-color = "eceff4";
+      # Verification state
+      inside-ver-color = "5e81ac";
+      ring-ver-color = "81a1c1";
+      text-ver-color = "eceff4";
+      # Wrong password state
+      inside-wrong-color = "bf616a";
+      ring-wrong-color = "d08770";
+      text-wrong-color = "eceff4";
+      # Clear state
+      inside-clear-color = "ebcb8b";
+      ring-clear-color = "d08770";
+      text-clear-color = "2e3440";
     };
   };
 
-  # Configure alacritty terminal
+  # ============================================================================
+  # ALACRITTY - Terminal with Nord theme
+  # ============================================================================
   programs.alacritty = {
     enable = true;
     settings = {
@@ -335,115 +403,103 @@
         };
         size = 12;
       };
+      # Official Nord color scheme
       colors = {
         primary = {
-          background = "#1e1e2e";
-          foreground = "#cdd6f4";
-          dim_foreground = "#7f849c";
-          bright_foreground = "#cdd6f4";
+          background = "#2e3440";
+          foreground = "#d8dee9";
+          dim_foreground = "#a5abb6";
         };
         cursor = {
-          text = "#1e1e2e";
-          cursor = "#f5e0dc";
+          text = "#2e3440";
+          cursor = "#d8dee9";
         };
         vi_mode_cursor = {
-          text = "#1e1e2e";
-          cursor = "#b4befe";
+          text = "#2e3440";
+          cursor = "#d8dee9";
+        };
+        selection = {
+          text = "CellForeground";
+          background = "#4c566a";
         };
         search = {
           matches = {
-            foreground = "#1e1e2e";
-            background = "#a6adc8";
+            foreground = "CellBackground";
+            background = "#88c0d0";
           };
           focused_match = {
-            foreground = "#1e1e2e";
-            background = "#a6e3a1";
+            foreground = "#2e3440";
+            background = "#a3be8c";
           };
-        };
-        footer_bar = {
-          foreground = "#1e1e2e";
-          background = "#a6adc8";
-        };
-        hints = {
-          start = {
-            foreground = "#1e1e2e";
-            background = "#f9e2af";
-          };
-          end = {
-            foreground = "#1e1e2e";
-            background = "#a6adc8";
-          };
-        };
-        selection = {
-          text = "#1e1e2e";
-          background = "#f5e0dc";
         };
         normal = {
-          black = "#45475a";
-          red = "#f38ba8";
-          green = "#a6e3a1";
-          yellow = "#f9e2af";
-          blue = "#89b4fa";
-          magenta = "#f5c2e7";
-          cyan = "#94e2d5";
-          white = "#bac2de";
+          black = "#3b4252";
+          red = "#bf616a";
+          green = "#a3be8c";
+          yellow = "#ebcb8b";
+          blue = "#81a1c1";
+          magenta = "#b48ead";
+          cyan = "#88c0d0";
+          white = "#e5e9f0";
         };
         bright = {
-          black = "#585b70";
-          red = "#f38ba8";
-          green = "#a6e3a1";
-          yellow = "#f9e2af";
-          blue = "#89b4fa";
-          magenta = "#f5c2e7";
-          cyan = "#94e2d5";
-          white = "#a6adc8";
+          black = "#4c566a";
+          red = "#bf616a";
+          green = "#a3be8c";
+          yellow = "#ebcb8b";
+          blue = "#81a1c1";
+          magenta = "#b48ead";
+          cyan = "#8fbcbb";
+          white = "#eceff4";
         };
         dim = {
-          black = "#45475a";
-          red = "#f38ba8";
-          green = "#a6e3a1";
-          yellow = "#f9e2af";
-          blue = "#89b4fa";
-          magenta = "#f5c2e7";
-          cyan = "#94e2d5";
-          white = "#bac2de";
+          black = "#373e4d";
+          red = "#94545d";
+          green = "#809575";
+          yellow = "#b29e75";
+          blue = "#68809a";
+          magenta = "#8c738c";
+          cyan = "#6d96a5";
+          white = "#aeb3bb";
         };
-        indexed_colors = [
-          {
-            index = 16;
-            color = "#fab387";
-          }
-          {
-            index = 17;
-            color = "#f5e0dc";
-          }
-        ];
       };
     };
   };
 
-  # GTK configuration for consistent theming
+  # ============================================================================
+  # GTK CONFIGURATION - Only used for GTK apps in niri
+  # Uses Nordic theme to match niri's Nord aesthetic
+  # Plasma manages its own Qt/KDE theming separately
+  # ============================================================================
   gtk = {
     enable = true;
     theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
+      name = "Nordic";
+      package = pkgs.nordic;
     };
     iconTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
+      name = "Nordzy";
+      package = pkgs.nordzy-icon-theme;
     };
     cursorTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
+      name = "Nordzy-cursors";
+      package = pkgs.nordzy-cursor-theme;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
     };
   };
 
-  # Configure environment variables
+  # ============================================================================
+  # ENVIRONMENT VARIABLES
+  # These are set in the user's shell environment
+  # ============================================================================
   home.sessionVariables = {
-    # Required for niri
+    # Wayland support for various toolkits
     NIXOS_OZONE_WL = "1";
-    #MOZ_ENABLE_WAYLAND = "1";
     CLUTTER_BACKEND = "wayland";
     SDL_VIDEODRIVER = "wayland";
     GDK_BACKEND = "wayland,x11";
@@ -452,7 +508,9 @@
     _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
-  # Additional packages that are useful with niri
+  # ============================================================================
+  # ADDITIONAL PACKAGES for niri desktop experience
+  # ============================================================================
   home.packages = with pkgs; [
     # Image viewer
     imv
@@ -480,11 +538,42 @@
 
     # Power management
     gnome-power-manager
+
+    # Nordic GTK theme
+    nordic
+
+    # Nord icon themes
+    nordzy-icon-theme
+    nordzy-cursor-theme
+
+    # Power menu helper
+    wlogout
   ];
 
-  # Create niri config file with sensible defaults
+  # ============================================================================
+  # POWER MENU FILE - Used by waybar custom power button
+  # ============================================================================
+  home.file.".config/niri/power-menu.sh" = {
+    executable = true;
+    text = ''
+      #!/usr/bin/env bash
+      # Power menu for fuzzel
+      case "$(printf "  Lock\n  Logout\n  Suspend\n⏻  Shutdown\n  Reboot" | fuzzel --dmenu --prompt "Power: ")" in
+          "  Lock") swaylock ;;
+          "  Logout") niri msg action quit ;;
+          "  Suspend") systemctl suspend ;;
+          "⏻  Shutdown") systemctl poweroff ;;
+          "  Reboot") systemctl reboot ;;
+      esac
+    '';
+  };
+
+  # ============================================================================
+  # NIRI CONFIGURATION - Main window manager config with Nord theme
+  # ============================================================================
   xdg.configFile."niri/config.kdl".text = ''
     // Niri configuration file
+    // Nord themed configuration for niri window manager
     // For more information, see: https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
 
     input {
@@ -514,7 +603,7 @@
     }
 
     layout {
-        gaps 16
+        gaps 12
 
         center-focused-column "never"
 
@@ -526,19 +615,23 @@
 
         default-column-width { proportion 0.5; }
 
+        // Nord frost blue for focus ring
         focus-ring {
-            width 4
-            active-color "#89b4fa"
-            inactive-color "#45475a"
+            width 3
+            active-color "#5e81ac"
+            inactive-color "#3b4252"
         }
 
+        // Nord themed border
         border {
             width 2
-            active-color "#89b4fa"
-            inactive-color "#45475a"
+            active-color "#88c0d0"
+            inactive-color "#4c566a"
         }
     }
 
+    // Spawn services at startup
+    // These only run when niri starts, not in Plasma sessions
     spawn-at-startup "waybar"
     spawn-at-startup "mako"
     spawn-at-startup "swaybg" "-i" "/run/current-system/sw/share/backgrounds/gnome/blobs-l.svg" "-m" "fill"
@@ -591,24 +684,31 @@
     }
 
     window-rule {
-        // Example: make all niri config windows centered and floating
         matches app-id=r#"^org\.gnome\."#
         default-column-width { proportion 0.5; }
     }
 
     binds {
-        // Mod key is Super when running in TTY, Alt when running nested
+        // Help overlay
         Mod+Shift+Slash { show-hotkey-overlay; }
 
+        // ========================================
         // Programs
+        // ========================================
         Mod+T { spawn "alacritty"; }
         Mod+D { spawn "fuzzel"; }
+        // Alt+Space launcher like KDE Plasma
+        Alt+Space { spawn "fuzzel"; }
         Super+Alt+L { spawn "swaylock"; }
+        // Power menu
+        Mod+Shift+P { spawn "sh" "-c" "~/.config/niri/power-menu.sh"; }
 
+        // ========================================
         // Window management
+        // ========================================
         Mod+Q { close-window; }
 
-        // Focus movement
+        // Focus movement (vim keys)
         Mod+H       { focus-column-left; }
         Mod+J       { focus-window-down; }
         Mod+K       { focus-window-up; }
@@ -648,7 +748,9 @@
         Mod+Ctrl+Shift+Up    { move-column-to-monitor-up; }
         Mod+Ctrl+Shift+Right { move-column-to-monitor-right; }
 
+        // ========================================
         // Workspace management
+        // ========================================
         Mod+U           { focus-workspace-down; }
         Mod+I           { focus-workspace-up; }
         Mod+PageDown    { focus-workspace-down; }
@@ -692,12 +794,16 @@
         Mod+V { toggle-window-floating; }
         Mod+Shift+V { toggle-floating-focus; }
 
+        // ========================================
         // Screenshots
+        // ========================================
         Print { screenshot-screen; }
         Alt+Print { screenshot-window; }
         Ctrl+Print { screenshot; }
 
+        // ========================================
         // Media keys
+        // ========================================
         XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
         XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
         XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
@@ -707,11 +813,15 @@
         XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "10%+"; }
         XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "10%-"; }
 
+        // ========================================
         // System
+        // ========================================
         Mod+Shift+E { quit; }
         Ctrl+Alt+Delete { quit; }
 
-        // Number keys for workspace switching
+        // ========================================
+        // Workspace number keys
+        // ========================================
         Mod+1 { focus-workspace 1; }
         Mod+2 { focus-workspace 2; }
         Mod+3 { focus-workspace 3; }
