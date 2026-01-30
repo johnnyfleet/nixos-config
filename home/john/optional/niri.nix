@@ -616,6 +616,8 @@
     spawn-at-startup "waybar"
     spawn-at-startup "mako"
     spawn-at-startup "swaybg" "-i" "/run/current-system/sw/share/backgrounds/gnome/blobs-l.svg" "-m" "fill"
+    // KDE Wallet for password storage (shared with Plasma)
+    spawn-at-startup "kwalletd6"
 
     // Set GTK environment for all spawned apps
     environment {
@@ -672,7 +674,7 @@
     }
 
     window-rule {
-        matches app-id=r#"^org\.gnome\."#
+        match app-id=r#"^org\.gnome\."#
         default-column-width { proportion 0.5; }
     }
 
@@ -741,20 +743,20 @@
         // ========================================
         Mod+U           { focus-workspace-down; }
         Mod+I           { focus-workspace-up; }
-        Mod+PageDown    { focus-workspace-down; }
-        Mod+PageUp      { focus-workspace-up; }
+        Mod+Page_Down   { focus-workspace-down; }
+        Mod+Page_Up     { focus-workspace-up; }
 
         // Move window to workspace
         Mod+Ctrl+U           { move-column-to-workspace-down; }
         Mod+Ctrl+I           { move-column-to-workspace-up; }
-        Mod+Ctrl+PageDown    { move-column-to-workspace-down; }
-        Mod+Ctrl+PageUp      { move-column-to-workspace-up; }
+        Mod+Ctrl+Page_Down   { move-column-to-workspace-down; }
+        Mod+Ctrl+Page_Up     { move-column-to-workspace-up; }
 
         // Move workspace
         Mod+Shift+U           { move-workspace-down; }
         Mod+Shift+I           { move-workspace-up; }
-        Mod+Shift+PageDown    { move-workspace-down; }
-        Mod+Shift+PageUp      { move-workspace-up; }
+        Mod+Shift+Page_Down   { move-workspace-down; }
+        Mod+Shift+Page_Up     { move-workspace-up; }
 
         // Column management
         Mod+Comma  { consume-window-into-column; }
@@ -780,7 +782,7 @@
 
         // Floating
         Mod+V { toggle-window-floating; }
-        Mod+Shift+V { toggle-floating-focus; }
+        Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
         // ========================================
         // Screenshots
