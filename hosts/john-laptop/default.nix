@@ -34,7 +34,7 @@
     ../common/optional/tlp.nix
     #../common/optional/power-profiles.nix
     ../common/optional/plasma-minimal.nix
-    #../common/optional/niri.nix
+    ../common/optional/niri.nix
     ../common/optional/printing.nix
     #../common/optional/fwupd.nix
     #../common/optional/virtualisation-bridge.nix

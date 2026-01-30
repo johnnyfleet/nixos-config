@@ -467,31 +467,11 @@
   };
 
   # ============================================================================
-  # GTK CONFIGURATION - Only used for GTK apps in niri
-  # Uses Nordic theme to match niri's Nord aesthetic
-  # Plasma manages its own Qt/KDE theming separately
+  # GTK CONFIGURATION
+  # Instead of using programs.gtk (which conflicts with plasma-manager),
+  # we set GTK theme via environment variables. This only affects niri sessions
+  # since niri reads these from its spawn environment.
   # ============================================================================
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Nordic";
-      package = pkgs.nordic;
-    };
-    iconTheme = {
-      name = "Nordzy";
-      package = pkgs.nordzy-icon-theme;
-    };
-    cursorTheme = {
-      name = "Nordzy-cursors";
-      package = pkgs.nordzy-cursor-theme;
-    };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-  };
 
   # ============================================================================
   # ENVIRONMENT VARIABLES
@@ -507,6 +487,7 @@
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     _JAVA_AWT_WM_NONREPARENTING = "1";
   };
+
 
   # ============================================================================
   # ADDITIONAL PACKAGES for niri desktop experience
@@ -635,6 +616,13 @@
     spawn-at-startup "waybar"
     spawn-at-startup "mako"
     spawn-at-startup "swaybg" "-i" "/run/current-system/sw/share/backgrounds/gnome/blobs-l.svg" "-m" "fill"
+
+    // Set GTK environment for all spawned apps
+    environment {
+        GTK_THEME "Nordic"
+        XCURSOR_THEME "Nordzy-cursors"
+        XCURSOR_SIZE "24"
+    }
 
     prefer-no-csd
 
