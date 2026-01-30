@@ -123,6 +123,14 @@
 
     # D-Bus
     # dbus.enable = true;  # Already enabled by core
+
+    # Prevent suspend when lid is closed with external monitor/power
+    # This helps when logging out of niri while docked
+    logind = {
+      lidSwitch = "suspend"; # Normal lid close: suspend
+      lidSwitchExternalPower = "ignore"; # On AC power: ignore lid close
+      lidSwitchDocked = "ignore"; # With external monitor: ignore lid close
+    };
   };
 
   # Configure keymap - may conflict with plasma's X11 configuration
