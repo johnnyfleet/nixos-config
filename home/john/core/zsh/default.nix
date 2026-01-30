@@ -42,6 +42,9 @@
       td = "sudo tailscale down";
       ni = "sudo nix-index";
       no = "sudo nix store optimise";
+
+      cc = "cd ~/Development/claude-sandbox && claude";
+      cm = " claude-monitor --plan pro";
     };
 
     plugins = [
