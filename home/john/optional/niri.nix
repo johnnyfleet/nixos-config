@@ -618,12 +618,16 @@
     spawn-at-startup "swaybg" "-i" "/run/current-system/sw/share/backgrounds/gnome/blobs-l.svg" "-m" "fill"
     // KDE Wallet for password storage (shared with Plasma)
     spawn-at-startup "kwalletd6"
+    // Polkit agent for authentication dialogs (FIDO2, fingerprint, sudo GUI)
+    spawn-at-startup "/run/current-system/sw/libexec/polkit-kde-authentication-agent-1"
 
     // Set GTK environment for all spawned apps
     environment {
         GTK_THEME "Nordic"
         XCURSOR_THEME "Nordzy-cursors"
         XCURSOR_SIZE "24"
+        // 1Password SSH agent
+        SSH_AUTH_SOCK "/home/john/.1password/agent.sock"
     }
 
     prefer-no-csd
