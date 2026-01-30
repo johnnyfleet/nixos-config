@@ -299,7 +299,6 @@
 
     settings = {
       default-timeout = 5000;
-      dismiss-on-click = true;
       border-radius = 8;
       # Nord frost blue
       border-color = "#5e81ac";
@@ -313,6 +312,9 @@
       # Nord polar night
       background-color = "#2e3440";
       font = "JetBrains Mono 11";
+      # Click actions
+      on-button-left = "dismiss";
+      on-button-right = "dismiss-all";
     };
 
     extraConfig = ''
@@ -534,6 +536,9 @@
     nordzy-icon-theme
     nordzy-cursor-theme
 
+    # Notification tools
+    libnotify
+
     # Power menu helper
     wlogout
   ];
@@ -628,6 +633,20 @@
     // Polkit agent for authentication dialogs (FIDO2, fingerprint, sudo GUI)
     spawn-at-startup "/run/current-system/sw/libexec/polkit-kde-authentication-agent-1"
 
+    // ========================================
+    // Auto-start applications
+    // ========================================
+    // Workspace 1: Slack
+    spawn-at-startup "slack"
+    // Workspace 1: Trello (Chrome PWA)
+    spawn-at-startup "google-chrome-stable" "--profile-directory=Default" "--app=https://trello.com/b/7Pr30Oly/personal-kanban"
+    // Workspace 1: Thunderbird
+    spawn-at-startup "thunderbird"
+    // Workspace 2: Chrome (Techwondoe profile)
+    spawn-at-startup "google-chrome-stable" "--profile-directory=Profile 2"
+    // Focus workspace 2 after apps launch (small delay to let windows open)
+    spawn-at-startup "sh" "-c" "sleep 3 && niri msg action focus-workspace 2"
+
     // Set GTK environment for all spawned apps
     environment {
         GTK_THEME "Nordic"
@@ -635,6 +654,8 @@
         XCURSOR_SIZE "24"
         // 1Password SSH agent
         SSH_AUTH_SOCK "/home/john/.1password/agent.sock"
+        // Portal detection for screen sharing (wlr portal)
+        XDG_CURRENT_DESKTOP "sway"
     }
 
     prefer-no-csd
@@ -687,6 +708,34 @@
     window-rule {
         match app-id=r#"^org\.gnome\."#
         default-column-width { proportion 0.5; }
+    }
+
+    // ========================================
+    // Workspace assignments for auto-start apps
+    // ========================================
+
+    // Workspace 1: Slack
+    window-rule {
+        match app-id="Slack"
+        open-on-workspace "1"
+    }
+
+    // Workspace 1: Trello (Chrome PWA)
+    window-rule {
+        match app-id="chrome-trello.com__b_7Pr30Oly_personal-kanban-Default"
+        open-on-workspace "1"
+    }
+
+    // Workspace 1: Thunderbird
+    window-rule {
+        match app-id="thunderbird"
+        open-on-workspace "1"
+    }
+
+    // Workspace 2: Chrome (Techwondoe profile) - match by title ending in "Google Chrome"
+    window-rule {
+        match title=r#"- Google Chrome$"#
+        open-on-workspace "2"
     }
 
     binds {
