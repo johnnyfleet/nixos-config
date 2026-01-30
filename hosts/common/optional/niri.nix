@@ -25,6 +25,14 @@
       # xdg-desktop-portal-gtk  # Likely already provided by plasma
       # xdg-desktop-portal-gnome  # May conflict with plasma
     ];
+    # Configure portal backend for niri (use wlr for screen sharing)
+    config = {
+      niri = {
+        default = ["wlr" "gtk"];
+        "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+        "org.freedesktop.impl.portal.Screenshot" = "wlr";
+      };
+    };
   };
 
   # Enable polkit for system authentication dialogs
