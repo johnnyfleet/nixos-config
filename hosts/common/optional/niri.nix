@@ -138,4 +138,11 @@
   #   xkb.layout = "us";
   #   xkb.variant = "";
   # };
+
+  # PAM configuration for swaylock - enables password, fingerprint, and FIDO2
+  security.pam.services.swaylock = {
+    u2fAuth = true; # FIDO2/YubiKey
+    fprintAuth = true; # Fingerprint
+    unixAuth = true; # Password fallback
+  };
 }
