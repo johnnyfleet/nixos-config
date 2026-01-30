@@ -489,6 +489,14 @@
   };
 
   # ============================================================================
+  # FLAMESHOT - Screenshot tool configured for Wayland/niri
+  # ============================================================================
+  services.flameshot.settings.General = {
+    # Use grim adapter for Wayland compositors (required for niri)
+    useGrimAdapter = true;
+  };
+
+  # ============================================================================
   # ADDITIONAL PACKAGES for niri desktop experience
   # ============================================================================
   home.packages = with pkgs; [
@@ -793,6 +801,8 @@
         Print { screenshot-screen; }
         Alt+Print { screenshot-window; }
         Ctrl+Print { screenshot; }
+        // Flameshot (like Plasma's Meta+Shift+S)
+        Mod+Shift+S { spawn "flameshot" "gui"; }
 
         // ========================================
         // Media keys
