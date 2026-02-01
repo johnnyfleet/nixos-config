@@ -110,7 +110,7 @@
         "custom/power" = {
           format = "⏻";
           tooltip = false;
-          on-click = "fuzzel --dmenu --prompt 'Power: ' < /tmp/power-menu | xargs -I {} sh -c '{}'";
+          on-click = "~/.config/niri/power-menu.sh";
         };
       };
     };
@@ -291,54 +291,42 @@
 
   # ============================================================================
   # MAKO - Notification daemon with Nord theme
-  # IMPORTANT: Service disabled to avoid conflict with Plasma notifications
-  # Mako is started by niri via spawn-at-startup only in niri sessions
+  # IMPORTANT: We do NOT use services.mako.enable because it creates a D-Bus
+  # activated service that would auto-start in Plasma sessions.
+  # Instead, we write the config manually and let niri start mako explicitly.
   # ============================================================================
-  services.mako = {
-    enable = true;
+  xdg.configFile."mako/config".text = ''
+    # Mako notification daemon config - Nord theme
+    default-timeout=5000
+    border-radius=8
+    border-color=#5e81ac
+    border-size=2
+    padding=15
+    width=350
+    height=150
+    margin=10
+    text-color=#eceff4
+    background-color=#2e3440
+    font=JetBrains Mono 11
+    on-button-left=dismiss
+    on-button-right=dismiss-all
 
-    settings = {
-      default-timeout = 5000;
-      border-radius = 8;
-      # Nord frost blue
-      border-color = "#5e81ac";
-      border-size = 2;
-      padding = "15";
-      width = 350;
-      height = 150;
-      margin = "10";
-      # Nord snow storm
-      text-color = "#eceff4";
-      # Nord polar night
-      background-color = "#2e3440";
-      font = "JetBrains Mono 11";
-      # Click actions
-      on-button-left = "dismiss";
-      on-button-right = "dismiss-all";
-    };
+    [urgency=high]
+    border-color=#bf616a
+    default-timeout=0
 
-    extraConfig = ''
-      [urgency=high]
-      border-color=#bf616a
-      default-timeout=0
+    [urgency=low]
+    border-color=#a3be8c
+    default-timeout=3000
 
-      [urgency=low]
-      border-color=#a3be8c
-      default-timeout=3000
+    [app-name=volume]
+    border-color=#b48ead
+    default-timeout=1000
 
-      [app-name=volume]
-      border-color=#b48ead
-      default-timeout=1000
-
-      [app-name=brightness]
-      border-color=#ebcb8b
-      default-timeout=1000
-    '';
-  };
-
-  # Disable mako systemd service - we start it manually in niri config
-  # This prevents mako from running in Plasma sessions
-  systemd.user.services.mako.Install.WantedBy = pkgs.lib.mkForce [];
+    [app-name=brightness]
+    border-color=#ebcb8b
+    default-timeout=1000
+  '';
 
   # ============================================================================
   # SWAYLOCK - Screen locker with Nord theme
@@ -538,6 +526,7 @@
 
     # Notification tools
     libnotify
+    mako  # Only started by niri, not systemd
 
     # Power menu helper
     wlogout
@@ -627,7 +616,7 @@
     // These only run when niri starts, not in Plasma sessions
     spawn-at-startup "waybar"
     spawn-at-startup "mako"
-    spawn-at-startup "swaybg" "-i" "/run/current-system/sw/share/backgrounds/gnome/blobs-l.svg" "-m" "fill"
+    spawn-at-startup "swaybg" "-i" "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Path/contents/images/1920x1080.jpg" "-m" "fill"
     // KDE Wallet for password storage (shared with Plasma)
     spawn-at-startup "kwalletd6"
     // Polkit agent for authentication dialogs (FIDO2, fingerprint, sudo GUI)
@@ -642,10 +631,6 @@
     spawn-at-startup "google-chrome-stable" "--profile-directory=Default" "--app=https://trello.com/b/7Pr30Oly/personal-kanban"
     // Workspace 1: Thunderbird
     spawn-at-startup "thunderbird"
-    // Workspace 2: Chrome (Techwondoe profile)
-    spawn-at-startup "google-chrome-stable" "--profile-directory=Profile 2"
-    // Focus workspace 2 after apps launch (small delay to let windows open)
-    spawn-at-startup "sh" "-c" "sleep 3 && niri msg action focus-workspace 2"
 
     // Set GTK environment for all spawned apps
     environment {
@@ -732,15 +717,12 @@
         open-on-workspace "1"
     }
 
-    // Workspace 2: Chrome (Techwondoe profile) - match by title ending in "Google Chrome"
-    window-rule {
-        match title=r#"- Google Chrome$"#
-        open-on-workspace "2"
-    }
-
     binds {
         // Help overlay
         Mod+Shift+Slash { show-hotkey-overlay; }
+
+        // Overview
+        Mod+O { toggle-overview; }
 
         // ========================================
         // Programs
@@ -854,16 +836,16 @@
         Mod+Shift+S { spawn "flameshot" "gui"; }
 
         // ========================================
-        // Media keys
+        // Media keys (with OSD notifications)
         // ========================================
-        XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-        XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-        XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-        XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+        XF86AudioRaiseVolume allow-when-locked=true { spawn "sh" "-c" "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+ && notify-send -a volume -h int:value:$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}') -h string:x-canonical-private-synchronous:volume 'Volume' \"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}')%\""; }
+        XF86AudioLowerVolume allow-when-locked=true { spawn "sh" "-c" "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && notify-send -a volume -h int:value:$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}') -h string:x-canonical-private-synchronous:volume 'Volume' \"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}')%\""; }
+        XF86AudioMute        allow-when-locked=true { spawn "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && notify-send -a volume -h string:x-canonical-private-synchronous:volume 'Volume' \"$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 'Muted' || echo 'Unmuted')\""; }
+        XF86AudioMicMute     allow-when-locked=true { spawn "sh" "-c" "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && notify-send -a volume -h string:x-canonical-private-synchronous:volume 'Microphone' \"$(wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | grep -q MUTED && echo 'Muted' || echo 'Unmuted')\""; }
 
-        // Brightness control
-        XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "set" "10%+"; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "10%-"; }
+        // Brightness control (with OSD notifications)
+        XF86MonBrightnessUp   allow-when-locked=true { spawn "sh" "-c" "brightnessctl set 5%+ && notify-send -a brightness -h int:value:$(brightnessctl -m | cut -d, -f4 | tr -d '%') -h string:x-canonical-private-synchronous:brightness 'Brightness' \"$(brightnessctl -m | cut -d, -f4)\""; }
+        XF86MonBrightnessDown allow-when-locked=true { spawn "sh" "-c" "brightnessctl set 5%- && notify-send -a brightness -h int:value:$(brightnessctl -m | cut -d, -f4 | tr -d '%') -h string:x-canonical-private-synchronous:brightness 'Brightness' \"$(brightnessctl -m | cut -d, -f4)\""; }
 
         // ========================================
         // System

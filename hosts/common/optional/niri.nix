@@ -134,10 +134,10 @@
 
     # Prevent suspend when lid is closed with external monitor/power
     # This helps when logging out of niri while docked
-    logind = {
-      lidSwitch = "suspend"; # Normal lid close: suspend
-      lidSwitchExternalPower = "ignore"; # On AC power: ignore lid close
-      lidSwitchDocked = "ignore"; # With external monitor: ignore lid close
+    logind.settings.Login = {
+      HandleLidSwitch = "suspend"; # Normal lid close: suspend
+      HandleLidSwitchExternalPower = "ignore"; # On AC power: ignore lid close
+      HandleLidSwitchDocked = "ignore"; # With external monitor: ignore lid close
     };
   };
 
