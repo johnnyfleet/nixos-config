@@ -526,7 +526,7 @@
 
     # Notification tools
     libnotify
-    mako  # Only started by niri, not systemd
+    mako # Only started by niri, not systemd
 
     # Power menu helper
     wlogout
