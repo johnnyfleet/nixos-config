@@ -22,15 +22,18 @@
     # enable = true;  # Already enabled by plasma-minimal
     wlr.enable = true; # Add wlr support for niri
     extraPortals = with pkgs; [
-      # xdg-desktop-portal-gtk  # Likely already provided by plasma
-      # xdg-desktop-portal-gnome  # May conflict with plasma
+      xdg-desktop-portal-gtk # Required for AppChooser (Open With dialog) and FileChooser
     ];
     # Configure portal backend for niri (use wlr for screen sharing)
     config = {
       niri = {
-        default = ["wlr" "gtk"];
+        # Use gtk for most things, kde for KDE apps, wlr for screen stuff
+        default = ["gtk" "kde"];
         "org.freedesktop.impl.portal.ScreenCast" = "wlr";
         "org.freedesktop.impl.portal.Screenshot" = "wlr";
+        # Use KDE portal for file/app chooser when running KDE apps like Dolphin
+        "org.freedesktop.impl.portal.AppChooser" = "kde";
+        "org.freedesktop.impl.portal.FileChooser" = "kde";
       };
     };
   };
