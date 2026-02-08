@@ -24,6 +24,15 @@
   boot.consoleLogLevel = 0;
   boot.initrd.verbose = false;
 
+  # Intel graphics VA-API support for hardware video acceleration (11th Gen Tiger Lake)
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
+  hardware.enableRedistributableFirmware = true;
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/d1de93b0-5509-4c44-b374-76055ff05aef";
     fsType = "ext4";
