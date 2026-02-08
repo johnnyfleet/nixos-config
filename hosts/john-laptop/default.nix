@@ -44,6 +44,7 @@
     ../common/optional/node-sonos-http-firewall.nix
     #../common/optional/cloudflare-warp.nix
     ../common/optional/yubikey-u2f-authentication.nix
+    ../common/optional/noise-cancelling.nix
   ];
 
   ######################### MODULE CONFIGURATION ##########################
