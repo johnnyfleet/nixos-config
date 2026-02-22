@@ -2,7 +2,8 @@
   configVars,
   config,
   ...
-}: {
+}:
+{
   imports = [
     #################### Required Configs ####################
     ./core/default.nix # required
@@ -30,18 +31,18 @@
   xsession.numlock.enable = true;
 
   /*
-     sops = {
-    #age.keyFile = "/home/user/.age-key.txt"; # must have no password!
-    # It's also possible to use a ssh key, but only when it has no password:
-    age.sshKeyPaths = [ "/home/john/.ssh/id_ed25519" ];
-    defaultSopsFile = ../../secrets/secrets.yaml;
+       sops = {
+      #age.keyFile = "/home/user/.age-key.txt"; # must have no password!
+      # It's also possible to use a ssh key, but only when it has no password:
+      age.sshKeyPaths = [ "/home/john/.ssh/id_ed25519" ];
+      defaultSopsFile = ../../secrets/secrets.yaml;
 
-    secrets.git-user-name = {
-      key = "git-user-name";
+      secrets.git-user-name = {
+        key = "git-user-name";
+      };
+      secrets.git-user-email = {
+        key = "git-user-email";
+      };
     };
-    secrets.git-user-email = {
-      key = "git-user-email";
-    };
-  };
   */
 }

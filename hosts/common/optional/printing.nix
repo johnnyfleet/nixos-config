@@ -5,13 +5,14 @@
 ## Printing Quality = Best
 ## Page size = A4
 ## Two sided printing = Long edge
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Enable CUPS to print documents.
   # Access CUPS UI via http://localhost:631/
   services.printing = {
     # run on first setup: sudo hp-setup -i -a
     enable = true;
-    drivers = [pkgs.hplipWithPlugin];
+    drivers = [ pkgs.hplipWithPlugin ];
   };
 
   environment.systemPackages = with pkgs; [

@@ -3,8 +3,12 @@
   config,
   configVars,
   ...
-}: {
-  home.packages = with pkgs; [zsh-powerlevel10k meslo-lgs-nf];
+}:
+{
+  home.packages = with pkgs; [
+    zsh-powerlevel10k
+    meslo-lgs-nf
+  ];
 
   programs.zsh = {
     enable = true;
@@ -79,7 +83,7 @@
 
     oh-my-zsh = {
       enable = true;
-      plugins = ["git"];
+      plugins = [ "git" ];
       theme = "robbyrussell";
     };
 

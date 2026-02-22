@@ -4,9 +4,11 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.steam;
-in {
+in
+{
   options.modules.steam = {
     enable = mkEnableOption "Steam gaming platform";
 
@@ -50,7 +52,8 @@ in {
       localNetworkGameTransfers.openFirewall = cfg.localNetworkGameTransfers;
     };
 
-    environment.systemPackages = with pkgs;
+    environment.systemPackages =
+      with pkgs;
       [
         libGL
         vulkan-tools

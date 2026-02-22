@@ -2,9 +2,10 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   # Create niri session file for display manager
-  services.displayManager.sessionPackages = [inputs.niri.packages.${pkgs.system}.niri];
+  services.displayManager.sessionPackages = [ inputs.niri.packages.${pkgs.system}.niri ];
 
   # Enable Plymouth at boot for smooth transitions
   boot.plymouth.enable = true;
@@ -28,7 +29,10 @@
     config = {
       niri = {
         # Use gtk for most things, kde for KDE apps, wlr for screen stuff
-        default = ["gtk" "kde"];
+        default = [
+          "gtk"
+          "kde"
+        ];
         "org.freedesktop.impl.portal.ScreenCast" = "wlr";
         "org.freedesktop.impl.portal.Screenshot" = "wlr";
         # Use KDE portal for file/app chooser when running KDE apps like Dolphin

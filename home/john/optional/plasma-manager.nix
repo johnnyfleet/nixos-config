@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   #imports = [ <plasma-manager/modules> ];
 
   home.file.".local/share/icons/trello.svg".source = ../../../icons/trello.svg;
@@ -10,10 +11,10 @@
 
   # Setup timezones in clock/calendar widget. DOESN'T WORK YET as it overwrites the whole file.
   /*
-     home.file.".config/plasma-org.kde.plasma.desktop-appletsrc".text = ''
-    [Containments][711][Applets][716][Configuration][Appearance]
-    selectedTimeZones=America/Los_Angeles,America/Toronto,Local,Europe/London,Asia/Kolkata
-  '';
+       home.file.".config/plasma-org.kde.plasma.desktop-appletsrc".text = ''
+      [Containments][711][Applets][716][Configuration][Appearance]
+      selectedTimeZones=America/Los_Angeles,America/Toronto,Local,Europe/London,Asia/Kolkata
+    '';
   */
 
   # Shortcuts for launcher
@@ -23,7 +24,10 @@
       comment = "Open Trello as a Chrome app";
       exec = "${pkgs.google-chrome}/bin/google-chrome-stable --ozone-platform=x11 --profile-directory=Default --class=ChromeAppTrello --app=https://trello.com/b/7Pr30Oly/personal-kanban";
       icon = "/home/${config.home.username}/.local/share/icons/trello.svg";
-      categories = ["Network" "Office"];
+      categories = [
+        "Network"
+        "Office"
+      ];
       terminal = false;
       type = "Application";
       settings = {
@@ -37,7 +41,10 @@
       comment = "Open GitHub as a Chrome app";
       exec = "${pkgs.google-chrome}/bin/google-chrome-stable --ozone-platform=x11 --profile-directory=Default --class=ChromeAppGitHub --app=https://github.com/";
       icon = "/home/${config.home.username}/.local/share/icons/github.svg";
-      categories = ["Network" "Development"];
+      categories = [
+        "Network"
+        "Development"
+      ];
       terminal = false;
       type = "Application";
       settings = {
@@ -126,12 +133,12 @@
               ];
             };
             /*
-            appearance = {
-                showTooltips = true;
-                highlightWindows = true;
-                indicateAudioStreams = true;
-                fill = true;
-            };
+              appearance = {
+                  showTooltips = true;
+                  highlightWindows = true;
+                  indicateAudioStreams = true;
+                  fill = true;
+              };
             */
           }
           "org.kde.plasma.marginsseparator"
@@ -173,7 +180,7 @@
           "org.kde.plasma.systemmonitor.memory"
           {
             name = "org.kde.plasma.systemtray"; # System tray
-            config = {};
+            config = { };
           }
           {
             name = "org.kde.plasma.lock_logout";

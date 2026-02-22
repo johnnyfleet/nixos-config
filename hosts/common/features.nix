@@ -5,10 +5,12 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.host;
   user = cfg.username;
-in {
+in
+{
   imports = [
     ./options.nix
     ./optional/docker.nix
@@ -27,19 +29,19 @@ in {
     # Development features
     modules.docker = mkIf cfg.features.development {
       enable = true;
-      users = [user];
+      users = [ user ];
     };
 
     # Virtualization features
     modules.virtualisation = mkIf cfg.features.virtualization {
       enable = true;
-      users = [user];
+      users = [ user ];
     };
 
     # 1Password - enabled when desktop is enabled
     modules._1password = mkIf cfg.features.desktop {
       enable = true;
-      polkitPolicyOwners = [user];
+      polkitPolicyOwners = [ user ];
     };
   };
 }

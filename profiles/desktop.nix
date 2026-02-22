@@ -4,7 +4,8 @@
   config,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ../hosts/common/core/default.nix
     ../hosts/common/features.nix

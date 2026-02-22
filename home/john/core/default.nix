@@ -7,7 +7,8 @@
   sops-nix,
   secrets,
   ...
-}: {
+}:
+{
   #imports = (configLib.scanPaths ./.) ++ (builtins.attrValues outputs.homeManagerModules);
   imports = [
     ./zsh/default.nix

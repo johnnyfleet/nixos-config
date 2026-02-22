@@ -5,7 +5,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./desktop.nix # Extends desktop profile
   ];
