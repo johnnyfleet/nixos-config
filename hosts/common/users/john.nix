@@ -6,21 +6,23 @@
   pkgs,
   secrets,
   ...
-}: {
+}:
+{
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.john = {
     isNormalUser = true;
     description = "John Stephenson";
-    extraGroups = ["wheel"];
+    extraGroups = [ "wheel" ];
     initialHashedPassword = "$6$Teg0qz6p3YqBmUKM$V9Wi0GibAJIxTT4PXcgT2GXBvxhAZJL6hxnSe4/T/gUUitaHleXQeKpyQcaNviReyxPGLIBP/EcMPKBg4VrNM/";
     #hashedPasswordFile = config.sops.secrets.john-password.path;
 
-    openssh.authorizedKeys.keys = let
-      authorizedKeys = pkgs.fetchurl {
-        url = "https://github.com/johnnyfleet.keys";
-        sha256 = "sha256-xYe8BWx/w4YLqUtjHfwISHDBr8lKsabtbsJoehZ15Vs=";
-      };
-    in
+    openssh.authorizedKeys.keys =
+      let
+        authorizedKeys = pkgs.fetchurl {
+          url = "https://github.com/johnnyfleet.keys";
+          sha256 = "sha256-xYe8BWx/w4YLqUtjHfwISHDBr8lKsabtbsJoehZ15Vs=";
+        };
+      in
       pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
   };
 

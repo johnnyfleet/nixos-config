@@ -9,7 +9,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -50,12 +51,12 @@
 
   modules._1password = {
     enable = true;
-    polkitPolicyOwners = ["john"];
+    polkitPolicyOwners = [ "john" ];
   };
 
   modules.docker = {
     enable = true;
-    users = ["john"];
+    users = [ "john" ];
   };
 
   # Syncthing disabled in VM
@@ -71,24 +72,24 @@
   ######################### NIX-SOPS ############################
 
   /*
-  sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
+    sops.defaultSopsFile = ../../secrets/secrets.yaml;
+    sops.defaultSopsFormat = "yaml";
 
-  #sops.age.keyFile = "/home/john/.config/sops/age/keys.txt";
-  sops.age.keyFile = "//var/lib/sops-nix/key.txt";
+    #sops.age.keyFile = "/home/john/.config/sops/age/keys.txt";
+    sops.age.keyFile = "//var/lib/sops-nix/key.txt";
 
-  sops.secrets.john-password = {
-    owner = "john";
-    neededForUsers = true;
-  };
+    sops.secrets.john-password = {
+      owner = "john";
+      neededForUsers = true;
+    };
 
-  # This will automatically import SSH keys as age keys
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  # This will generate a new key if the key specified above does not exist
-  sops.age.generateKey = true;
+    # This will automatically import SSH keys as age keys
+    sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    # This will generate a new key if the key specified above does not exist
+    sops.age.generateKey = true;
 
-  # Force update passwords for users on each run.
-  users.mutableUsers = false;
+    # Force update passwords for users on each run.
+    users.mutableUsers = false;
   */
 
   ############################ NETWORKING ########################
@@ -142,26 +143,27 @@
   ############################# USERS #############################
 
   security.sudo.wheelNeedsPassword = false;
-  users.users.root.openssh.authorizedKeys.keys = let
-    authorizedKeys = pkgs.fetchurl {
-      url = "https://github.com/johnnyfleet.keys";
-      sha256 = "sha256-/inXDjnOnTqriEqwUK5UNwg+Fp56FdB+Av5mWH+KLAw=";
-    };
-  in
+  users.users.root.openssh.authorizedKeys.keys =
+    let
+      authorizedKeys = pkgs.fetchurl {
+        url = "https://github.com/johnnyfleet.keys";
+        sha256 = "sha256-/inXDjnOnTqriEqwUK5UNwg+Fp56FdB+Av5mWH+KLAw=";
+      };
+    in
     pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
 
   ############################# DISPLAY #########################
   /*
-  # X configuration
-  services.xserver.enable = true;
-  services.xserver.xkb.layout = "us";
-  services.xserver.xkb.variant = "";
+    # X configuration
+    services.xserver.enable = true;
+    services.xserver.xkb.layout = "us";
+    services.xserver.xkb.variant = "";
 
-  services.displayManager.autoLogin.user = "john";
-  services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.desktopManager.xfce.enableScreensaver = false;
+    services.displayManager.autoLogin.user = "john";
+    services.xserver.desktopManager.xfce.enable = true;
+    services.xserver.desktopManager.xfce.enableScreensaver = false;
 
-  #services.xserver.videoDrivers = [ "qxl" ];
+    #services.xserver.videoDrivers = [ "qxl" ];
   */
 
   ########################## PACKAGES ##############################

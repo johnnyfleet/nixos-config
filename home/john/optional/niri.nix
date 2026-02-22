@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Home Manager configuration for niri
   # All configuration is session-isolated and uses Nord theme
 
@@ -17,9 +18,18 @@
         height = 40;
         spacing = 4;
 
-        modules-left = ["niri/workspaces" "niri/window"];
-        modules-center = ["clock"];
-        modules-right = ["pulseaudio" "network" "battery" "tray" "custom/power"];
+        modules-left = [
+          "niri/workspaces"
+          "niri/window"
+        ];
+        modules-center = [ "clock" ];
+        modules-right = [
+          "pulseaudio"
+          "network"
+          "battery"
+          "tray"
+          "custom/power"
+        ];
 
         "niri/workspaces" = {
           all-outputs = true;
@@ -77,7 +87,11 @@
             phone = "";
             portable = "";
             car = "";
-            default = ["" "" ""];
+            default = [
+              ""
+              ""
+              ""
+            ];
           };
           on-click = "pavucontrol";
         };
@@ -100,7 +114,13 @@
           format-charging = "{capacity}% ";
           format-plugged = "{capacity}% ";
           format-alt = "{time} {icon}";
-          format-icons = ["" "" "" "" ""];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
 
         tray = {

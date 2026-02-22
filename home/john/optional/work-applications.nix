@@ -1,5 +1,6 @@
 # This module adds programs I find useful when using the device for work.
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Packages that should be installed to the user profile.
   # home.packages = with pkgs; [
   #   bluemail
@@ -21,11 +22,9 @@
   home.packages = with pkgs; [
     # System tray for birdtray, a Thunderbird extension. Set the path to the Thunderbird binary in home-manager.
     (birdtray.overrideAttrs (oldAttrs: {
-      cmakeFlags =
-        (oldAttrs.cmakeFlags or [])
-        ++ [
-          "-DOPT_THUNDERBIRD_CMDLINE=/etc/profiles/per-user/john/bin/thunderbird"
-        ];
+      cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
+        "-DOPT_THUNDERBIRD_CMDLINE=/etc/profiles/per-user/john/bin/thunderbird"
+      ];
     }))
   ];
 

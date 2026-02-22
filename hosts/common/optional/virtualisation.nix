@@ -4,17 +4,19 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.virtualisation;
-in {
+in
+{
   options.modules.virtualisation = {
     enable = mkEnableOption "libvirt virtualization";
 
     users = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = "Users to add to the libvirtd group";
-      example = ["john"];
+      example = [ "john" ];
     };
 
     enableTPM = mkOption {
@@ -37,7 +39,7 @@ in {
 
     trustedInterfaces = mkOption {
       type = types.listOf types.str;
-      default = ["virbr0"];
+      default = [ "virbr0" ];
       description = "Network interfaces to trust through firewall";
     };
   };

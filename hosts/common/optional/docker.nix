@@ -4,17 +4,22 @@
   pkgs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.modules.docker;
-in {
+in
+{
   options.modules.docker = {
     enable = mkEnableOption "Docker container runtime";
 
     users = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = "Users to add to the docker group";
-      example = ["john" "alice"];
+      example = [
+        "john"
+        "alice"
+      ];
     };
 
     enableOnBoot = mkOption {
@@ -45,7 +50,7 @@ in {
 
     # Add specified users to the docker group
     users.users = genAttrs cfg.users (user: {
-      extraGroups = ["docker"];
+      extraGroups = [ "docker" ];
     });
 
     # Add extra tools

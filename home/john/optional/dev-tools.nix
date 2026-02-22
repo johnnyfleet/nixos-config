@@ -4,7 +4,8 @@
   inputs,
   system,
   ...
-}: {
+}:
+{
   programs = {
     direnv = {
       enable = true;
@@ -20,6 +21,6 @@
     windsurf # AI IDE
     claude-code
     claude-monitor
-    uv #Python package manager.
+    uv # Python package manager.
   ];
 }

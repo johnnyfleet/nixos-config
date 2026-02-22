@@ -4,7 +4,8 @@
   pkgs,
   secrets,
   ...
-}: {
+}:
+{
   imports = [
     ./configuration.nix
     ./gc-optimise.nix

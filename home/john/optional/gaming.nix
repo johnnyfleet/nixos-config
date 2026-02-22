@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     heroic # Open source installer for GoG and Epic games.

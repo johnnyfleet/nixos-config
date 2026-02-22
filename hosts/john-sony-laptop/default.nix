@@ -9,7 +9,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -48,7 +49,10 @@
 
   modules._1password = {
     enable = true;
-    polkitPolicyOwners = ["john" "kiran"];
+    polkitPolicyOwners = [
+      "john"
+      "kiran"
+    ];
   };
 
   # Docker disabled on this machine
@@ -67,24 +71,24 @@
   ######################### NIX-SOPS ############################
 
   /*
-     sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
+       sops.defaultSopsFile = ../../secrets/secrets.yaml;
+    sops.defaultSopsFormat = "yaml";
 
-  #sops.age.keyFile = "/home/john/.config/sops/age/keys.txt";
-  sops.age.keyFile = "//var/lib/sops-nix/key.txt";
+    #sops.age.keyFile = "/home/john/.config/sops/age/keys.txt";
+    sops.age.keyFile = "//var/lib/sops-nix/key.txt";
 
-  sops.secrets.john-password = {
-    owner = "john";
-    neededForUsers = true;
-  };
+    sops.secrets.john-password = {
+      owner = "john";
+      neededForUsers = true;
+    };
 
-  # This will automatically import SSH keys as age keys
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  # This will generate a new key if the key specified above does not exist
-  sops.age.generateKey = true;
+    # This will automatically import SSH keys as age keys
+    sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    # This will generate a new key if the key specified above does not exist
+    sops.age.generateKey = true;
 
-  # Force update passwords for users on each run.
-  users.mutableUsers = false;
+    # Force update passwords for users on each run.
+    users.mutableUsers = false;
   */
 
   ############################ NETWORKING ########################
@@ -100,7 +104,7 @@
   boot.loader.systemd-boot.enable = false;
   #boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.grub.enable = true;
-  boot.loader.grub.devices = ["nodev"];
+  boot.loader.grub.devices = [ "nodev" ];
   #boot.loader.grub.efiSupport = true;
   #boot.loader.grub.useOSProber = true;
 
@@ -119,13 +123,13 @@
   #TODO: FIXME - this is not working yet. You need to add the below arguments to the chrome shortcut before the %U.
   #I need to find a way to override this in NixOS for simplicity.
   /*
-     programs.google-chrome.commandLineArgs = [
-    "--ozone-platform-hint=wayland"
-    "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
-    "--use-gl=egl"
-    "--disable-vulkan"
-    "--enable-gpu-rasterization"
-  ];
+       programs.google-chrome.commandLineArgs = [
+      "--ozone-platform-hint=wayland"
+      "--enable-features=UseOzonePlatform,WaylandWindowDecorations"
+      "--use-gl=egl"
+      "--disable-vulkan"
+      "--enable-gpu-rasterization"
+    ];
   */
 
   ########################### USERS ################################

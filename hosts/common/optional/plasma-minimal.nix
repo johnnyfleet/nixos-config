@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Enable Plymouth at boot
   boot.plymouth.enable = true;
 
@@ -27,10 +28,10 @@
 
   # Enable kwallet so that it auto unlocks on login.
   /*
-  security.pam.services.kwallet = {
-    name = "kwallet";
-    enableKwallet = true;
-  };
+    security.pam.services.kwallet = {
+      name = "kwallet";
+      enableKwallet = true;
+    };
   */
   security.pam.services.sddm.enableKwallet = true;
 
