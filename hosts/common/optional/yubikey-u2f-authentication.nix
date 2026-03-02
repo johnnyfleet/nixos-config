@@ -28,6 +28,13 @@
     unixAuth = true; # password fallback via system-auth
   };
 
+  # 2b) POLKIT-1: GUI sudo prompts (KDE/Plasma) - YubiKey first, then fingerprint, then password
+  security.pam.services.polkit-1 = {
+    u2fAuth = true;
+    fprintAuth = true;
+    unixAuth = true;
+  };
+
   # 3) DISPLAY MANAGER PASSWORD PROMPT (Unlock): OR across YubiKey / fingerprint / password
   # --- SDDM / KDE (login dialog) ---
   # Uncomment if you use SDDM instead of GDM:
