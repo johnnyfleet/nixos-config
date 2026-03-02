@@ -7,8 +7,7 @@
   pkgs,
   modulesPath,
   ...
-}:
-{
+}: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -21,10 +20,10 @@
     "usb_storage"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
+  boot.supportedFilesystems = ["ntfs"];
 
   # Ideally make boot sequence less verbos. Likely only applies to stage 2 vs. stage 1. See: http://github.com/NixOS/nixpkgs/issues/32555
   # Disable i915 PSR (Panel Self Refresh) to avoid screen freezing issue: https://chatgpt.com/c/68f6e22a-f564-8324-b3b3-812c4a9bbfce

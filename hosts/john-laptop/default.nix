@@ -9,8 +9,7 @@
   inputs,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./hardware-configuration.nix
 
@@ -53,12 +52,12 @@
 
   modules._1password = {
     enable = true;
-    polkitPolicyOwners = [ "john" ];
+    polkitPolicyOwners = ["john"];
   };
 
   modules.docker = {
     enable = true;
-    users = [ "john" ];
+    users = ["john"];
   };
 
   modules.syncthing = {
@@ -74,7 +73,7 @@
 
   modules.virtualisation = {
     enable = true;
-    users = [ "john" ];
+    users = ["john"];
   };
 
   ######################### NIX-SOPS ############################
@@ -91,7 +90,7 @@
   };
 
   # This will automatically import SSH keys as age keys
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   # This will generate a new key if the key specified above does not exist
   sops.age.generateKey = true;
 
@@ -134,13 +133,13 @@
     (import ../../overlays/default.nix).default
   ];
   /*
-       # Enable fingerprint
-    services.fprintd = {
-      enable = true;
-      tod.enable = true;
-      tod.driver = pkgs.libfprint-2-tod1-goodix;
-    };
-    security.pam.services.login.fprintAuth = false; #disable fingerprint login - but allow everything else.
+     # Enable fingerprint
+  services.fprintd = {
+    enable = true;
+    tod.enable = true;
+    tod.driver = pkgs.libfprint-2-tod1-goodix;
+  };
+  security.pam.services.login.fprintAuth = false; #disable fingerprint login - but allow everything else.
   */
 
   # Included packages here

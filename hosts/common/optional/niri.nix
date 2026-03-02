@@ -2,10 +2,9 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   # Create niri session file for display manager
-  services.displayManager.sessionPackages = [ inputs.niri.packages.${pkgs.system}.niri ];
+  services.displayManager.sessionPackages = [inputs.niri.packages.${pkgs.system}.niri];
 
   # Enable Plymouth at boot for smooth transitions
   boot.plymouth.enable = true;

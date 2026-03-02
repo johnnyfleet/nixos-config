@@ -4,11 +4,9 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.modules._1password;
-in
-{
+in {
   options.modules._1password = {
     enable = mkEnableOption "1Password password manager";
 
@@ -26,7 +24,7 @@ in
 
     polkitPolicyOwners = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = "Users authorized for polkit authentication";
       example = [
         "john"

@@ -4,8 +4,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   # Common packages for all users
   home.packages = with pkgs; [
     # Office and productivity

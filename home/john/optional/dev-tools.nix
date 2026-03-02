@@ -4,8 +4,7 @@
   inputs,
   system,
   ...
-}:
-{
+}: {
   programs = {
     direnv = {
       enable = true;

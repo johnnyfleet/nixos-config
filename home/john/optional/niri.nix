@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Home Manager configuration for niri
   # All configuration is session-isolated and uses Nord theme
 
@@ -22,7 +21,7 @@
           "niri/workspaces"
           "niri/window"
         ];
-        modules-center = [ "clock" ];
+        modules-center = ["clock"];
         modules-right = [
           "pulseaudio"
           "network"
