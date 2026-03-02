@@ -32,7 +32,7 @@ in
 
     enableWine = mkOption {
       type = types.bool;
-      default = true;
+      default = false;
       description = "Install Wine for Windows game compatibility";
     };
 
@@ -60,7 +60,7 @@ in
         mesa
       ]
       ++ optionals cfg.enableWine [
-        wineWowPackages.staging
+        wineWow64Packages.staging
         winetricks
       ]
       ++ optionals cfg.enableGameMode [
