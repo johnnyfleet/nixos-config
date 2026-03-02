@@ -2,8 +2,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   # Firmware update daemon - used by kde discover
   services.fwupd.enable = true;
 
@@ -11,7 +10,7 @@
   services.flatpak.enable = true;
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+    extraPortals = [pkgs.kdePackages.xdg-desktop-portal-kde];
   };
 
   # Enable flathub repo

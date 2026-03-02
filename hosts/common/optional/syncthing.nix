@@ -4,11 +4,9 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.modules.syncthing;
-in
-{
+in {
   options.modules.syncthing = {
     enable = mkEnableOption "Syncthing file synchronization";
 

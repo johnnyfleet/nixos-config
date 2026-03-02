@@ -7,8 +7,7 @@
   pkgs,
   secrets,
   ...
-}:
-{
+}: {
   ###################### ESSENTIAL CONFIG ########################
 
   # Enable the Flakes feature and the accompanying new nix command-line tool
@@ -53,13 +52,13 @@
     enable = true;
 
     # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" ];
+    trustedInterfaces = ["tailscale0"];
 
     # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [config.services.tailscale.port];
 
     # let you SSH in over the public internet
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [22];
   };
 
   ############################## LOCALE ############################
@@ -128,7 +127,7 @@
   ######################## Enable Numlock ##########################
 
   systemd.services.numLockOnTty = {
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       # /run/current-system/sw/bin/setleds -D +num < "$tty";
       ExecStart = lib.mkForce (

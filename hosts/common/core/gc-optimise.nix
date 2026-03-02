@@ -5,8 +5,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   #Run nix-collect-garbage to clean up old generations.
   nix.gc = {
     automatic = true;
@@ -17,7 +16,7 @@
   # Optimise the nix store, adding hard links, on a daily timer just after lunch
   nix.optimise = {
     automatic = true;
-    dates = [ "12:10" ];
+    dates = ["12:10"];
   };
 
   # Optimise on every rebuild.

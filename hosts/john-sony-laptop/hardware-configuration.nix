@@ -7,8 +7,7 @@
   pkgs,
   modulesPath,
   ...
-}:
-{
+}: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
@@ -23,10 +22,10 @@
     "rtsx_pci_sdmmc"
   ];
   #boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
+  boot.supportedFilesystems = ["ntfs"];
 
   # Ideally make boot sequence less verbos. Likely only applies to stage 2 vs. stage 1. See: http://github.com/NixOS/nixpkgs/issues/32555
   boot.consoleLogLevel = 0;
@@ -54,10 +53,10 @@
   #boot.kernelParams = [ "quiet" "udev.log_level=3" ];
 
   /*
-       fileSystems."/" = {
-      device = "/dev/disk/by-uuid/f4d4171a-e1d5-4b30-a1b1-14bc0038d060";
-      fsType = "ext4";
-    };
+     fileSystems."/" = {
+    device = "/dev/disk/by-uuid/f4d4171a-e1d5-4b30-a1b1-14bc0038d060";
+    fsType = "ext4";
+  };
   */
 
   #swapDevices = [ ];

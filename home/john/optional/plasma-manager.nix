@@ -2,8 +2,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   #imports = [ <plasma-manager/modules> ];
 
   home.file.".local/share/icons/trello.svg".source = ../../../icons/trello.svg;
@@ -11,10 +10,10 @@
 
   # Setup timezones in clock/calendar widget. DOESN'T WORK YET as it overwrites the whole file.
   /*
-       home.file.".config/plasma-org.kde.plasma.desktop-appletsrc".text = ''
-      [Containments][711][Applets][716][Configuration][Appearance]
-      selectedTimeZones=America/Los_Angeles,America/Toronto,Local,Europe/London,Asia/Kolkata
-    '';
+     home.file.".config/plasma-org.kde.plasma.desktop-appletsrc".text = ''
+    [Containments][711][Applets][716][Configuration][Appearance]
+    selectedTimeZones=America/Los_Angeles,America/Toronto,Local,Europe/London,Asia/Kolkata
+  '';
   */
 
   # Shortcuts for launcher
@@ -133,12 +132,12 @@
               ];
             };
             /*
-              appearance = {
-                  showTooltips = true;
-                  highlightWindows = true;
-                  indicateAudioStreams = true;
-                  fill = true;
-              };
+            appearance = {
+                showTooltips = true;
+                highlightWindows = true;
+                indicateAudioStreams = true;
+                fill = true;
+            };
             */
           }
           "org.kde.plasma.marginsseparator"
@@ -180,7 +179,7 @@
           "org.kde.plasma.systemmonitor.memory"
           {
             name = "org.kde.plasma.systemtray"; # System tray
-            config = { };
+            config = {};
           }
           {
             name = "org.kde.plasma.lock_logout";

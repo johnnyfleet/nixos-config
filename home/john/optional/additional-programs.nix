@@ -1,7 +1,6 @@
 # This module includes additional packages that were originally installed on the laptop
 # but I don't think are needed anymore. Will lie dormant but can be included to bring all back
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     # BASE_PACKAGES:

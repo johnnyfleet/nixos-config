@@ -4,8 +4,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   # 1) Enable U2F and (optionally) fingerprint
   security.pam.u2f = {
     enable = true;

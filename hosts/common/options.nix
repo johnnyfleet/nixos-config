@@ -7,8 +7,7 @@
   lib,
   ...
 }:
-with lib;
-{
+with lib; {
   options.host = {
     username = mkOption {
       type = types.str;

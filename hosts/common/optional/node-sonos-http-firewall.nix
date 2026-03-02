@@ -1,6 +1,5 @@
 # This file opens up the necessary ports for the Node Sonos HTTP API to discover and control Sonos devices on the network.
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   networking.firewall = {
     allowedTCPPorts = [
       5005
