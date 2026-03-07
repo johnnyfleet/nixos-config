@@ -9,6 +9,7 @@
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
     age
+    attic
     btop
     cifs-utils
     #comma # run programs without installing
