@@ -28,7 +28,6 @@
     mosh
     nano
     ncdu
-    neofetch
     #neovim
     nh
     nil # nix language server - for vscode autocomplete

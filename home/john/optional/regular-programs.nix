@@ -36,7 +36,6 @@
     libinput-gestures # To get multi finger gestures on touchpad working
     mosh # For connecting over SSH and maintaining session.
     ncdu # Disk usage CLI
-    neofetch # Nice system info CLI command
     #neovim # Vim
     nettools # ipconfig etc.
     obsidian # Note taking app
