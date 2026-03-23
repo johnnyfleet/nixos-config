@@ -5,6 +5,20 @@
   pkgs,
   ...
 }: {
+  # Polkit 127 sandboxes polkit-agent-helper-1 in a systemd transient service with:
+  #   PrivateDevices=yes  → private /dev with no hardware devices (hidraw invisible)
+  #   DevicePolicy=strict → only /dev/null allowed via cgroup
+  #   ProtectHome=yes     → /home inaccessible (blocks ~/.config/Yubico/u2f_keys)
+  # pam_u2f needs hidraw access (FIDO2 USB HID) and the per-user key file.
+  # This drop-in relaxes those restrictions so FIDO2 works in polkit dialogs.
+  systemd.services."polkit-agent-helper@" = {
+    serviceConfig = {
+      PrivateDevices = lib.mkForce false; # expose real /dev so hidraw devices are visible
+      DevicePolicy = lib.mkForce "auto"; # allow devices in DeviceAllow list (+ inherited /dev/null)
+      DeviceAllow = [ "char-hidraw rw" ]; # adds all hidraw devices (FIDO2 uses these)
+      ProtectHome = lib.mkForce "read-only"; # allow reading ~/.config/Yubico/u2f_keys
+    };
+  };
   # 1) Enable U2F and (optionally) fingerprint
   security.pam.u2f = {
     enable = true;
@@ -27,10 +41,13 @@
     unixAuth = true; # password fallback via system-auth
   };
 
-  # 2b) POLKIT-1: GUI sudo prompts (KDE/Plasma) - YubiKey first, then fingerprint, then password
+  # 2b) POLKIT-1: GUI sudo prompts (KDE/Plasma) - YubiKey first, then password
+  # fprintAuth must be false: KDE's polkit agent authenticates fingerprint via fprintd D-Bus
+  # independently of PAM, closing the dialog before pam_u2f can respond. FIDO2 never gets
+  # a chance to run. Fingerprint still works for kscreenlocker, sddm, and sudo.
   security.pam.services.polkit-1 = {
     u2fAuth = true;
-    fprintAuth = true;
+    fprintAuth = false;
     unixAuth = true;
   };
 
