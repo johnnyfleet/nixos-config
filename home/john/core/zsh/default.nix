@@ -26,7 +26,7 @@
       ll = "eza -al --icons --color";
       suu = "nh os switch ~/.config/nixos-config";
       sru = "nh os switch github:johnnyfleet/nixos-config --refresh";
-      suuu = "nix flake update --flake ~/.config/nixos-config && nh os switch ~/.config/nixos-config";
+      suuu = "nix flake update --flake ~/.config/nixos-config && nh os switch ~/.config/nixos-config && attic push nixos-config /run/current-system";
       sunu = "nix flake update --flake ~/.config/nixos-config";
       gp = "cd ~/.config/nixos-config && git pull";
       sgc = "sudo nix-collect-garbage -d && nix-collect-garbage -d && sudo nix store optimise";
