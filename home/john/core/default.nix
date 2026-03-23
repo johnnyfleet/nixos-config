@@ -24,10 +24,11 @@
       jnoortheen.nix-ide
       #henriiik.vscode-sort
       yzhang.markdown-all-in-one
-      github.copilot
-      github.copilot-chat
+      #github.copilot
+      #github.copilot-chat
       github.vscode-pull-request-github
       eamodio.gitlens
+      anthropic.claude-code
     ];
   };
 
