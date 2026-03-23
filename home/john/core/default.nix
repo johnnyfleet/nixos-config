@@ -30,6 +30,9 @@
       eamodio.gitlens
       anthropic.claude-code
     ];
+    profiles.default.userSettings = {
+      "claudeCode.claudeProcessWrapper" = "/etc/profiles/per-user/john/bin/claude";
+    };
   };
 
   # Allow 1password to be used as an SSH agent
