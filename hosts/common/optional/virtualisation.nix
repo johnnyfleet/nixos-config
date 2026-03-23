@@ -67,7 +67,7 @@ in {
       remmina
       swtpm # For TPM support in VMs
       virtiofsd # For virtio file system support - sharing folders to guest
-      winboat # UI helper to install and manage Windows VMs + run office365 seamlessly
+      #winboat # UI helper to install and manage Windows VMs + run office365 seamlessly
     ];
   };
 }
