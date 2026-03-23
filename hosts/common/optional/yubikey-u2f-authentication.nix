@@ -47,7 +47,7 @@
   # a chance to run. Fingerprint still works for kscreenlocker, sddm, and sudo.
   security.pam.services.polkit-1 = {
     u2fAuth = true;
-    fprintAuth = false;
+    fprintAuth = true;
     unixAuth = true;
   };
 
