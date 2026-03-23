@@ -16,10 +16,11 @@
 
   home.packages = with pkgs; [
     gemini-cli
-    warp-terminal
-    windsurf # AI IDE
+    #warp-terminal
+    #windsurf # AI IDE
     claude-code
     claude-monitor
     uv # Python package manager.
+    xclip # To enable image paste in claude code. 
   ];
 }
