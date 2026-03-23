@@ -24,7 +24,7 @@
     ##### Optional Configuration - Converted modules (use options below to enable)
     ../common/optional/1password.nix
     ../common/optional/docker.nix
-    ../common/optional/syncthing.nix
+    #../common/optional/syncthing.nix
     ../common/optional/steam.nix
     ../common/optional/virtualisation.nix
 
@@ -60,12 +60,12 @@
     users = ["john"];
   };
 
-  modules.syncthing = {
+/*   modules.syncthing = {
     enable = true;
     user = "john";
     dataDir = "/home/john/Pictures/Syncthing";
     configDir = "/home/john/.config/syncthing";
-  };
+  }; */
 
   modules.steam = {
     enable = true;
