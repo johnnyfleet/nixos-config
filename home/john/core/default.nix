@@ -62,6 +62,7 @@
     enable = true;
     settings.user.name = "John Stephenson";
     settings.user.email = "14134347+johnnyfleet@users.noreply.github.com";
+    settings.init.defaultBranch = "main";
   };
 
   home.sessionVariables = {
