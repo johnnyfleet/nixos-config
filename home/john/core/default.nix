@@ -63,6 +63,9 @@
     settings.user.name = "John Stephenson";
     settings.user.email = "14134347+johnnyfleet@users.noreply.github.com";
     settings.init.defaultBranch = "main";
+    signing.format = "ssh";
+    signing.key = "~/.ssh/id_ed25519.pub";
+    extraConfig.commit.gpgsign = true;
   };
 
   home.sessionVariables = {
