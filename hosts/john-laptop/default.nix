@@ -45,6 +45,7 @@
     #../common/optional/cloudflare-warp.nix
     ../common/optional/yubikey-u2f-authentication.nix
     ../common/optional/noise-cancelling.nix
+    ../common/optional/ydotool.nix
   ];
 
   ######################### MODULE CONFIGURATION ##########################
