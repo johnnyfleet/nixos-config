@@ -18,6 +18,7 @@
     ./optional/vm-tools.nix # Useful VM tools (quickemu, virt-sparsify etc.)
     ./optional/dev-tools.nix # direnv, nix-direnv, etc.
     ./optional/obs-studio.nix # OBS Studio setup
+    ./optional/voice-dictate.nix # Voice dictation hotkey (Meta+F9)
   ];
 
   # This value determines the home Manager release that your
