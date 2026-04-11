@@ -18,6 +18,22 @@ def set_state(state):
     print(f"[state] {state}", flush=True)
 
 
+TERMINAL_CLASSES = {"org.kde.konsole", "org.kde.yakuake", "Alacritty", "kitty", "foot"}
+
+
+def is_terminal_focused():
+    """Check if the focused window is a terminal using kdotool."""
+    try:
+        result = subprocess.run(
+            ["kdotool", "getactivewindow", "getwindowclassname"],
+            capture_output=True, text=True, timeout=2,
+        )
+        window_class = result.stdout.strip()
+        return window_class in TERMINAL_CLASSES
+    except Exception:
+        return False
+
+
 def inject_text(text):
     """Copy text to clipboard and paste it into the focused window."""
     env = os.environ.copy()
@@ -27,9 +43,12 @@ def inject_text(text):
     subprocess.run(["wl-copy", text + " "], check=True)
     time.sleep(0.1)
 
-    # Paste with Ctrl+V (works for most apps)
-    # Keycodes: 29=ctrl, 47=v
-    subprocess.run(["ydotool", "key", "29:1", "47:1", "47:0", "29:0"], env=env, check=True)
+    if is_terminal_focused():
+        # Ctrl+Shift+V for terminals — keycodes: 29=ctrl, 42=shift, 47=v
+        subprocess.run(["ydotool", "key", "29:1", "42:1", "47:1", "47:0", "42:0", "29:0"], env=env, check=True)
+    else:
+        # Ctrl+V for everything else
+        subprocess.run(["ydotool", "key", "29:1", "47:1", "47:0", "29:0"], env=env, check=True)
 
 
 def notify(message, urgency="normal"):

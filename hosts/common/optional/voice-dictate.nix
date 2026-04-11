@@ -90,6 +90,7 @@ in {
         pkgs.ydotool
         pkgs.libnotify
         pkgs.sox
+        pkgs.kdotool
       ];
 
       environment = {
@@ -113,7 +114,12 @@ in {
         ''}";
         ExecStart = "${venvDir}/bin/python ${daemonSrc}";
         Restart = "on-failure";
-        RestartSec = 3;
+        RestartSec = 10;
+        RestartSteps = 5;
+        RestartMaxDelaySec = 60;
+        TimeoutStartSec = 120;
+        StartLimitIntervalSec = 300;
+        StartLimitBurst = 3;
       };
     };
   };
