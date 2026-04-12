@@ -15,7 +15,7 @@
     serviceConfig = {
       PrivateDevices = lib.mkForce false; # expose real /dev so hidraw devices are visible
       DevicePolicy = lib.mkForce "auto"; # allow devices in DeviceAllow list (+ inherited /dev/null)
-      DeviceAllow = [ "char-hidraw rw" ]; # adds all hidraw devices (FIDO2 uses these)
+      DeviceAllow = ["char-hidraw rw"]; # adds all hidraw devices (FIDO2 uses these)
       ProtectHome = lib.mkForce "read-only"; # allow reading ~/.config/Yubico/u2f_keys
     };
   };
