@@ -9,9 +9,10 @@
 with lib; let
   cfg = config.modules.voice-dictate;
 
-  pythonEnv = pkgs.python312.withPackages (ps: with ps; [
-    pip
-  ]);
+  pythonEnv = pkgs.python312.withPackages (ps:
+    with ps; [
+      pip
+    ]);
 
   daemonSrc = ../../../scripts/voice_daemon.py;
 

@@ -61,12 +61,14 @@
     users = ["john"];
   };
 
-/*   modules.syncthing = {
+  /*
+     modules.syncthing = {
     enable = true;
     user = "john";
     dataDir = "/home/john/Pictures/Syncthing";
     configDir = "/home/john/.config/syncthing";
-  }; */
+  };
+  */
 
   modules.steam = {
     enable = true;

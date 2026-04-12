@@ -21,6 +21,6 @@
     claude-code
     claude-monitor
     uv # Python package manager.
-    xclip # To enable image paste in claude code. 
+    xclip # To enable image paste in claude code.
   ];
 }
