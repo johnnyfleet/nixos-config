@@ -32,6 +32,7 @@
     ];
     profiles.default.userSettings = {
       "claudeCode.claudeProcessWrapper" = "/etc/profiles/per-user/john/bin/claude";
+      "git.confirmSync" = false;
     };
   };
 
