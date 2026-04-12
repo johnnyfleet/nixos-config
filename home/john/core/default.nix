@@ -83,6 +83,7 @@
     vimdiffAlias = true;
     withNodeJs = true;
     withPython3 = true;
+    withRuby = false;
     plugins = with pkgs.vimPlugins; [
       nvim-lspconfig
       nvim-treesitter.withAllGrammars
