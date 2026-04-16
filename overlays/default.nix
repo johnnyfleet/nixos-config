@@ -6,4 +6,8 @@
   # Individual overlays for selective use
   tailscale = import ./tailscale.nix;
   easytag = import ./easytag.nix;
+
+  # Factory overlay: needs `inputs` to reference the claude-desktop flake source.
+  # Usage: `(overlays.claude-desktop inputs)` in nixpkgs.overlays.
+  claude-desktop = import ./claude-desktop.nix;
 }
