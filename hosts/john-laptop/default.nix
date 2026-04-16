@@ -45,7 +45,8 @@
     #../common/optional/cloudflare-warp.nix
     ../common/optional/yubikey-u2f-authentication.nix
     ../common/optional/noise-cancelling.nix
-    ../common/optional/voice-dictate.nix
+    #../common/optional/voice-dictate.nix
+    #../common/optional/claude-desktop.nix
   ];
 
   ######################### MODULE CONFIGURATION ##########################
@@ -79,9 +80,11 @@
     users = ["john"];
   };
 
-  modules.voice-dictate = {
+  /*
+     modules.voice-dictate = {
     enable = true;
   };
+  */
 
   ######################### NIX-SOPS ############################
 
