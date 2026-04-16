@@ -46,7 +46,7 @@
     ../common/optional/yubikey-u2f-authentication.nix
     ../common/optional/noise-cancelling.nix
     #../common/optional/voice-dictate.nix
-    #../common/optional/claude-desktop.nix
+    ../common/optional/claude-desktop.nix
   ];
 
   ######################### MODULE CONFIGURATION ##########################

@@ -69,6 +69,11 @@
       url = "github:YaLTeR/niri";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    claude-desktop = {
+      url = "github:k3d3/claude-desktop-linux-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -83,6 +88,7 @@
     #winapps,
     disko,
     niri,
+    claude-desktop,
     ...
   }: let
     system = "x86_64-linux";
