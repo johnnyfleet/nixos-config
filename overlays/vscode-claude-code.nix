@@ -10,9 +10,10 @@ final: prev: {
         prev.vscode-extensions.anthropic
         // {
           claude-code = prev.vscode-extensions.anthropic.claude-code.overrideAttrs (old: {
-            src = builtins.fetchurl {
+            src = final.fetchurl {
               url = old.src.url;
               sha256 = "sha256-TfVradC9ZjfLBp8QvZ0AptCS9j2ogzSlsRXxksp+N9I=";
+              name = "anthropic-claude-code.vsix";
             };
           });
         };
