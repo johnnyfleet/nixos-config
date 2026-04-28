@@ -5,12 +5,14 @@
     (import ./tailscale.nix final prev)
     // (import ./easytag.nix final prev)
     // (import ./vscode-claude-code.nix final prev)
-    // (import ./openldap.nix final prev);
+    // (import ./openldap.nix final prev)
+    // (import ./glances.nix final prev);
 
   # Individual overlays for selective use
   tailscale = import ./tailscale.nix;
   easytag = import ./easytag.nix;
   openldap = import ./openldap.nix;
+  glances = import ./glances.nix;
 
   # Temporary: fix hash mismatch for claude-code VS Code extension
   vscode-claude-code = import ./vscode-claude-code.nix;
