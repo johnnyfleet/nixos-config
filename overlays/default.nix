@@ -2,15 +2,11 @@
 {
   # Combined overlay that applies all overlays
   default = final: prev:
-    (import ./tailscale.nix final prev)
-    // (import ./easytag.nix final prev)
-    // (import ./vscode-claude-code.nix final prev)
+    (import ./vscode-claude-code.nix final prev)
     // (import ./openldap.nix final prev)
     // (import ./glances.nix final prev);
 
   # Individual overlays for selective use
-  tailscale = import ./tailscale.nix;
-  easytag = import ./easytag.nix;
   openldap = import ./openldap.nix;
   glances = import ./glances.nix;
 
