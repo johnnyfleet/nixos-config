@@ -2,16 +2,12 @@
 {
   # Combined overlay that applies all overlays
   default = final: prev:
-    (import ./vscode-claude-code.nix final prev)
-    // (import ./openldap.nix final prev)
+    (import ./openldap.nix final prev)
     // (import ./glances.nix final prev);
 
   # Individual overlays for selective use
   openldap = import ./openldap.nix;
   glances = import ./glances.nix;
-
-  # Temporary: fix hash mismatch for claude-code VS Code extension
-  vscode-claude-code = import ./vscode-claude-code.nix;
 
   # Factory overlay: needs `inputs` to reference the claude-desktop flake source.
   # Usage: `(overlays.claude-desktop inputs)` in nixpkgs.overlays.
