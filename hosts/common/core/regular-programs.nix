@@ -14,6 +14,7 @@
     cifs-utils
     #comma # run programs without installing
     dig
+    devenv #developer environment program
     dust
     duf
     eza
