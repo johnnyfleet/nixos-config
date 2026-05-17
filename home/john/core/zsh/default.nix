@@ -15,11 +15,12 @@
     #autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
     initContent = ''
-      export MANPAGER='nvim +Man!'
-      export GROFF_NO_SGR=1
-      gem() {
-        gemini -p "$*"
-      }
+        export MANPAGER='nvim +Man!'
+        export GROFF_NO_SGR=1
+        gem() {
+          gemini -p "$*"
+        }
+      eval "$(devenv hook zsh)"
     '';
 
     shellAliases = {
