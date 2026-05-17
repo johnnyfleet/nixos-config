@@ -29,8 +29,6 @@
     mosh
     nano
     ncdu
-    #neovim
-    nh
     nil # nix language server - for vscode autocomplete
     nixfmt
     nix-tree # provides a way to view the size of the nix store.
@@ -42,4 +40,11 @@
     wget
     wrk
   ];
+
+  programs.nh = {
+    enable = true;
+    #clean.enable = true;
+    #clean.extraArgs = "--keep-since 4d --keep 3";
+    flake = "/home/john/.config/nixos-config"; # sets NH_OS_FLAKE variable for you
+  };
 }
