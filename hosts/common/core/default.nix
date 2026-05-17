@@ -8,6 +8,7 @@
   imports = [
     ./configuration.nix
     ./gc-optimise.nix
+    ./overlays.nix
     ./regular-programs.nix
     ./yubikey.nix
     #./desktop-regular-programs.nix

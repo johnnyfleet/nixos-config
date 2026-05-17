@@ -138,10 +138,7 @@
 
   ########################## PACKAGES ##############################
 
-  # Import overlays from overlays directory
-  nixpkgs.overlays = [
-    (import ../../overlays/default.nix).default
-  ];
+  # Overlays are applied for all hosts via hosts/common/core/overlays.nix
   /*
      # Enable fingerprint
   services.fprintd = {
