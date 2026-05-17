@@ -131,6 +131,14 @@
   ];
   */
 
+  # Enable Xorg so the X11 Plasma session (plasmax11, set below) is available,
+  # and turn on the radeon DDX TearFree option for a vsync that survives
+  # suspend/resume. modesetting (Intel) ignores this option harmlessly.
+  services.xserver.enable = true;
+  services.xserver.deviceSection = ''
+    Option "TearFree" "true"
+  '';
+
   ########################### USERS ################################
 
   services.displayManager = {
@@ -138,6 +146,18 @@
       enable = true;
       user = "kiran"; # replace with your username
     };
+
+    # The HD 7650M uses the legacy `radeon` driver, which has no atomic KMS.
+    # KWin Wayland loses its tear-free page-flip path across suspend/resume
+    # on this driver, so tearing returns after sleep. Run the X11 Plasma
+    # session instead (KWin's X11 compositor re-establishes vsync on resume),
+    # and keep the SDDM greeter on X11 too so there is no Wayland->X11 handoff
+    # on this fragile GPU. radeon.runpm=0 (hardware-configuration.nix) handles
+    # the separate resume-corruption issue; the TearFree option below handles
+    # vsync. These override plasma-minimal.nix, which is shared with other
+    # hosts that stay on Wayland.
+    defaultSession = lib.mkForce "plasmax11";
+    sddm.wayland.enable = lib.mkForce false;
   };
 
   ########################## PACKAGES ##############################
