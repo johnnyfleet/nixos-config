@@ -41,12 +41,18 @@ jobs:
         with:
           extra-conf: |
             accept-flake-config = true
+            # Let the runner user configure substituters that the Nix
+            # daemon will honor (required for `attic use` to take effect).
+            trusted-users = root runner
 
       - name: Setup Attic
         run: |
           nix profile install nixpkgs#attic-client
           attic login ci "${{ secrets.ATTIC_SERVER }}" "${{ secrets.ATTIC_TOKEN }}"
           attic use nixos-config
+          # Confirm the Attic cache landed in the effective substituter list
+          # (empty/missing here means the daemon is ignoring it).
+          nix config show | grep -E '^(substituters|trusted-public-keys)'
 
       - name: Build NixOS configuration
         run: |
