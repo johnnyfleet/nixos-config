@@ -46,7 +46,7 @@
 
   # Acutally support for HD7650M is only on Turks which is pre GCN.
   boot.kernelParams = [
-    "radeon.runpm=1"
+    "radeon.runpm=0"
     "quiet"
     "udev.log_level=3"
   ];
