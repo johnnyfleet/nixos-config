@@ -66,7 +66,7 @@
     settings.init.defaultBranch = "main";
     signing.format = "ssh";
     signing.key = "~/.ssh/id_ed25519.pub";
-    extraConfig.commit.gpgsign = true;
+    settings.commit.gpgsign = true;
   };
 
   home.sessionVariables = {
