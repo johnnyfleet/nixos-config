@@ -20,6 +20,9 @@
 
   services.desktopManager.plasma6.enable = true;
 
+  # Set up Chrome (and other Ozone based apps) to use Wayland natively vs. XWayland.
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   #services.displayManager.autoLogin.user = "john";
 
   # Enable polkit which should allow kate to run.
