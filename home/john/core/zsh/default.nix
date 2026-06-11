@@ -34,6 +34,7 @@
       sgc = "nh clean all";
       nf = "fastfetch";
       ff = "fastfetch";
+      ap = "attic push nixos-config /run/current-system";
 
       sbj = "ssh root@big-john";
       spi = "ssh pi@raspberrypi";
