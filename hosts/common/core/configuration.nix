@@ -17,6 +17,13 @@
       "flakes"
     ];
 
+    # Allow john to configure binary caches at runtime (e.g. per-project
+    # devenv `cachix.pull`). Untrusted users have their substituters ignored.
+    trusted-users = [
+      "root"
+      "john"
+    ];
+
     # Binary caches - tries in order, falls back if unavailable
     substituters = [
       "http://big-john.zapus-interval.ts.net:8085/nixos-config" # Self-hosted Attic (via Tailscale)
