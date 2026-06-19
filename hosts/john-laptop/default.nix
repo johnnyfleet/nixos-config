@@ -45,7 +45,7 @@
     #../common/optional/cloudflare-warp.nix
     ../common/optional/yubikey-u2f-authentication.nix
     ../common/optional/noise-cancelling.nix
-    #../common/optional/voice-dictate.nix
+    ../common/optional/openwhispr.nix
     ../common/optional/claude-desktop.nix
   ];
 
@@ -76,6 +76,12 @@
   };
 
   modules.virtualisation = {
+    enable = true;
+    users = ["john"];
+  };
+
+  # Voice dictation. Enables ydotool + uinput so Wayland auto-paste works.
+  modules.openwhispr = {
     enable = true;
     users = ["john"];
   };
