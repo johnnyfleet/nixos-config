@@ -189,6 +189,26 @@
         "type": "github"
       }
     },
+    "openwhispr": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1781650750,
+        "narHash": "sha256-WEAT6JLlcih9Ns48SgKeGUyuNaNP56zWhGU60wHQI+U=",
+        "owner": "OpenWhispr",
+        "repo": "openwhispr",
+        "rev": "afff1c7256b9f21d2d9335de2423ebb6a293798a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OpenWhispr",
+        "repo": "openwhispr",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": [
@@ -221,6 +241,7 @@
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "openwhispr": "openwhispr",
         "plasma-manager": "plasma-manager",
         "sops-nix": "sops-nix",
         "zen-browser": "zen-browser"
