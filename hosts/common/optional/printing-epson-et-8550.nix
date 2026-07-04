@@ -20,7 +20,7 @@
         name = "Epson_ET-8550-NixOS";
         location = "Home";
         # TODO: replace 192.168.1.XXX with the ET-8550's IP address.
-        deviceUri = "lpd://192.168.1.110/PASSTHRU";
+        deviceUri = "lpd://192.168.1.111/PASSTHRU";
         model = "epson-inkjet-printer-escpr2/Epson-ET-8550_Series-epson-escpr2-en.ppd";
         ppdOptions = {
           PageSize = "A4";
