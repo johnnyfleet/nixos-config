@@ -27,6 +27,7 @@
           "-DOPT_THUNDERBIRD_CMDLINE=/etc/profiles/per-user/john/bin/thunderbird"
         ];
     }))
+    ganttproject-bin
   ];
 
   home.sessionVariables = {
