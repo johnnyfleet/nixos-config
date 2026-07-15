@@ -36,6 +36,7 @@
     ../common/optional/plasma-minimal.nix
     #../common/optional/niri.nix
     ../common/optional/printing.nix
+    ../common/optional/displaylink.nix
     #../common/optional/fwupd.nix
     #../common/optional/virtualisation-bridge.nix
     #../common/optional/xfce-full.nix
