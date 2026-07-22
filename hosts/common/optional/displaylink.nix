@@ -42,10 +42,26 @@
   #   4. Rebuild as normal:
   #        sudo nixos-rebuild switch --flake ~/.config/nixos-config#john-laptop
   #
-  # We run KDE Plasma 6 on Wayland: the xorg.conf / xrandr bits in the
-  # upstream module are no-ops there, but evdi + the daemon still work and
-  # KWin auto-detects the DisplayLink outputs. Configure them afterwards in
-  # System Settings > Display & Monitor.
+  # IMPORTANT - use the Plasma X11 session with this dock, not Wayland.
+  #
+  # KWin 6's Wayland backend is atomic-only and does real DRM pageflips, but
+  # the evdi kernel driver does not deliver the pageflip-completion event, so
+  # KWin times out and the DisplayLink screens stay black:
+  #     kwin_wayland: "Pageflip timed out! This is a bug in the evdi kernel driver"
+  # (Confirmed with evdi 1.14.15 + KWin 6.7.2 + kernel 7.1.3.) There is no
+  # KWin option to avoid the pageflip wait, so Wayland cannot drive evdi here.
+  #
+  # On X11 the outputs work: the upstream module's PRIME offload
+  # (`xrandr --setprovideroutputsource 1 0` in displayManager.sessionCommands)
+  # runs and evdi is driven via the modesetting DDX, bypassing the atomic
+  # pageflip path entirely.
+  #
+  # Enabling xserver installs a selectable "Plasma (X11)" session while
+  # leaving Wayland as the default (see plasma-minimal.nix). When docked,
+  # pick "Plasma (X11)" at the SDDM login screen; the monitors then come up
+  # and can be arranged in System Settings > Display & Monitor.
+  services.xserver.enable = true;
+
   services.xserver.videoDrivers = ["displaylink" "modesetting"];
 
   # The upstream module defines the dlm service but does not give it a
