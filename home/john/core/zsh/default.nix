@@ -31,7 +31,7 @@
       suuu = "nix flake update --flake ~/.config/nixos-config && nh os switch ~/.config/nixos-config && attic push nixos-config /run/current-system";
       sunu = "nix flake update --flake ~/.config/nixos-config";
       gp = "cd ~/.config/nixos-config && git pull";
-      sgc = "nh clean all --optimise";
+      sgc = "nh clean all --optimise && sudo /run/current-system/bin/switch-to-configuration boot";
       nf = "fastfetch";
       ff = "fastfetch";
       ap = "attic push nixos-config /run/current-system";
