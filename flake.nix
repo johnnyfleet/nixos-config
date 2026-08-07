@@ -180,19 +180,6 @@
 
       # Core modules
       core = ./hosts/common/core/default.nix;
-
-      # Feature system
-      options = ./hosts/common/options.nix;
-      features = ./hosts/common/features.nix;
-
-      # Profiles
-      profiles = {
-        minimal = ./profiles/minimal.nix;
-        desktop = ./profiles/desktop.nix;
-        workstation = ./profiles/workstation.nix;
-        gaming = ./profiles/gaming.nix;
-        server = ./profiles/server.nix;
-      };
     };
 
     # Export Home Manager modules for external use
