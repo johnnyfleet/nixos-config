@@ -254,7 +254,15 @@
                                                                                                                                                                                                                    
  ---                                                                                                                                                                                                               
                                                                                                                                                                                                                    
- ## Phase 3 - Feature Flags & Profiles                                                                                                                                                                             
+ ## Phase 3 - Feature Flags & Profiles
+
+ > **REVERTED (2026-08-07).** Everything in this phase was built but never wired
+ > up: no host ever imported `features.nix`, and nothing imported `profiles/*`.
+ > The per-module options from Phase 2 (`modules.docker.enable`, etc.) became the
+ > pattern actually used, and this parallel layer sat dead. `hosts/common/options.nix`,
+ > `hosts/common/features.nix`, and all of `profiles/` have been deleted, along with
+ > the `options`/`features`/`profiles` entries in the flake's `nixosModules` output.
+ > The sections below are kept as a record of what was tried and why it didn't stick.
                                                                                                                                                                                                                    
  ### 3.1 Host-Level Feature Flags (`hosts/common/options.nix`)                                                                                                                                                     
                                                                                                                                                                                                                    
@@ -456,9 +464,9 @@
  | `overlays/default.nix` | Overlay aggregator |                                                                                                                                                                   
  | `overlays/tailscale.nix` | Tailscale test skip overlay |                                                                                                                                                        
  | `overlays/easytag.nix` | Easytag id3lib fix overlay |                                                                                                                                                           
- | `profiles/server.nix` | Server profile preset |                                                                                                                                                                 
- | `hosts/common/options.nix` | Feature flag definitions |                                                                                                                                                         
- | `hosts/common/features.nix` | Feature aggregator |                                                                                                                                                              
+ | ~~`profiles/server.nix`~~ | Server profile preset — **deleted, never used** |
+ | ~~`hosts/common/options.nix`~~ | Feature flag definitions — **deleted, never used** |
+ | ~~`hosts/common/features.nix`~~ | Feature aggregator — **deleted, never used** |
  | `home/common/optional/regular-programs.nix` | Shared home programs |                                                                                                                                            
  | `.pre-commit-config.yaml` | Pre-commit hook configuration |                                                                                                                                                     
                                                                                                                                                                                                                    
