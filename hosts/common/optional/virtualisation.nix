@@ -69,5 +69,8 @@ in {
       virtiofsd # For virtio file system support - sharing folders to guest
       #winboat # UI helper to install and manage Windows VMs + run office365 seamlessly
     ];
+
+    # Allows electron 40 which is now considered insecure as not supported. This is needed for winboat on 0.9.0
+    nixpkgs.config.permittedInsecurePackages = ["electron-40.10.5"];
   };
 }
