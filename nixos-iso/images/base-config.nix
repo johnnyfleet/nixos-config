@@ -53,7 +53,7 @@
       openssh.authorizedKeys.keys = let
         authorizedKeys = pkgs.fetchurl {
           url = "https://github.com/johnnyfleet.keys";
-          sha256 = "fce5536148d8d8f607dc0612d47c9ca721a75c62539a07e571183f56070c31d1";
+          sha256 = "sha256-GKtaF7Y6CHPjpJ/61BDLeQ4TCvIaO6rrWDtc8gRHiL8=";
         };
       in
         pkgs.lib.splitString "\n" (builtins.readFile authorizedKeys);
