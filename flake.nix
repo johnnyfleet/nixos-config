@@ -80,6 +80,36 @@
       url = "github:OpenWhispr/openwhispr";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ######################### macOS (Intel) ####################################
+    # IMPORTANT: nixpkgs 26.11 (nixos-unstable, which `nixpkgs` above tracks) has
+    # DROPPED support for x86_64-darwin. The Intel MacBook therefore cannot share
+    # the main nixpkgs input and is pinned to the last release that supports it.
+    #
+    # That branch receives security fixes until the end of 2026 only. After that
+    # this host has no supported nixpkgs, and the Nix-managed portion of it should
+    # be retired in favour of Homebrew (or the machine replaced with Apple Silicon).
+    nixpkgs-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
+
+    # macOS system configuration (the darwin equivalent of nixosSystem).
+    # Pinned to the matching 26.05 release branch, not master.
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+
+    # Home Manager for darwin, matching the pinned 26.05 nixpkgs. The main
+    # `home-manager` input above tracks master against unstable and would be
+    # mismatched here.
+    home-manager-darwin = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+
+    # Installs and owns the Homebrew prefix itself, so there is no manual
+    # `curl | bash` bootstrap. NOTE: this flake declares only a `brew-src` input
+    # and has no nixpkgs input - there is nothing to `follows` here.
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   };
 
   outputs = inputs @ {
@@ -95,9 +125,22 @@
     disko,
     niri,
     claude-desktop,
+    nix-darwin,
+    nixpkgs-darwin,
+    home-manager-darwin,
     ...
   }: let
     system = "x86_64-linux";
+
+    # `nix fmt` / `nix develop` targets. x86_64-darwin must come from the pinned
+    # darwin nixpkgs - the main one no longer supports that platform at all.
+    forEachDevSystem = f:
+      {
+        x86_64-linux = f (import nixpkgs {system = "x86_64-linux";});
+      }
+      // {
+        x86_64-darwin = f (import nixpkgs-darwin {system = "x86_64-darwin";});
+      };
   in {
     apps."x86_64-linux" = {
       default = {
@@ -106,19 +149,15 @@
       };
     };
 
-    # Sets formatter option
-    formatter.x86_64-linux = let
-      pkgs = import nixpkgs {system = "x86_64-linux";};
-    in
-      pkgs.alejandra;
+    # Sets formatter option. Defined for every dev system so that `nix fmt` works
+    # on the MacBook too - it previously existed only for x86_64-linux.
+    formatter = forEachDevSystem (pkgs: pkgs.alejandra);
     # Alternatives:
-    # in pkgs.nixfmt       # classic nixfmt
-    # in pkgs.alejandra    # widely used opinionated formatter
+    # pkgs.nixfmt       # classic nixfmt
+    # pkgs.alejandra    # widely used opinionated formatter
 
     # Development shell with linting and formatting tools
-    devShells.x86_64-linux = let
-      pkgs = import nixpkgs {system = "x86_64-linux";};
-    in {
+    devShells = forEachDevSystem (pkgs: {
       default = pkgs.mkShell {
         name = "nixos-config";
         buildInputs = with pkgs; [
@@ -152,7 +191,7 @@
           echo "To set up pre-commit hooks: pre-commit install"
         '';
       };
-    };
+    });
 
     # Expose custom library functions
     lib = import ./lib {
@@ -206,6 +245,37 @@
       formatting = pkgs.runCommand "check-formatting" {} ''
         ${pkgs.alejandra}/bin/alejandra --check ${./.} && touch $out
       '';
+    };
+
+    ##################### DARWIN CONFIGURATIONS ######################
+    # Intel work MacBook Pro. Build/switch with:
+    #   darwin-rebuild switch --flake .#john-macbook
+    #
+    # Deliberately NOT added to `checks.x86_64-linux` above: it cannot be built
+    # without a darwin builder and would break `nix flake check` on the Linux hosts.
+    darwinConfigurations.john-macbook = nix-darwin.lib.darwinSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        ./hosts/john-macbook/default.nix
+
+        # nix-index-database is deliberately omitted here: it tracks unstable and
+        # would be mismatched against the pinned 26.05 darwin nixpkgs. Revisit in
+        # slice 2 if `comma` turns out to be worth the version skew.
+        home-manager-darwin.darwinModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
+          # plasma-manager is Linux-only and sops is out of scope for slice 1,
+          # so there are no sharedModules to add yet.
+
+          home-manager.users.john = import ./home/john/john-macbook.nix;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            system = "x86_64-darwin";
+          };
+        }
+      ];
     };
 
     nixosConfigurations.vm = nixpkgs.lib.nixosSystem {

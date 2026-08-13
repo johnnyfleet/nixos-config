@@ -1,9 +1,24 @@
 {
   pkgs,
+  lib,
   config,
   configVars,
   ...
-}: {
+}: let
+  # macOS differences, kept next to the aliases they affect rather than forked
+  # into a separate darwin file:
+  #   - nix-darwin is driven by `nh darwin`, not `nh os`
+  #   - there is no switch-to-configuration, so `sgc` loses its boot-generation half
+  #   - the Attic cache on big-john only holds x86_64-linux paths, so pushing
+  #     from macOS would be a guaranteed no-op
+  # On Linux every alias below evaluates to exactly the string it always was.
+  isDarwin = pkgs.stdenv.isDarwin;
+  flake = "~/.config/nixos-config";
+  nhTarget =
+    if isDarwin
+    then "darwin"
+    else "os";
+in {
   home.packages = with pkgs; [
     zsh-powerlevel10k
     meslo-lgs-nf
@@ -21,37 +36,47 @@
         gemini -p "$*"
       }
       mkcd() { mkdir -p "$1" && cd "$1"; }
-      eval "$(devenv hook zsh)"
+      command -v devenv >/dev/null && eval "$(devenv hook zsh)"
     '';
 
-    shellAliases = {
-      ll = "eza -al --icons --color";
-      suu = "nh os switch ~/.config/nixos-config";
-      sru = "nh os switch github:johnnyfleet/nixos-config --refresh";
-      suuu = "nix flake update --flake ~/.config/nixos-config && nh os switch ~/.config/nixos-config && attic push nixos-config /run/current-system";
-      sunu = "nix flake update --flake ~/.config/nixos-config";
-      gp = "cd ~/.config/nixos-config && git pull";
-      sgc = "nh clean all --optimise && sudo /run/current-system/bin/switch-to-configuration boot";
-      nf = "fastfetch";
-      ff = "fastfetch";
-      ap = "attic push nixos-config /run/current-system";
+    shellAliases =
+      {
+        ll = "eza -al --icons --color";
+        suu = "nh ${nhTarget} switch ${flake}";
+        sru = "nh ${nhTarget} switch github:johnnyfleet/nixos-config --refresh";
+        suuu =
+          if isDarwin
+          then "nix flake update --flake ${flake} && nh darwin switch ${flake}"
+          else "nix flake update --flake ${flake} && nh os switch ${flake} && attic push nixos-config /run/current-system";
+        sunu = "nix flake update --flake ${flake}";
+        gp = "cd ${flake} && git pull";
+        sgc =
+          if isDarwin
+          then "nh clean all --optimise"
+          else "nh clean all --optimise && sudo /run/current-system/bin/switch-to-configuration boot";
+        nf = "fastfetch";
+        ff = "fastfetch";
 
-      sbj = "ssh root@big-john";
-      spi = "ssh pi@raspberrypi";
-      sp3 = "ssh john@raspberrypi3";
-      soc = "ssh ubuntu@minecraft-server";
-      sha = "ssh john@homeassistant";
+        sbj = "ssh root@big-john";
+        spi = "ssh pi@raspberrypi";
+        sp3 = "ssh john@raspberrypi3";
+        soc = "ssh ubuntu@minecraft-server";
+        sha = "ssh john@homeassistant";
 
-      ts = "tailscale status";
-      tu = "sudo tailscale up --exit-node=";
-      tuu = "sudo tailscale up --exit-node=big-john";
-      td = "sudo tailscale down";
-      ni = "sudo nix-index";
-      no = "sudo nix store optimise";
+        ts = "tailscale status";
+        tu = "sudo tailscale up --exit-node=";
+        tuu = "sudo tailscale up --exit-node=big-john";
+        td = "sudo tailscale down";
+        ni = "sudo nix-index";
+        no = "sudo nix store optimise";
 
-      cc = "cd ~/Development/claude-sandbox && claude";
-      cm = " claude-monitor --plan pro";
-    };
+        cc = "cd ~/Development/claude-sandbox && claude";
+        cm = " claude-monitor --plan pro";
+      }
+      // lib.optionalAttrs (!isDarwin) {
+        # Attic cache holds x86_64-linux paths only - meaningless from macOS.
+        ap = "attic push nixos-config /run/current-system";
+      };
 
     plugins = [
       {
