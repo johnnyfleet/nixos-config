@@ -7,7 +7,7 @@
 {...}: {
   imports = [
     ./printing-epson-et-8550.nix # default printer
-    ./printing-hp-photosmart-5520.nix
+    #./printing-hp-photosmart-5520.nix
   ];
 
   # Enable CUPS to print documents.
