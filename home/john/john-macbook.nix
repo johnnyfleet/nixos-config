@@ -8,10 +8,13 @@
 #   - programs.ssh     - the 1Password agent socket lives at a different path on
 #                        macOS (~/Library/Group Containers/...).
 #   - gnupg / sops     - needs pinentry_mac and a host age key.
-{pkgs, ...}: let
-  # Keep in sync with `username` in hosts/john-macbook/default.nix.
-  username = "johnstephenson";
-in {
+{
+  pkgs,
+  # Passed in from flake.nix (`darwinUser`), the same value used as the
+  # home-manager.users key. Not hardcoded, so the two cannot drift apart.
+  username,
+  ...
+}: {
   imports = [
     # Reused verbatim from the Linux hosts. The handful of aliases that differ on
     # macOS are switched on pkgs.stdenv.isDarwin inside that file.

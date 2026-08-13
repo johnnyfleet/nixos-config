@@ -132,6 +132,13 @@
   }: let
     system = "x86_64-linux";
 
+    # macOS short account name (`whoami` on the Mac). Single source of truth:
+    # it is the home-manager.users key AND is threaded into both darwin modules
+    # as a specialArg. These must agree - nix-darwin derives the default
+    # home.homeDirectory from users.users.<key>.home, so a mismatched key makes
+    # it resolve to null and fail with "not of type 'absolute path'".
+    darwinUser = "johnstephenson";
+
     # `nix fmt` / `nix develop` targets. x86_64-darwin must come from the pinned
     # darwin nixpkgs - the main one no longer supports that platform at all.
     forEachDevSystem = f:
@@ -254,7 +261,10 @@
     # Deliberately NOT added to `checks.x86_64-linux` above: it cannot be built
     # without a darwin builder and would break `nix flake check` on the Linux hosts.
     darwinConfigurations.john-macbook = nix-darwin.lib.darwinSystem {
-      specialArgs = {inherit inputs;};
+      specialArgs = {
+        inherit inputs;
+        username = darwinUser;
+      };
       modules = [
         ./hosts/john-macbook/default.nix
 
@@ -269,10 +279,12 @@
           # plasma-manager is Linux-only and sops is out of scope for slice 1,
           # so there are no sharedModules to add yet.
 
-          home-manager.users.john = import ./home/john/john-macbook.nix;
+          # The key here MUST equal the macOS account name - see darwinUser above.
+          home-manager.users.${darwinUser} = import ./home/john/john-macbook.nix;
           home-manager.extraSpecialArgs = {
             inherit inputs;
             system = "x86_64-darwin";
+            username = darwinUser;
           };
         }
       ];

@@ -22,12 +22,12 @@
 {
   pkgs,
   inputs,
+  # macOS short account name, passed in from flake.nix (`darwinUser`) so that it
+  # cannot drift out of sync with the home-manager.users key. Do not hardcode it
+  # here - a mismatch makes home.homeDirectory resolve to null.
+  username,
   ...
-}: let
-  # macOS short username. Confirm with `whoami` - a work-issued Mac often differs
-  # from "john". This is the only place it is spelled out on the system side.
-  username = "johnstephenson";
-in {
+}: {
   imports = [
     inputs.nix-homebrew.darwinModules.nix-homebrew
   ];
