@@ -28,6 +28,10 @@
     "zfs"
     "f2fs"
   ];
+  # Becomes the default in 26.11; set explicitly to silence the eval warning.
+  # A rescue ISO should never auto-force-import a pool - use `zpool import -f`
+  # by hand if a pool was not cleanly exported.
+  boot.zfs.forceImportRoot = false;
   # serial connection for apu
   boot.kernelParams = ["console=ttyS0,115200n8"];
 
