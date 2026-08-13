@@ -26,7 +26,7 @@
 }: let
   # macOS short username. Confirm with `whoami` - a work-issued Mac often differs
   # from "john". This is the only place it is spelled out on the system side.
-  username = "john";
+  username = "johnstephenson";
 in {
   imports = [
     inputs.nix-homebrew.darwinModules.nix-homebrew

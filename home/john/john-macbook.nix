@@ -10,7 +10,7 @@
 #   - gnupg / sops     - needs pinentry_mac and a host age key.
 {pkgs, ...}: let
   # Keep in sync with `username` in hosts/john-macbook/default.nix.
-  username = "john";
+  username = "johnstephenson";
 in {
   imports = [
     # Reused verbatim from the Linux hosts. The handful of aliases that differ on
