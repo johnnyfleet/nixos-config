@@ -15,6 +15,12 @@
     flake-utils,
     ...
   }: {
+    # Sets formatter option (matches the root flake)
+    formatter.x86_64-linux = let
+      pkgs = import nixpkgs {system = "x86_64-linux";};
+    in
+      pkgs.alejandra;
+
     ## nix build .#iso
     ## nixcfg --build-iso && nixcfg --burn-iso 00000111112222333
     packages.x86_64-linux.iso = inputs.nixos-generators.nixosGenerate {

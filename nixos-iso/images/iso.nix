@@ -15,10 +15,22 @@
     ./base-config.nix
     #../../hosts/common/core/yubikey.nix
     ../../hosts/common/core/regular-programs.nix
+    ../../hosts/common/optional/1password.nix
   ];
 
   isoImage.volumeID = lib.mkForce "my-nixos-live";
   isoImage.isoName = lib.mkForce "my-nixos-live.iso";
   # Use zstd instead of xz for compressing the liveUSB image, it's 6x faster and 15% bigger.
   isoImage.squashfsCompression = "zstd -Xcompression-level 6";
+
+  # Setup 1Password to be able to log into an account if needed.
+  modules._1password = {
+    enable = true;
+    polkitPolicyOwners = ["john"];
+  };
+
+  # Enable claude code for troubleshooting
+  environment.systemPackages = with pkgs; [
+    claude-code
+  ];
 }
