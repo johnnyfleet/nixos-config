@@ -1,7 +1,17 @@
 # nix-darwin configuration for the work MacBook Pro (Intel, x86_64-darwin).
 #
-# Bootstrap (first run only - nothing is installed yet):
-#   nix run nix-darwin -- switch --flake ~/.config/nixos-config#john-macbook
+# INSTALLING NIX: use the official installer, NOT the Determinate one. Determinate
+# Nix dropped Intel macOS in v3.13.2 (Nov 2025) and errors with "x86_64-darwin not
+# found". The official installer also does not enable flakes by default:
+#
+#   sh <(curl -L https://nixos.org/nix/install) --daemon
+#   mkdir -p ~/.config/nix
+#   echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+#
+# Bootstrap (first run only - nix-darwin is not installed yet). Note the 26.05
+# ref: running master's darwin-rebuild against this 26.05-pinned config mismatches.
+#   sudo nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
+#     switch --flake ~/.config/nixos-config#john-macbook
 #
 # Subsequently:
 #   darwin-rebuild switch --flake ~/.config/nixos-config#john-macbook
