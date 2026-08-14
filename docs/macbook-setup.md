@@ -2,7 +2,7 @@
 
 Copy-paste runbook for bringing up the work MacBook Pro with nix-darwin.
 
-**Scope (slice 1):** CLI tools, zsh + aliases, Homebrew and 8 GUI apps.
+**Scope (slice 1):** CLI tools, zsh + aliases, Homebrew and 9 GUI apps.
 **Not yet:** sops, tailscale, git config/SSH signing, GPG/YubiKey, VS Code settings.
 
 ---
@@ -25,11 +25,36 @@ scutil --get LocalHostName
 sudo -v
 ```
 
-If `whoami` is **not** `john`, edit these two files and change the `username`
-value at the top of each:
+If `whoami` is **not** `johnstephenson`, edit `darwinUser` in `flake.nix` (search
+for `darwinUser =`). It's the single source of truth for the macOS account name —
+both darwin modules take it as a specialArg, so it never needs editing in more
+than one place.
 
-- `hosts/john-macbook/default.nix`
-- `home/john/john-macbook.nix`
+---
+
+## Fast path: one script
+
+Both scripts below do steps 1–4 for you, backing up any conflicting `/etc`
+shell files nix-darwin needs to own along the way. The only prompt you should
+see is your password, for `sudo`. Everything from step 1 onwards in this doc is
+the manual equivalent — useful if a script run fails partway, or you want to
+read what it does before running it.
+
+**No local clone, nothing else installed first** (doesn't need `git`):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/johnnyfleet/nixos-config/darwin-slice-1/scripts/darwin/bootstrap-remote.sh | bash
+```
+
+**Clones the repo first** — prefer this if you expect a few fix cycles, since
+retries become local edit + local build instead of commit/push/`--refresh`:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/johnnyfleet/nixos-config/darwin-slice-1/scripts/darwin/bootstrap-local.sh | bash
+```
+
+Both scripts point at the `darwin-slice-1` branch. Once this work merges to
+`main`, update `BRANCH` at the top of each script (and the URLs above).
 
 ---
 
@@ -46,9 +71,16 @@ Restart your terminal, then enable flakes (the official installer does **not**
 enable them by default):
 
 ```bash
-mkdir -p ~/.config/nix
-echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+sudo mkdir -p /etc/nix
+echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
+sudo launchctl kickstart -k system/org.nixos.nix-daemon
 ```
+
+> This must go in **`/etc/nix/nix.conf`**, not `~/.config/nix/nix.conf`. Step 4
+> below runs `sudo nix run ...`, which reads root's config, not yours — a
+> user-level config only fixes plain `nix` and leaves every `sudo nix` command
+> failing with "experimental Nix feature 'flakes' is disabled". Writing it
+> system-wide fixes both.
 
 Verify:
 
@@ -97,13 +129,28 @@ nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
 
 ## 4. Switch (this one changes the system)
 
+`programs.zsh.enable` makes nix-darwin manage `/etc/zshrc`, and it manages
+`/etc/bashrc` unconditionally regardless of that setting. macOS ships both by
+default, and activation refuses to overwrite a plain file it doesn't already
+own — so on a stock Mac this step fails the first time unless they're moved
+aside first:
+
+```bash
+for f in /etc/zshrc /etc/zshenv /etc/zprofile /etc/bashrc /etc/bash.bashrc; do
+  [ -f "$f" ] && [ ! -L "$f" ] && sudo mv "$f" "$f.before-nix-darwin"
+done
+```
+
+Safe to run even if some of those files don't exist or are already
+nix-darwin-managed symlinks — the checks skip them.
+
 ```bash
 sudo nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
   switch --flake .#john-macbook
 ```
 
 This installs: the CLI tools, zsh config, Homebrew itself (via nix-homebrew),
-and the 8 casks. First run takes a while — Homebrew downloads all the apps.
+and the 9 casks. First run takes a while — Homebrew downloads all the apps.
 
 Open a **new terminal** afterwards.
 
@@ -116,14 +163,15 @@ Terminal.app → Settings → Profiles → Font → **MesloLGS NF**
 (iTerm2: Settings → Profiles → Text → Font)
 
 **Sign in to:** 1Password, Slack, Google Chrome, Google Drive, Obsidian.
+Claude Code authenticates separately — run `claude` and follow its login flow.
 
 **Verify:**
 
 ```bash
-which eza btop gh jq devenv nvim   # from nix
-brew list --cask                   # the 8 apps
-echo $SHELL                        # zsh
-ll                                 # eza alias works
+which eza btop gh jq devenv nvim claude   # from nix + brew
+brew list --cask                          # the 9 apps
+echo $SHELL                               # zsh
+ll                                        # eza alias works
 ```
 
 ---

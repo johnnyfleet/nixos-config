@@ -4,7 +4,10 @@
 # macOS allows. Deliberately NOT here yet (see hosts/john-macbook/default.nix):
 #   - programs.vscode  - VS Code arrives via Homebrew cask; enabling it here
 #                        would install a second, nixpkgs copy.
-#   - programs.git     - needs the SSH signing key set up first.
+#   - commit signing   - the Linux hosts sign with ~/.ssh/id_ed25519.pub via the
+#                        1Password SSH agent; that agent isn't wired up here yet
+#                        (see the programs.ssh note below), so signing is left
+#                        off for now. user.name/email are set below though.
 #   - programs.ssh     - the 1Password agent socket lives at a different path on
 #                        macOS (~/Library/Group Containers/...).
 #   - gnupg / sops     - needs pinentry_mac and a host age key.
@@ -27,6 +30,15 @@
   home.stateVersion = "24.05";
 
   programs.home-manager.enable = true;
+
+  # Same identity as the Linux hosts (home/john/core/default.nix). No commit
+  # signing here yet - see the note at the top of this file.
+  programs.git = {
+    enable = true;
+    settings.user.name = "John Stephenson";
+    settings.user.email = "14134347+johnnyfleet@users.noreply.github.com";
+    settings.init.defaultBranch = "main";
+  };
 
   home.packages = with pkgs; [
     # The same CLI set the Linux hosts get from

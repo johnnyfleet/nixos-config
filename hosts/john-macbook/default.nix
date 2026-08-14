@@ -123,6 +123,7 @@
     casks = [
       "1password"
       "1password-cli"
+      "claude-code"
       "github" # GitHub Desktop
       "google-chrome"
       "google-drive"
