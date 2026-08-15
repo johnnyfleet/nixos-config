@@ -124,11 +124,14 @@
       "1password"
       "1password-cli"
       "claude-code"
+      "claude"
       "github" # GitHub Desktop
       "google-chrome"
       "google-drive"
+      "microsoft-office"
       "obsidian"
       "slack"
+      "sonos"
       "visual-studio-code"
     ];
 
