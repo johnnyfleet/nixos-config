@@ -56,6 +56,13 @@ curl -fsSL https://raw.githubusercontent.com/johnnyfleet/nixos-config/darwin-sli
 Both scripts point at the `darwin-slice-1` branch. Once this work merges to
 `main`, update `BRANCH` at the top of each script (and the URLs above).
 
+Also you can then run
+
+``` bash
+nix --extra-experimental-features 'nix-command flake' run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
+  switch --flake github:johnnyfleet/nixos-config/darwin-slice-1#john-macbook --refresh
+```
+
 ---
 
 ## 1. Install Nix
@@ -219,6 +226,18 @@ keeps it consistent with the Linux hosts.
 
 **VS Code is a cask**, so its extensions and settings are not managed yet.
 Don't enable `programs.vscode` here — it would install a second, nixpkgs copy.
+
+**Retrying step 1 after a failed/partial install?** If the installer complains
+about an existing `/etc/nix/nix.conf`, that's a leftover from the attempt that
+didn't finish — `/nix/store` was never created, but the conf file was. Move it
+aside (`sudo mv /etc/nix/nix.conf /etc/nix/nix.conf.bak`) and re-run. Both
+bootstrap scripts do this automatically now.
+
+**No need to actually open a new terminal after step 1.** The installer only
+requires it because it wires `PATH`/daemon env into `/etc/zshrc` and
+`/etc/bashrc` for *new* shells. To pick that up in the current one instead:
+`. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh`. Both bootstrap
+scripts do this automatically now.
 
 ---
 
