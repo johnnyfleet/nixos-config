@@ -31,10 +31,27 @@ KEEPALIVE_PID=$!
 trap 'kill "$KEEPALIVE_PID" 2>/dev/null || true' EXIT
 
 if ! command -v nix >/dev/null 2>&1; then
+  # A previous failed/partial install can leave /etc/nix/nix.conf behind even
+  # though /nix/store never got created. The installer refuses to run its
+  # multi-user setup again while that file is there, so clear it out first.
+  if [ -e /etc/nix/nix.conf ] && [ ! -d /nix/store ]; then
+    log "Found a leftover /etc/nix/nix.conf from a previous install attempt — backing it up so the installer can run clean..."
+    sudo mv /etc/nix/nix.conf "/etc/nix/nix.conf.before-nix-darwin-$(date +%s)"
+  fi
+
   log "Installing Nix (official installer, multi-user daemon)..."
   # Not the Determinate installer: it dropped Intel macOS support in v3.13.2.
   sh <(curl -L https://nixos.org/nix/install) --daemon
-  export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+
+  # The installer wires PATH and daemon env into /etc/zshrc and /etc/bashrc
+  # for new shells. Source the same file directly instead of requiring a new
+  # terminal window mid-script.
+  NIX_DAEMON_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+  if [ -e "$NIX_DAEMON_SCRIPT" ]; then
+    . "$NIX_DAEMON_SCRIPT"
+  else
+    export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+  fi
 else
   log "Nix already installed, skipping."
 fi
