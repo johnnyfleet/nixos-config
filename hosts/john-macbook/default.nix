@@ -129,6 +129,7 @@
       "google-chrome"
       "google-drive"
       "microsoft-office"
+      "notion"
       "obsidian"
       "slack"
       "sonos"
