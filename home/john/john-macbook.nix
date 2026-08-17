@@ -31,6 +31,11 @@
 
   programs.home-manager.enable = true;
 
+  programs.nh = {
+    enable = true;
+    flake = "/Users/${username}/.config/nixos-config";
+  };
+
   # Same identity as the Linux hosts (home/john/core/default.nix). No commit
   # signing here yet - see the note at the top of this file.
   programs.git = {
