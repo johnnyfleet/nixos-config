@@ -11,6 +11,10 @@
 #   - programs.ssh     - the 1Password agent socket lives at a different path on
 #                        macOS (~/Library/Group Containers/...).
 #   - gnupg / sops     - needs pinentry_mac and a host age key.
+#
+# The 1Password SSH agent's own key list (~/.config/1Password/ssh/agent.toml,
+# same path as on the Linux hosts) IS managed below via home.file, since it was
+# already being hand-edited on this machine.
 {
   pkgs,
   # Passed in from flake.nix (`darwinUser`), the same value used as the
@@ -80,4 +84,19 @@
     EDITOR = "nvim";
     VISUAL = "nvim";
   };
+
+  # Tells the 1Password SSH agent which vault items to expose as SSH keys.
+  # Edit this list (or add a `vault = "..."` block with no `item` to pull in
+  # every SSH key item from that vault) instead of hand-editing the file on
+  # disk - 1Password picks up changes on its next agent restart / the
+  # Settings > Developer > "Use the SSH agent" toggle.
+  home.file.".config/1Password/ssh/agent.toml".text = ''
+    [[ssh-keys]]
+    item = "Main John SSH Key 2023"
+    vault = "Private"
+
+    [[ssh-keys]]
+    item = "SSH Key - Techwondoe"
+    vault = "Private"
+  '';
 }
