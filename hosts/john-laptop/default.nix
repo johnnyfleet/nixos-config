@@ -31,11 +31,11 @@
     ##### Optional Configuration - Legacy modules (not yet converted)
     ../common/optional/flatpak.nix
     #../common/optional/gnome.nix
-    #../common/optional/tlp.nix
+    ../common/optional/tlp.nix
     # TEMPORARY (2026-08-14): failing heatsink fan bearing, replacement on
     # order. Caps CPU/GPU power so the fan rarely ramps. Must come after
     # tlp.nix. Delete this line and the module file once the fan is replaced.
-    ../common/optional/thermal-limp-mode.nix
+    #../common/optional/thermal-limp-mode.nix
     #../common/optional/power-profiles.nix
     ../common/optional/plasma-minimal.nix
     #../common/optional/niri.nix
