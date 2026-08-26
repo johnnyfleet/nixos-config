@@ -131,6 +131,12 @@ Re-run the build locally to confirm:
 sudo nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
   build --flake .#john-macbook
 ```
+or
+
+```bash
+sudo nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
+  build --flake "github:johnnyfleet/nixos-config/darwin-slice-1#john-macbook"
+```
 
 ---
 
