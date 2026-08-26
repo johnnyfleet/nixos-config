@@ -128,7 +128,7 @@ git checkout darwin-slice-1
 Re-run the build locally to confirm:
 
 ```bash
-nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
+sudo nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
   build --flake .#john-macbook
 ```
 
@@ -155,6 +155,12 @@ nix-darwin-managed symlinks — the checks skip them.
 sudo nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
   switch --flake .#john-macbook
 ```
+or fully remote
+
+```bash
+sudo nix run github:nix-darwin/nix-darwin/nix-darwin-26.05#darwin-rebuild -- \
+  switch --flake "github:johnnyfleet/nixos-config/darwin-slice-1#john-macbook"
+```
 
 This installs: the CLI tools, zsh config, Homebrew itself (via nix-homebrew),
 and the 9 casks. First run takes a while — Homebrew downloads all the apps.
@@ -171,6 +177,8 @@ Terminal.app → Settings → Profiles → Font → **MesloLGS NF**
 
 **Sign in to:** 1Password, Slack, Google Chrome, Google Drive, Obsidian.
 Claude Code authenticates separately — run `claude` and follow its login flow.
+
+Setup 1Password and enable ssh. Setup agent.toml (open up the ssh item in the vault (three dots) and configured for ssh).
 
 **Verify:**
 
