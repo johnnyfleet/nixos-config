@@ -24,6 +24,7 @@
     ##### Optional Configuration - Converted modules (use options below to enable)
     ../common/optional/1password.nix
     ../common/optional/docker.nix
+    ../common/optional/muteme.nix
     #../common/optional/syncthing.nix
     ../common/optional/steam.nix
     ../common/optional/virtualisation.nix
@@ -73,6 +74,11 @@
   */
 
   modules.steam = {
+    enable = true;
+  };
+
+  # MuteMe Mini illuminated mute button (USB 20a0:42db).
+  modules.muteme = {
     enable = true;
   };
 
