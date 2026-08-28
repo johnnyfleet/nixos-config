@@ -51,6 +51,8 @@
 
       cc = "cd ~/Development/claude-sandbox && claude";
       cm = " claude-monitor --plan pro";
+
+      smbk = "pkill -f 'kf6/kio/smb.so' && pkill -f smbnotifier && pkill -f kiod6";
     };
 
     plugins = [
