@@ -21,6 +21,36 @@
         gemini -p "$*"
       }
       mkcd() { mkdir -p "$1" && cd "$1"; }
+
+      # Panic unmute for the MuteMe button (hosts/common/optional/muteme.nix).
+      # The button mutes PipeWire capture streams, so with the device left at
+      # home there is no way to undo that from the hardware. This clears mute
+      # on every capture node - both hardware sources and per-app streams -
+      # so it recovers whether the mute landed on the device or on Chrome's
+      # stream. No argument means unmute: that is the in-a-call case.
+      #
+      # ''${=ids} is deliberate: zsh does not word-split unquoted expansions,
+      # so a plain $ids passes "55\n56" as a single argument and every wpctl
+      # call fails. Errors are surfaced rather than swallowed - a rescue
+      # command that quietly does nothing is worse than one that complains.
+      mic() {
+        local ids id
+        ids=$(pw-dump | jq -r '.[] | select(.type=="PipeWire:Interface:Node") | select(.info.props["media.class"]=="Audio/Source" or .info.props["media.class"]=="Stream/Input/Audio") | .id')
+        case "$1" in
+          off|mute)
+            for id in ''${=ids}; do wpctl set-mute $id 1 || return 1; done
+            echo "mic: MUTED"
+            ;;
+          status)
+            wpctl get-volume @DEFAULT_AUDIO_SOURCE@
+            ;;
+          *)
+            for id in ''${=ids}; do wpctl set-mute $id 0 || return 1; done
+            echo "mic: UNMUTED"
+            ;;
+        esac
+      }
+
       eval "$(devenv hook zsh)"
     '';
 
@@ -53,6 +83,12 @@
       cm = " claude-monitor --plan pro";
 
       smbk = "pkill -f 'kf6/kio/smb.so' && pkill -f smbnotifier && pkill -f kiod6";
+
+      # Mic rescue - see the mic() function above. mu = unmute (the one to
+      # remember mid-call), mm = mute, ms = show current state.
+      mu = "mic on";
+      mm = "mic off";
+      ms = "mic status";
     };
 
     plugins = [
