@@ -66,6 +66,7 @@
       ff = "fastfetch";
       ap = "attic push nixos-config /run/current-system";
       nt = "nix-tree -- /nix/var/nix/profiles/system-*";
+      lg = "sudo nix-env -p /nix/var/nix/profiles/system --list-generations";
 
       sbj = "ssh root@big-john";
       spi = "ssh pi@raspberrypi";
