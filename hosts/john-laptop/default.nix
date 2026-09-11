@@ -147,23 +147,7 @@
 
   # Switch to Zen linux kernel for slightly smoother gameplay.
   #boot.kernelPackages = pkgs.linuxPackages_zen;
-  #
-  # PINNED 2026-08-19 (was linuxPackages_latest): a flake update moved
-  # linuxPackages_latest 7.1.8 -> 7.2, and evdi 1.14.15 (pulled in by
-  # displaylink.nix) does not compile against 7.2. Kernel 7.2 changed the DRM
-  # atomic helper callbacks to take `struct drm_atomic_commit *` instead of
-  # `struct drm_atomic_state *`, so evdi_modeset.c fails with incompatible
-  # pointer types and takes the whole system closure down with it.
-  #
-  # Upstream is NOT the blocker: evdi v1.15.0 (2026-07-01) already has
-  # preliminary 7.2 support. nixpkgs is behind — it still ships 1.14.15
-  # (Feb 2026), and even the 1.14.15 -> 1.14.16 bump (nixpkgs PR #516848) has
-  # sat open since May 2026. Watch that PR; once nixpkgs carries >= 1.15.0,
-  # drop this pin and go back to linuxPackages_latest.
-  #
-  # 7.1 is the kernel this machine was already running, and its evdi build is
-  # in the binary cache, so this costs nothing.
-  boot.kernelPackages = pkgs.linuxPackages_7_1;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   ########################## PACKAGES ##############################
 
