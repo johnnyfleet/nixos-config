@@ -137,7 +137,7 @@
     # as a specialArg. These must agree - nix-darwin derives the default
     # home.homeDirectory from users.users.<key>.home, so a mismatched key makes
     # it resolve to null and fail with "not of type 'absolute path'".
-    darwinUser = "johnstephenson";
+    darwinUser = "johnstephensoon";
 
     # `nix fmt` / `nix develop` targets. x86_64-darwin must come from the pinned
     # darwin nixpkgs - the main one no longer supports that platform at all.
