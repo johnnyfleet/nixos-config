@@ -11,7 +11,7 @@
   users.users.john = {
     isNormalUser = true;
     description = "John Stephenson";
-    extraGroups = ["wheel" "input"];
+    extraGroups = ["wheel" "input" "dialout"];
     initialHashedPassword = "$6$Teg0qz6p3YqBmUKM$V9Wi0GibAJIxTT4PXcgT2GXBvxhAZJL6hxnSe4/T/gUUitaHleXQeKpyQcaNviReyxPGLIBP/EcMPKBg4VrNM/";
     #hashedPasswordFile = config.sops.secrets.john-password.path;
 
