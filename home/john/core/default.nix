@@ -30,6 +30,11 @@
       eamodio.gitlens
       anthropic.claude-code
     ];
+    # Write settings.json as a real file, merging these declared settings over
+    # whatever VSCode has put there itself. Without this it is a read-only
+    # symlink into the store and VSCode nags on every start when an extension
+    # tries to persist a setting.
+    profiles.default.mutableUserSettings = true;
     profiles.default.userSettings = {
       "claudeCode.claudeProcessWrapper" = "/etc/profiles/per-user/john/bin/claude";
       "git.confirmSync" = false;
