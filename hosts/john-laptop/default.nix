@@ -51,6 +51,14 @@
     ../common/optional/claude-desktop.nix
   ];
 
+  # Trying Plasma Login Manager in place of SDDM (set by plasma-minimal.nix).
+  # Its PAM service substacks `login`, so the greeter is password-only and
+  # unlocks kwallet the same way a TTY login does. Remove this block to revert.
+  services.displayManager = {
+    sddm.enable = lib.mkForce false;
+    plasma-login-manager.enable = true;
+  };
+
   ######################### MODULE CONFIGURATION ##########################
   # Configure converted modules using the new options system
 
