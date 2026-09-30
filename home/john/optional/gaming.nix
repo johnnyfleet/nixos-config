@@ -6,5 +6,6 @@
     lutris # Game manager
     moonlight-qt # Moonlight came streaming client
     beyond-all-reason # Open source RTS game
+    flightgear # Open source flight sim
   ];
 }
