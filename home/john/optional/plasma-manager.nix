@@ -126,8 +126,8 @@
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.kde.konsole.desktop"
                 "applications:trello.desktop"
-                "applications:obsidian.desktop"
-                "applications:1password.desktop"
+                "applications:md.obsidian.Obsidian.desktop"
+                "applications:com.onepassword.OnePassword.desktop"
                 "applications:github.desktop"
               ];
             };
