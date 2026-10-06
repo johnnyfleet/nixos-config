@@ -17,7 +17,14 @@
 
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
-      obs-advanced-masks
+      # GCC 16 makes discarded-qualifiers an error and the plugin builds with -Werror
+      (obs-advanced-masks.overrideAttrs (old: {
+        env =
+          (old.env or {})
+          // {
+            NIX_CFLAGS_COMPILE = toString (old.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=discarded-qualifiers";
+          };
+      }))
       obs-backgroundremoval
       obs-pipewire-audio-capture
       obs-gstreamer
