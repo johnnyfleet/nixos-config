@@ -191,6 +191,7 @@
       vmTools = ./home/john/optional/vm-tools.nix;
       obsStudio = ./home/john/optional/obs-studio.nix;
       plasmaManager = ./home/john/optional/plasma-manager.nix;
+      rcloneMount = ./home/common/optional/rclone-mount.nix;
     };
 
     # Flake checks for validation
