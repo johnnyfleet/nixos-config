@@ -18,7 +18,12 @@
     ./optional/vm-tools.nix # Useful VM tools (quickemu, virt-sparsify etc.)
     ./optional/dev-tools.nix # direnv, nix-direnv, etc.
     ./optional/obs-studio.nix # OBS Studio setup
+    ../common/optional/rclone-mount.nix # Google Drive via rclone mount + VFS cache
   ];
+
+  # Google Drive at ~/GoogleDrive. rclone.conf (remote `gdrive`) is created by
+  # hand with `rclone config` — not managed by Nix.
+  modules.rcloneMount.enable = true;
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
