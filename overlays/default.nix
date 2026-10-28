@@ -3,11 +3,13 @@
   # Combined overlay that applies all overlays
   default = final: prev:
     (import ./openldap.nix final prev)
-    // (import ./glances.nix final prev);
+    // (import ./glances.nix final prev)
+    // (import ./insync.nix final prev);
 
   # Individual overlays for selective use
   openldap = import ./openldap.nix;
   glances = import ./glances.nix;
+  insync = import ./insync.nix;
 
   # Factory overlay: needs `inputs` to reference the claude-desktop flake source.
   # Usage: `(overlays.claude-desktop inputs)` in nixpkgs.overlays.
