@@ -34,9 +34,10 @@
     #"i915.enable_psr=0"
     "i915.enable_psr=1"
     "i915.enable_fbc=1" # framebuffer compression — saves power
+    "rd.udev.log_level=3"
+    "rd.systemd.show_status=auto"
   ];
   boot.consoleLogLevel = 0;
-  boot.initrd.verbose = false;
 
   # Intel graphics VA-API support for hardware video acceleration (11th Gen Tiger Lake)
   hardware.graphics = {
