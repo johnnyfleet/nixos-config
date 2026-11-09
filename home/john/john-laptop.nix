@@ -19,11 +19,18 @@
     ./optional/dev-tools.nix # direnv, nix-direnv, etc.
     ./optional/obs-studio.nix # OBS Studio setup
     ../common/optional/rclone-mount.nix # Google Drive via rclone mount + VFS cache
+    ./optional/kindo-s3.nix #sets up s3 remote mount (via SSO) for Kindo work.
   ];
 
   # Google Drive at ~/GoogleDrive. rclone.conf (remote `gdrive`) is created by
   # hand with `rclone config` — not managed by Nix.
   modules.rcloneMount.enable = true;
+
+  kindo.s3 = {
+    enable = true;
+    accountId = "471112729928";
+    roleName = "AdministratorAccess";
+  };
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
