@@ -56,7 +56,7 @@
 
     shellAliases = {
       ll = "eza -al --icons --color";
-      suu = "nh os switch ~/.config/nixos-config";
+      suu = "nh os switch ~/.config/nixos-config && attic push nixos-config /run/current-system";
       sru = "nh os switch github:johnnyfleet/nixos-config --refresh";
       suuu = "nix flake update --flake ~/.config/nixos-config && nh os switch ~/.config/nixos-config && attic push nixos-config /run/current-system";
       sunu = "nix flake update --flake ~/.config/nixos-config";
