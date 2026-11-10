@@ -125,10 +125,11 @@
                 "applications:google-chrome.desktop"
                 "applications:org.kde.dolphin.desktop"
                 "applications:org.kde.konsole.desktop"
-                "applications:trello.desktop"
                 "applications:md.obsidian.Obsidian.desktop"
                 "applications:com.onepassword.OnePassword.desktop"
-                "applications:github.desktop"
+                "applications:chrome-mjoklplbddabcmpepnokjaffbmgbkkgg-Default.desktop" # GitHub (Chrome app)
+                "applications:chrome-djmeokgcpliiicecjbaaiokcapdlcicc-Profile_2.desktop" # Kindo Notion (Chrome app)
+                "applications:com.github.IsmaelMartinez.teams_for_linux.desktop"
               ];
             };
             /*
