@@ -242,6 +242,16 @@
       ];
     };
 
+    # Oracle Cloud (aarch64) Minecraft Bedrock server. No home-manager - headless box.
+    # Test locally (x86_64): nix build .#nixosConfigurations.minecraft-server.config.system.build.vm
+    nixosConfigurations.minecraft-server = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      modules = [
+        disko.nixosModules.disko
+        ./hosts/minecraft-server/default.nix
+      ];
+    };
+
     nixosConfigurations.john-sony-laptop = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
