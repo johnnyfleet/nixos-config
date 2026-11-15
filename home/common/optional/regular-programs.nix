@@ -25,7 +25,6 @@
     eza
     fastfetch
     htop
-    glances
     ncdu
     jq
     nettools

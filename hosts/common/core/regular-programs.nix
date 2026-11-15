@@ -21,7 +21,6 @@
     fastfetch
     gh
     git
-    glances
     hey
     htop
     httpie

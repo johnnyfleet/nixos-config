@@ -22,7 +22,6 @@
     fastfetch # Neofetch replacement
     flameshot # Screen Snipping tool
     gh # GitHub CLI tool
-    glances # Another monitoring tool
     gnome-keyring # Keyring to access secrets wallet - used for VS code
     google-chrome
     #hplipWithPlugin # HP Printer utility
