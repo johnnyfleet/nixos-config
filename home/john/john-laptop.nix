@@ -46,22 +46,4 @@
   programs.home-manager.enable = true;
 
   xsession.numlock.enable = true;
-
-  sops = {
-    #age.keyFile = "/home/user/.age-key.txt"; # must have no password!
-    # It's also possible to use a ssh key, but only when it has no password:
-    #age.sshKeyPaths = [ "/home/john/.ssh/id_ed25519" ];
-
-    # Make sure to allow read access to the ssh key with "sudo setfacl -m u:john:r /etc/ssh/ssh_host_ed25519_key"
-    age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-
-    defaultSopsFile = ../../secrets/secrets.yaml;
-
-    secrets.git-user-name = {
-      key = "git-user-name";
-    };
-    secrets.git-user-email = {
-      key = "git-user-email";
-    };
-  };
 }

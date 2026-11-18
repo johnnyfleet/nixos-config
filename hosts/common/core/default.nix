@@ -11,6 +11,7 @@
     ./overlays.nix
     ./regular-programs.nix
     ./yubikey.nix
+    ./sops.nix
     #./desktop-regular-programs.nix
   ];
 }

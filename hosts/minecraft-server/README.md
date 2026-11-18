@@ -32,9 +32,10 @@ To test with the real world, copy it in:
 
 ## Secrets (before deploying for real)
 
-1. Add the host's age key to `.sops.yaml` (from its SSH host key after install:
-   `ssh-keyscan minecraft-server | ssh-to-age`), then `sops updatekeys secrets/secrets.yaml`.
-2. `sops secrets/secrets.yaml` and add (values from `~/.restic.env` on the Ubuntu box):
+1. Before installing, run `sops-new-host minecraft-server` (see `docs/sops.md`) and pass the
+   printed directory to nixos-anywhere with `--extra-files`.
+2. `sops secrets/minecraft-server.yaml` and replace the `REPLACE_ME` placeholders
+   (values from `~/.restic.env` on the Ubuntu box):
 
 ```yaml
 minecraft-server:
@@ -52,7 +53,7 @@ minecraft-server:
 1. Final backup on Ubuntu, stop the container.
 2. Install: `nixos-anywhere --flake .#minecraft-server --generate-hardware-config nixos-generate-config ./hosts/minecraft-server/hardware-configuration.nix ubuntu@<public-ip>`
    (needs public SSH temporarily, or run it over tailscale before ufw changes take effect).
-   Do the sops key step once the host key exists (or pre-generate it and pass via `--extra-files`).
+   Add `--extra-files <dir from sops-new-host>` so the first boot can decrypt its secrets.
 3. Restore. Old snapshots hold the whole `~/minecraft-server` dir at `/data` (container path):
    ```bash
    restic restore latest --host minecraft-server --path /data --target /tmp/r

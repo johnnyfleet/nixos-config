@@ -22,7 +22,7 @@ in {
     # in pipewire, fonts, networkmanager and opens 22/tcp publicly).
     ../common/core/gc-optimise.nix
     ../common/core/overlays.nix
-    inputs.sops-nix.nixosModules.sops
+    ../common/core/sops.nix
 
     ../common/users/john.nix
 
@@ -132,11 +132,8 @@ in {
 
     ######################### PRODUCTION SECRETS (sops) ###########
     (lib.mkIf (!testVm) {
-      sops.defaultSopsFile = ../../secrets/secrets.yaml;
-      sops.defaultSopsFormat = "yaml";
-      sops.age.sshKeyPaths = ["/etc/ssh/ssh_host_ed25519_key"];
-
-      # Add these keys to secrets/secrets.yaml (see README.md).
+      # Host-only secrets (see docs/sops.md). Edit with: sops secrets/minecraft-server.yaml
+      sops.defaultSopsFile = ../../secrets/minecraft-server.yaml;
       sops.secrets."minecraft-server/restic-repository" = {};
       sops.secrets."minecraft-server/restic-password" = {};
       sops.secrets."minecraft-server/restic-env" = {}; # AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / HEALTHCHECK_URL

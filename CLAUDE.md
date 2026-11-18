@@ -27,8 +27,10 @@ nix flake update
 nix build ./#nixosConfigurations.vm.config.system.build.vm
 ./result/bin/run-nixos-vm
 
-# Update SOPS secrets after adding new host key
-sops updatekeys secrets/secrets.yaml
+# Secrets (full guide: docs/sops.md). Recipients live in secrets/keys.nix; .sops.yaml is generated.
+sops secrets/common.yaml                  # edit (YubiKey PIN + touch)
+sops-new-host <hostname>                  # pre-generate host key, register it, rekey
+nix run .#sops-config                     # regenerate .sops.yaml after editing keys.nix
 ```
 
 ## Architecture
@@ -46,7 +48,7 @@ sops updatekeys secrets/secrets.yaml
   - `home/<user>/core/` - Core user config (zsh, gnupg, editor, git)
   - `home/<user>/optional/` - Optional user features (gaming, dev-tools, work apps)
   - `home/<user>/<hostname>.nix` - Per-host user configuration entry point
-- `secrets/` - SOPS-encrypted secrets (secrets.yaml)
+- `secrets/` - SOPS secrets: `common.yaml` (all hosts), `<host>.yaml` (one host), `keys.nix` (recipients)
 
 ### Key Patterns
 
@@ -54,7 +56,7 @@ sops updatekeys secrets/secrets.yaml
 
 **Adding user features**: Import the module in `home/<user>/<hostname>.nix` from `home/<user>/optional/`
 
-**Secrets**: Managed via sops-nix. Keys are defined in `.sops.yaml`. Secrets accessed via `sops.secrets.<name>`
+**Secrets**: Managed via sops-nix, wired up in `hosts/common/core/sops.nix`. Recipients are in `secrets/keys.nix` (`.sops.yaml` is generated from it - never hand-edit). Secrets accessed via `sops.secrets.<name>`. Home-manager secrets: declare at system level with `owner`, reference `osConfig.sops.secrets.<name>.path`. See `docs/sops.md`.
 
 ### Flake Inputs
 

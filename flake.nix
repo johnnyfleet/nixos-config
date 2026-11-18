@@ -99,11 +99,21 @@
   }: let
     system = "x86_64-linux";
   in {
-    apps."x86_64-linux" = {
+    apps."x86_64-linux" = let
+      sops-tools = nixpkgs.legacyPackages.x86_64-linux.callPackage ./scripts/sops-tools.nix {};
+      app = name: {
+        type = "app";
+        program = "${sops-tools.${name}}/bin/${name}";
+      };
+    in {
       default = {
         type = "app";
         program = "${self.nixosConfigurations.vm.config.system.build.vm}/bin/run-nixos-vm";
       };
+      # sops workflow helpers - see docs/sops.md
+      sops-config = app "sops-config";
+      sops-new-host = app "sops-new-host";
+      sops-breakglass = app "sops-breakglass";
     };
 
     # Sets formatter option
@@ -131,9 +141,11 @@
           # Git hooks
           pre-commit
 
-          # Secrets management
+          # Secrets management (docs/sops.md)
           sops
           age
+          age-plugin-yubikey
+          ssh-to-age
 
           # Useful utilities
           nil # Nix LSP
@@ -141,6 +153,8 @@
         ];
 
         shellHook = ''
+          # Any registered YubiKey can decrypt secrets/ (works on the live USB too).
+          export SOPS_AGE_KEY_FILE="$PWD/secrets/yubikey-identities.txt"
           echo "NixOS Config Development Shell"
           echo ""
           echo "Available commands:"

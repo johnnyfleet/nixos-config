@@ -15,7 +15,6 @@
 
     ##### Core Configuration
     ../common/core/default.nix
-    inputs.sops-nix.nixosModules.sops
 
     ##### Disko setup
     ./disk-config.nix
@@ -69,26 +68,8 @@
 
   ######################### NIX-SOPS ############################
 
-  /*
-     sops.defaultSopsFile = ../../secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
-
-  #sops.age.keyFile = "/home/john/.config/sops/age/keys.txt";
-  sops.age.keyFile = "//var/lib/sops-nix/key.txt";
-
-  sops.secrets.john-password = {
-    owner = "john";
-    neededForUsers = true;
-  };
-
-  # This will automatically import SSH keys as age keys
-  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  # This will generate a new key if the key specified above does not exist
-  sops.age.generateKey = true;
-
-  # Force update passwords for users on each run.
-  users.mutableUsers = false;
-  */
+  # Shared wiring is in hosts/common/core/sops.nix. Declare secrets here, e.g.
+  #   sops.secrets.john-password.neededForUsers = true;
 
   ############################ NETWORKING ########################
 

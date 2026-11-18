@@ -24,10 +24,8 @@ i.e. if this is a vm.
     - Start ssh-agent in background `eval "$(ssh-agent -s)"`
     - `ssh-add ~/.ssh/id_ed25519`
 4. Add public keys to GitHub account
-5. Now follow instructions from [nix-sops](https://github.com/Mic92/sops-nix) to get a public key for my target machine. 
-    - `nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'`
-    - Copy the resulting key. Add to `.sops.yaml` on host machine. 
-    - Run `sops updatekeys secrets/secrets.yaml`
+5. Register the machine for secrets - see [docs/sops.md](docs/sops.md) ("Adding an existing machine").
+    Better: for a fresh install, run `sops-new-host <host>` *before* installing so the first boot can decrypt.
     - run `curl https://github.com/johnnyfleet.keys | sha256sum` to generate new sha for github page. Add that to the user setup for authorised keys. This ensures that the checksum is correct when downloading. 
 6. Commit to git and push up changes. 
 
@@ -117,7 +115,9 @@ hosts/
 LICENSE
 README.md
 secrets/
-  secrets.yaml
+  common.yaml
+  <host>.yaml
+  keys.nix
 setup.sh
 ```
 
