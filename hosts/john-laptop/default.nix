@@ -114,6 +114,18 @@
     neededForUsers = true;
   };
 
+  # Kindo dev AWS SSO profile (home/john/optional/kindo-s3.nix). Rendered to
+  # /run/secrets/rendered/kindo-aws-config and symlinked to ~/.aws/config.
+  sops.secrets."kindo-s3/aws-account-id".sopsFile = ../../secrets/john-laptop.yaml;
+  sops.secrets."kindo-s3/aws-role-name".sopsFile = ../../secrets/john-laptop.yaml;
+  sops.templates."kindo-aws-config" = {
+    owner = "john";
+    content = config.home-manager.users.john.kindo.s3.awsConfigTemplate {
+      accountId = config.sops.placeholder."kindo-s3/aws-account-id";
+      roleName = config.sops.placeholder."kindo-s3/aws-role-name";
+    };
+  };
+
   # Force update passwords for users on each run.
   users.mutableUsers = true;
 

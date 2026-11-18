@@ -1,6 +1,7 @@
 {
   configVars,
   config,
+  osConfig,
   ...
 }: {
   imports = [
@@ -26,10 +27,11 @@
   # hand with `rclone config` — not managed by Nix.
   modules.rcloneMount.enable = true;
 
+  # Account ID / role name are sops secrets - see the kindo-aws-config template in
+  # hosts/john-laptop/default.nix.
   kindo.s3 = {
     enable = true;
-    accountId = "REDACTED";
-    roleName = "REDACTED";
+    awsConfigFile = osConfig.sops.templates."kindo-aws-config".path;
   };
 
   # This value determines the home Manager release that your
