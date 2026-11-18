@@ -40,7 +40,7 @@ minecraft-server ✓                            minecraft-server.yaml only
 | `scripts/sops-tools.nix` | `sops-config`, `sops-new-host`, `sops-host`, `sops-breakglass`. |
 
 On every host built from this flake, `SOPS_AGE_KEY_FILE` points at the identity stubs, and the
-helper commands are on `PATH`. Anywhere else (live USB, a borrowed machine), run `nix develop` in
+helper commands are on `PATH`. The custom live USB has the same setup built in. Anywhere else (a borrowed machine), run `nix develop` in
 the repo, which sets `SOPS_AGE_KEY_FILE` for you, and use `nix run .#<tool>` for the helpers.
 
 ## Everyday use
@@ -202,18 +202,24 @@ sudo cp /tmp/hostkey/ssh_host_ed25519_key* /mnt/etc/ssh/
 sudo chmod 600 /mnt/etc/ssh/ssh_host_ed25519_key
 ```
 
-**B2: do everything on the live USB with a YubiKey plugged into it.** This needs
-`services.pcscd.enable = true;` in the ISO config (the smartcard daemon that `age-plugin-yubikey`
-talks to):
+**B2: do everything on the live USB with a YubiKey plugged into it.** The custom ISO
+(`nixos-iso/`) ships everything for this: `pcscd`, `age-plugin-yubikey`, `ykman`, `op`,
+`SOPS_AGE_KEY_FILE` and the `sops-*` helpers. (If the ISO is older than this setup, rebuild and
+re-burn it: `cd nixos-iso && nix build .#iso`. You also need to rebuild it after adding or
+replacing a YubiKey, because it bakes in `secrets/yubikey-identities.txt`.)
 
 ```bash
-git clone https://github.com/johnnyfleet/nixos-config && cd nixos-config
-nix develop                                      # sops, age, age-plugin-yubikey, SOPS_AGE_KEY_FILE
-nix run .#sops-new-host -- my-new-host --out /tmp/hostkey   # as the normal user, not root
+# the repo is private: authenticate first (device-code flow works fine on the live USB)
+gh auth login
+gh repo clone johnnyfleet/nixos-config && cd nixos-config
+
+sops-new-host my-new-host --out /tmp/hostkey     # as the normal user, not root; YubiKey PIN + touch
 sudo mkdir -p /mnt/etc/ssh && sudo cp -a /tmp/hostkey/etc/ssh/ssh_host_ed25519_key* /mnt/etc/ssh/
 sudo chown root:root /mnt/etc/ssh/ssh_host_ed25519_key*
 git commit -m "feat: add my-new-host sops recipient" && git push   # or later, from the new machine
 ```
+
+Quick check that the YubiKey is visible before you start: `age-plugin-yubikey --list`.
 
 Then install as usual:
 
@@ -271,6 +277,7 @@ age-plugin-yubikey --identity >> secrets/yubikey-identities.txt  # stub (not sec
 age-plugin-yubikey --list                                        # recipient -> secrets/keys.nix admins
 nix run .#sops-config
 for f in secrets/*.yaml; do sops updatekeys -y "$f"; done        # with an existing YubiKey plugged in
+# then rebuild + re-burn the live USB (nixos-iso/) so it knows the new key
 ```
 
 If a key's PIV PIN *and* PUK are both blocked: `ykman piv reset` wipes only PIV (FIDO2 login is

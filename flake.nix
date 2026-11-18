@@ -104,6 +104,7 @@
       app = name: {
         type = "app";
         program = "${sops-tools.${name}}/bin/${name}";
+        meta.description = "sops helper: ${name} (see docs/sops.md)";
       };
     in {
       default = {
@@ -149,7 +150,7 @@
 
           # Useful utilities
           nil # Nix LSP
-          nixfmt-classic # Alternative formatter
+          nixfmt # Alternative formatter (RFC style; nixfmt-classic was removed from nixpkgs)
         ];
 
         shellHook = ''

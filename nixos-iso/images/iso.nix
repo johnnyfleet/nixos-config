@@ -13,7 +13,7 @@
 {
   imports = [
     ./base-config.nix
-    #../../hosts/common/core/yubikey.nix
+    ../../hosts/common/core/yubikey.nix # pcscd + age-plugin-yubikey, for sops on a new machine
     ../../hosts/common/core/regular-programs.nix
     ../../hosts/common/optional/1password.nix
   ];
@@ -33,5 +33,24 @@
   # Enable claude code for troubleshooting
   environment.systemPackages = with pkgs; [
     claude-code
+    yubikey-manager # ykman, to check/unblock a YubiKey
+    (callPackage ../../scripts/sops-tools.nix {}) # sops-new-host, sops-breakglass, ... (see docs/sops.md)
   ];
+
+  ########################### SOPS ##########################
+  # Plug in any registered YubiKey and `sops` just works (identity stubs aren't secret).
+  # Rebuild the ISO if secrets/yubikey-identities.txt changes.
+  environment.variables.SOPS_AGE_KEY_FILE = "${../../secrets/yubikey-identities.txt}";
+
+  # pcscd only lets *active local* sessions use the card by default. Also allow wheel users,
+  # so it works when you SSH into the live USB with the YubiKey plugged into it.
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if ((action.id == "org.debian.pcsc-lite.access_pcsc" ||
+           action.id == "org.debian.pcsc-lite.access_card") &&
+          subject.isInGroup("wheel")) {
+        return polkit.Result.YES;
+      }
+    });
+  '';
 }
