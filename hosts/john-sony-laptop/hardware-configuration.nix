@@ -27,9 +27,9 @@
   boot.extraModulePackages = [];
   boot.supportedFilesystems = ["ntfs"];
 
-  # Ideally make boot sequence less verbos. Likely only applies to stage 2 vs. stage 1. See: http://github.com/NixOS/nixpkgs/issues/32555
+  # Quiet boot. (boot.initrd.verbose was removed with scripted stage 1; the systemd initrd
+  # is now the default.)
   boot.consoleLogLevel = 0;
-  boot.initrd.verbose = false;
 
   # Use the right stack
   hardware.graphics.enable = true;
