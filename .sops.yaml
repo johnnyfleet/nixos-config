@@ -6,6 +6,7 @@ keys:
   - &yk-19256040 age1yubikey1qdt7y47k4ry4k0ej2zulupzx287tep48qukrjnccyp805ms707hk2pagaac
   - &yk-23457070 age1yubikey1qwg0evp76hwum3kqnle5lqz9ag8gdpzatgxl4pqq5ml2pau2tq6s2s5dgvr
   - &john-laptop age1esff9mgd0nwqgcfx3yhqsyhkufc6xrske6z2v4s9mwxs956083zq0t0pde
+  - &john-laptop-test age1vslyu40979e67dhn7dc6qatrnjl4qrrk82pfajtlz9wv45mcraeqshrncp
   - &john-sony-laptop age1rvdsvvrud5nw94d5fu78yy8zhtr6x5qg0gsukfj36a2cglywfusslw647p
 creation_rules:
   - path_regex: (^|/)secrets/common\.yaml$
@@ -16,6 +17,7 @@ creation_rules:
           - *yk-19256040
           - *yk-23457070
           - *john-laptop
+          - *john-laptop-test
           - *john-sony-laptop
   - path_regex: (^|/)secrets/john-laptop\.yaml$
     key_groups:
@@ -25,6 +27,14 @@ creation_rules:
           - *yk-19256040
           - *yk-23457070
           - *john-laptop
+  - path_regex: (^|/)secrets/john-laptop-test\.yaml$
+    key_groups:
+      - age:
+          - *breakglass
+          - *yk-17669500
+          - *yk-19256040
+          - *yk-23457070
+          - *john-laptop-test
   - path_regex: (^|/)secrets/john-sony-laptop\.yaml$
     key_groups:
       - age:

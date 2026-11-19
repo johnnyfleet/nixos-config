@@ -98,6 +98,35 @@
     ...
   }: let
     system = "x86_64-linux";
+
+    # john-laptop's config minus its hardware - shared by john-laptop and john-laptop-test.
+    johnLaptopModules = [
+      ./hosts/john-laptop/default.nix
+      nix-index-database.nixosModules.nix-index
+      # optional to also wrap and install comma
+      {programs.nix-index-database.comma.enable = true;}
+
+      # make home-manager as a module of nixos
+      # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+      home-manager.nixosModules.home-manager
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
+        home-manager.sharedModules = [
+          plasma-manager.homeModules.plasma-manager
+          inputs.sops-nix.homeManagerModules.sops
+          nix-index-database.homeModules.nix-index
+        ];
+
+        home-manager.users.john = import ./home/john/john-laptop.nix;
+        home-manager.extraSpecialArgs = {
+          inherit inputs;
+          system = "x86_64-linux";
+        };
+        # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+      }
+    ];
   in {
     apps."x86_64-linux" = let
       sops-tools = nixpkgs.legacyPackages.x86_64-linux.callPackage ./scripts/sops-tools.nix {};
@@ -302,55 +331,45 @@
 
     nixosConfigurations.john-laptop = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs system;};
-      modules = [
-        ./hosts/john-laptop/default.nix
-        nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
-        nix-index-database.nixosModules.nix-index
-        # optional to also wrap and install comma
-        {programs.nix-index-database.comma.enable = true;}
+      modules =
+        johnLaptopModules
+        ++ [
+          ./hosts/john-laptop/hardware-configuration.nix
+          nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
 
-        # make home-manager as a module of nixos
-        # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "HMBackup"; # backup existing config before HM manages.
-          home-manager.sharedModules = [
-            plasma-manager.homeModules.plasma-manager
-            inputs.sops-nix.homeManagerModules.sops
-            nix-index-database.homeModules.nix-index
-          ];
+          /*
+             (
+            {
+              pkgs,
+              system ? pkgs.system,
+              ...
+            }: {
+              # set up binary cache (optional)
+              nix.settings = {
+                substituters = ["https://winapps.cachix.org/"];
+                trusted-public-keys = ["winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g="];
+              };
 
-          home-manager.users.john = import ./home/john/john-laptop.nix;
-          home-manager.extraSpecialArgs = {
-            inherit inputs;
-            system = "x86_64-linux";
-          };
-          # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
-        }
+              environment.systemPackages = [
+                winapps.packages."${system}".winapps
+                winapps.packages."${system}".winapps-launcher # optional
+              ];
+            }
+          )
+          */
+        ];
+    };
 
-        /*
-           (
-          {
-            pkgs,
-            system ? pkgs.system,
-            ...
-          }: {
-            # set up binary cache (optional)
-            nix.settings = {
-              substituters = ["https://winapps.cachix.org/"];
-              trusted-public-keys = ["winapps.cachix.org-1:HI82jWrXZsQRar/PChgIx1unmuEsiQMQq+zt05CD36g="];
-            };
-
-            environment.systemPackages = [
-              winapps.packages."${system}".winapps
-              winapps.packages."${system}".winapps-launcher # optional
-            ];
-          }
-        )
-        */
-      ];
+    # john-laptop's software on a QEMU VM, for testing new-machine installs with
+    # nixos-anywhere + sops-new-host. Not built in CI. See hosts/john-laptop-test/default.nix.
+    nixosConfigurations.john-laptop-test = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs system;};
+      modules =
+        johnLaptopModules
+        ++ [
+          disko.nixosModules.disko
+          ./hosts/john-laptop-test/default.nix
+        ];
     };
   };
 }

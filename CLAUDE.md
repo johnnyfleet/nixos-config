@@ -12,7 +12,8 @@ This is a NixOS flake-based configuration repository managing multiple machines 
 # Rebuild and switch to new configuration
 sudo nixos-rebuild switch --flake ~/.config/nixos-config#<hostname>
 
-# Available hostnames: john-laptop, john-sony-laptop, vm
+# Available hostnames: john-laptop, john-sony-laptop, vm, minecraft-server
+# (john-laptop-test: john-laptop on a QEMU VM for rehearsing installs - docs/sops.md)
 
 # Check flake for errors
 nix flake check

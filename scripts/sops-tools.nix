@@ -61,6 +61,20 @@
 
       root=$(git rev-parse --show-toplevel)
       cd "$root"
+
+      # Don't depend on the login session having picked up SOPS_AGE_KEY_FILE (it only
+      # appears after logging out/in following the first rebuild).
+      export SOPS_AGE_KEY_FILE="''${SOPS_AGE_KEY_FILE:-$root/secrets/yubikey-identities.txt}"
+
+      # Fail before touching anything if we can't decrypt (YubiKey PIN / touch here).
+      echo "checking decryption with $SOPS_AGE_KEY_FILE (enter YubiKey PIN / touch when it blinks)"
+      if ! sops -d secrets/common.yaml >/dev/null; then
+        cat >&2 <<EOF
+      sops-new-host: can't decrypt secrets/common.yaml - nothing was changed.
+        Is a registered YubiKey plugged in? Check with: age-plugin-yubikey --list
+      EOF
+        exit 1
+      fi
       [[ -z $out ]] && out=$(mktemp -d "''${TMPDIR:-/tmp}/sops-new-host-$host.XXXXXX")
 
       umask 077

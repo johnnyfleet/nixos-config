@@ -9,10 +9,11 @@
   inputs,
   pkgs,
   ...
-}: {
+}: let
+  kindoS3 = config.home-manager.users.john.kindo.s3.enable;
+in {
+  # ./hardware-configuration.nix is imported in flake.nix, so john-laptop-test can reuse this file.
   imports = [
-    ./hardware-configuration.nix
-
     ##### Core Configuration
     ../common/core/default.nix
 
@@ -116,9 +117,11 @@
 
   # Kindo dev AWS SSO profile (home/john/optional/kindo-s3.nix). Rendered to
   # /run/secrets/rendered/kindo-aws-config and symlinked to ~/.aws/config.
-  sops.secrets."kindo-s3/aws-account-id".sopsFile = ../../secrets/john-laptop.yaml;
-  sops.secrets."kindo-s3/aws-role-name".sopsFile = ../../secrets/john-laptop.yaml;
-  sops.templates."kindo-aws-config" = {
+  # Skipped when the home-manager module is disabled (e.g. john-laptop-test, which can't
+  # read secrets/john-laptop.yaml).
+  sops.secrets."kindo-s3/aws-account-id" = lib.mkIf kindoS3 {sopsFile = ../../secrets/john-laptop.yaml;};
+  sops.secrets."kindo-s3/aws-role-name" = lib.mkIf kindoS3 {sopsFile = ../../secrets/john-laptop.yaml;};
+  sops.templates."kindo-aws-config" = lib.mkIf kindoS3 {
     owner = "john";
     content = config.home-manager.users.john.kindo.s3.awsConfigTemplate {
       accountId = config.sops.placeholder."kindo-s3/aws-account-id";

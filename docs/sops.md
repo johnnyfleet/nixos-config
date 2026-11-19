@@ -243,6 +243,117 @@ sudo nixos-install --flake .#my-new-host
 If a host declares secrets but isn't in `keys.nix`, the build prints a warning telling you to
 run `sops-new-host`.
 
+### Rehearsing an install in a VM
+
+`nixosConfigurations.john-laptop-test` is john-laptop's software on a QEMU VM (disko disk, qemu
+guest hardware, hostname `john-laptop-test`, Kindo S3 off because its secrets are host-only).
+Use it to run the full nixos-anywhere + `sops-new-host` flow without touching real hardware.
+It is a *separate identity*: it reads `common.yaml`, not `john-laptop.yaml`.
+
+**1. Build the live ISO** (needs to include the YubiKey/sops bits, so rebuild if it predates them):
+
+```bash
+cd ~/.config/nixos-config/nixos-iso && nix build .#iso
+ls result/iso/my-nixos-live.iso
+```
+
+**2. Create and boot the VM from the ISO** (UEFI, because john-laptop uses systemd-boot):
+
+```bash
+mkdir -p ~/vms/john-laptop-test && cd ~/vms/john-laptop-test
+qemu-img create -f qcow2 disk.qcow2 80G          # john-laptop's closure is big
+OVMF=$(nix build --no-link --print-out-paths nixpkgs#OVMF.fd)
+cp "$OVMF/FV/OVMF_VARS.fd" vars.fd && chmod u+w vars.fd
+
+vm() {   # vm [extra qemu args...]
+  qemu-system-x86_64 -enable-kvm -machine q35 -cpu host -smp 4 -m 8G \
+    -drive if=pflash,format=raw,readonly=on,file="$OVMF/FV/OVMF_CODE.fd" \
+    -drive if=pflash,format=raw,file=vars.fd \
+    -drive file=disk.qcow2,if=virtio,format=qcow2 \
+    -nic user,model=virtio-net-pci,hostfwd=tcp:127.0.0.1:2222-:22 \
+    -vga virtio -display gtk "$@"
+}
+vm -cdrom ~/.config/nixos-config/nixos-iso/result/iso/my-nixos-live.iso
+```
+
+Once it has booted, check you can get in as root (the ISO trusts your GitHub SSH keys). The ISO
+gets a fresh host key every boot, so skip known_hosts for it:
+
+```bash
+ssh -p 2222 -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@localhost hostname
+#   -> my-nixos-live
+```
+
+**3. Pre-generate the host key and register it** (on john-laptop; YubiKey PIN + touch):
+
+```bash
+cd ~/.config/nixos-config
+sops-new-host john-laptop-test            # or: nix run .#sops-new-host -- john-laptop-test
+#   john-laptop-test -> age1...
+#   Host key is in: /tmp/sops-new-host-john-laptop-test.XXXXXX/etc/ssh/
+```
+
+The `john-laptop-test` warning from the build goes away now. Don't commit these changes if this
+is a throwaway test (see step 6).
+
+**4. Install with nixos-anywhere:**
+
+```bash
+nix run github:nix-community/nixos-anywhere -- \
+  --flake .#john-laptop-test \
+  --target-host root@localhost -p 2222 \
+  --extra-files /tmp/sops-new-host-john-laptop-test.XXXXXX \
+  --phases disko,install
+```
+
+- `--phases disko,install` skips `kexec` (the ISO is already a NixOS installer) and `reboot`
+  (QEMU would just boot the ISO again).
+- It builds locally and copies the whole closure over SSH. Expect many GB and some minutes.
+- The sops-nix activation during install already runs with the injected key. If the key is
+  wrong, you'll see `sops-install-secrets` errors in this output.
+
+**5. Boot the installed system and check the secrets:**
+
+```bash
+ssh -p 2222 -o UserKnownHostsFile=/dev/null root@localhost poweroff
+vm                                        # same VM, no -cdrom this time
+
+ssh-keygen -R "[localhost]:2222"          # the host now has the pre-generated key
+ssh -p 2222 john@localhost
+```
+
+On the VM:
+
+```bash
+hostname                                          # john-laptop-test
+ssh-to-age -i /etc/ssh/ssh_host_ed25519_key.pub   # same age1... as secrets/keys.nix
+sudo ls -l /run/secrets-for-users/john-password   # decrypted on first boot, no second rebuild
+journalctl -b | grep -i sops                      # no "failed to decrypt"
+```
+
+Optional extras:
+- **Later deploys still decrypt:**
+  `NIX_SSHOPTS="-p 2222" nixos-rebuild switch --flake .#john-laptop-test --target-host john@localhost --sudo`
+- **YubiKey inside the VM:** add `-device qemu-xhci -device usb-host,vendorid=0x1050,productid=0x0407`
+  to `vm`. QEMU needs access to the USB device, and the key disappears from the host while the
+  VM holds it. Then clone the repo in the VM and run `sops secrets/common.yaml`.
+
+**6. Clean up**, so the test key doesn't stay a recipient:
+
+```bash
+# stop the VM, then delete it and the host key material
+rm -rf ~/vms/john-laptop-test /tmp/sops-new-host-john-laptop-test.*
+
+# not committed: put the secrets back exactly as they were
+cd ~/.config/nixos-config
+git restore --staged --worktree secrets/keys.nix .sops.yaml secrets/common.yaml
+```
+
+If you *did* commit or push the registration, remove `john-laptop-test` from `keys.nix` and
+follow [Removing a host](#removing-a-host-or-a-loststolen-yubikey) (`updatekeys` + `rotate`).
+After a restore no rotation is needed, as long as the test key only ever existed in the
+deleted VM and temp dir.
+
 ### Adding an existing machine (key already on it)
 
 ```bash

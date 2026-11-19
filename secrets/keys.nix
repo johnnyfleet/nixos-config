@@ -24,6 +24,7 @@
     john-laptop = "age1esff9mgd0nwqgcfx3yhqsyhkufc6xrske6z2v4s9mwxs956083zq0t0pde";
     john-sony-laptop = "age1rvdsvvrud5nw94d5fu78yy8zhtr6x5qg0gsukfj36a2cglywfusslw647p";
     minecraft-server = null;
+    john-laptop-test = "age1vslyu40979e67dhn7dc6qatrnjl4qrrk82pfajtlz9wv45mcraeqshrncp";
     # sops-new-host inserts new hosts above this line
   };
 }
