@@ -99,7 +99,4 @@
       render-markdown-nvim
     ];
   };
-
-  # Enable kitty terminal
-  programs.kitty.enable = true;
 }

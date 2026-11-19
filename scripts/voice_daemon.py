@@ -18,7 +18,7 @@ def set_state(state):
     print(f"[state] {state}", flush=True)
 
 
-TERMINAL_CLASSES = {"org.kde.konsole", "org.kde.yakuake", "Alacritty", "kitty", "foot"}
+TERMINAL_CLASSES = {"org.kde.konsole", "org.kde.yakuake", "Alacritty", "foot"}
 
 
 def is_terminal_focused():
