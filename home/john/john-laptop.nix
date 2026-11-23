@@ -18,6 +18,7 @@
     ./optional/gaming.nix # Heroic, Moonlight & Lutris
     ./optional/vm-tools.nix # Useful VM tools (quickemu, virt-sparsify etc.)
     ./optional/dev-tools.nix # direnv, nix-direnv, etc.
+    ./optional/claude-agents.nix # Claude Code status line, hooks -> tmux tab markers + notifications
     ./optional/obs-studio.nix # OBS Studio setup
     ../common/optional/rclone-mount.nix # Google Drive via rclone mount + VFS cache
     ./optional/kindo-s3.nix #sets up s3 remote mount (via SSO) for Kindo work.

@@ -81,11 +81,33 @@
     };
   };
 
+  programs.tmux = {
+    enable = true;
+    shortcut = "a";
+    mouse = true;
+    baseIndex = 1;
+    historyLimit = 50000;
+    escapeTime = 10;
+    keyMode = "vi";
+    terminal = "tmux-256color";
+    extraConfig = ''
+      set -g renumber-windows on
+      set -g focus-events on
+      set -ga terminal-overrides ",*:RGB"
+      set -g pane-border-status top
+      set -g pane-border-format "#{?@agent_sidebar, agents , #{pane_index}: #{b:pane_current_path} }"
+      bind | split-window -h -c "#{pane_current_path}"
+      bind - split-window -v -c "#{pane_current_path}"
+      bind c new-window -c "#{pane_current_path}"
+      setw -g monitor-activity on
+    '';
+  };
+
   # Autostart Slack on login.
   home.file.".config/autostart/slack.desktop".text = ''
     [Desktop Entry]
     Type=Application
-    Exec=slack
+    Exec=slack --startup
     Hidden=false
     NoDisplay=false
     X-GNOME-Autostart-enabled=true

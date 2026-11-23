@@ -35,7 +35,6 @@
     sops
     ssh-to-age
     sshfs-fuse
-    tmux
     wget
     wrk
   ];
