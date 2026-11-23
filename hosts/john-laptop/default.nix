@@ -129,6 +129,14 @@ in {
     };
   };
 
+  # OpenRouter API key for opencode (home/john/optional/opencode.nix). Owned by john so
+  # opencode can read /run/secrets/openrouter-api-key at runtime. Only on the real
+  # john-laptop: john-laptop-test reuses this file but can't read john-laptop.yaml.
+  sops.secrets.openrouter-api-key = lib.mkIf (config.networking.hostName == "john-laptop") {
+    owner = "john";
+    sopsFile = ../../secrets/john-laptop.yaml;
+  };
+
   # Force update passwords for users on each run.
   users.mutableUsers = true;
 

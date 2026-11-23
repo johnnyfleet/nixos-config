@@ -5,6 +5,10 @@
   system,
   ...
 }: {
+  imports = [
+    ./opencode.nix # opencode AI agent via OpenRouter (key from sops)
+  ];
+
   programs = {
     direnv = {
       enable = true;
